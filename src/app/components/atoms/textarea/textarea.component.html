@@ -1,0 +1,27 @@
+<div class="textarea">
+  <label class="textarea__label" [for]="textareaId">
+    {{ label }} <span class="textarea__required">*</span>
+  </label>
+  <div class="textarea__wrapper">
+    <textarea
+    class="textarea__field"
+    [ngClass]="{ 'textarea__field--error': control.invalid && control.touched }"
+    [formControl]="control"
+    [placeholder]="placeholder"
+    [id]="textareaId"
+    rows="6"
+    [maxlength]="90"
+></textarea>
+
+    <div class="textarea__counter">
+      <span class="textarea__current">{{ control.value?.length || 0 }}</span>
+      <span class="textarea__max">/90</span>
+    </div>
+  </div>
+
+  <span class="textarea__error" [style.visibility]="control.invalid && control.touched ? 'visible' : 'hidden'">
+    {{ getErrorMessage() }}
+  </span>
+
+
+</div>
