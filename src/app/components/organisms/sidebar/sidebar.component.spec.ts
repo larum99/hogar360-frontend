@@ -18,4 +18,10 @@ describe('SidebarComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should set isActive when setActive is called', () => {
+    const component = new SidebarComponent();
+    component.setActive('dashboard');
+    expect(component.isActive).toBe('dashboard');
+  });
 });
