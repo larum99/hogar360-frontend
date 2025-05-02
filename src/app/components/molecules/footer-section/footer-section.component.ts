@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 @Component({
   selector: 'app-footer-section',
@@ -7,5 +8,5 @@ import { Component, Input } from '@angular/core';
 })
 export class FooterSectionComponent {
   @Input() title!: string;
-  @Input() items!: { icon: string, text: string | null }[];
+  @Input() items!: { icon: IconDefinition | null, text: string | null }[];
 }

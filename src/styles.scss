@@ -11,15 +11,6 @@ app-root {
   height: 100vh;
 }
 
-app-navbar-wrapper {
-  height: 57px;
-  flex-shrink: 0;
-}
-
-app-footer {
-  flex-shrink: 0;
-}
-
 @font-face {
   font-family: 'Manrope';
   src: url('/assets/fonts/manrope/Manrope-Regular.ttf') format('truetype');

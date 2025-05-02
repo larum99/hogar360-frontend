@@ -1,4 +1,16 @@
 import { Component } from '@angular/core';
+import {
+  faPhone,
+  faEnvelope,
+  faMapMarkerAlt,
+} from '@fortawesome/free-solid-svg-icons';
+import {
+  faFacebookF,
+  faTwitter,
+  faInstagram,
+  faLinkedinIn,
+} from '@fortawesome/free-brands-svg-icons';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 @Component({
   selector: 'app-footer',
@@ -6,21 +18,22 @@ import { Component } from '@angular/core';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent {
-  quickLinks = [
-    { icon: '', text: 'Buscar Propiedades' },
-    { icon: '', text: 'Publica tu propiedad' },
-    { icon: '', text: 'Property Management' }
-  ];
-  contactInfo = [
-    { icon: '/assets/icons/PhoneVector.png', text: '1-800-HOGAR360' },
-    { icon: 'assets/icons/EmailVector.png', text: 'info@hogar360.com' },
-    { icon: 'assets/icons/LocationVector.png', text: '123 Real Estate Ave' }
+  quickLinks: { icon: IconDefinition | null, text: string }[] = [
+    { icon: null, text: 'Buscar Propiedades' },
+    { icon: null, text: 'Publica tu propiedad' },
+    { icon: null, text: 'Property Management' }
   ];
 
-  socialLinks = [
-    { icon: 'assets/icons/FacebookVector.png', text: null },
-    { icon: 'assets/icons/TwitterVector.png', text: null },
-    { icon: 'assets/icons/InstagramVector.png', text: null },
-    { icon: 'assets/icons/LinkedinVector.png', text: null }
+  contactInfo: { icon: IconDefinition, text: string }[] = [
+    { icon: faPhone, text: '1-800-HOGAR360' },
+    { icon: faEnvelope, text: 'info@hogar360.com' },
+    { icon: faMapMarkerAlt, text: '123 Real Estate Ave' }
+  ];
+
+  socialLinks: { icon: IconDefinition, text: string | null }[] = [
+    { icon: faFacebookF, text: null },
+    { icon: faTwitter, text: null },
+    { icon: faInstagram, text: null },
+    { icon: faLinkedinIn, text: null }
   ];
 }
