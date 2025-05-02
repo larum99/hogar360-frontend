@@ -1,0 +1,36 @@
+ html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+app-navbar-wrapper {
+  height: 57px;
+  flex-shrink: 0;
+}
+
+app-footer {
+  flex-shrink: 0;
+}
+
+@font-face {
+  font-family: 'Manrope';
+  src: url('/assets/fonts/manrope/Manrope-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/assets/fonts/montserrat/Montserrat-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/assets/fonts/poppins/Poppins-Regular.ttf') format('truetype');
+}

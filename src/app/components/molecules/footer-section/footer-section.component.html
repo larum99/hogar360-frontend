@@ -1,0 +1,9 @@
+<div class="footer-section" [ngClass]="{ 'footer-section--social': title === 'Síguenos' }">
+    <h3 class="footer-section__title">{{ title }}</h3>
+    <ul class="footer-section__list">
+        <li class="footer-section__item" *ngFor="let item of items">
+            <img *ngIf="item.icon !== ''" [src]="item.icon" alt="" class="footer-section__icon">
+            <span *ngIf="item.text">{{ item.text }}</span>
+        </li>
+    </ul>
+</div>

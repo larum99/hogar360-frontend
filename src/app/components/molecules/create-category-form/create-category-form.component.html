@@ -1,0 +1,19 @@
+<form class="create-category-form" [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+
+  <app-input-text
+    [label]="'Nombre de la Categoría'"
+    [placeholder]="'Escribe el nombre de la categoría (máximo 50 caracteres)'"
+    [control]="categoryForm.controls.name">
+  </app-input-text>
+
+  <app-textarea
+    [label]="'Descripción'"
+    [placeholder]="'Escribe la descripción de la categoría (máximo 90 caracteres)'"
+    [control]="categoryForm.controls.description">
+  </app-textarea>
+
+  <div class="form-actions">
+    <app-button label="Crear" type="submit"></app-button>
+  </div>
+
+</form>
