@@ -24,19 +24,22 @@
         gap: 0.5rem;
 
         &:hover {
-            text-decoration: none;
+            color: #2563EB;
+            cursor: pointer;
         }
+
     }
 
     &__icon {
+        font-size: 0.75rem;
         width: 12px;
         height: 12px;
-        object-fit: contain;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
     }
 
     @media (min-width: 768px) {
-        font-size: 1rem;
-
         &__title {
             font-size: 1rem;
         }
@@ -48,6 +51,7 @@
         &__icon {
             width: 16px;
             height: 16px;
+            font-size: 1rem;
         }
     }
 
@@ -66,6 +70,7 @@
         .footer-section__icon {
             width: 16px;
             height: 16px;
+            font-size: 1rem;
         }
     }
 }
