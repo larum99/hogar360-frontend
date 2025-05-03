@@ -2,7 +2,20 @@
   <h1 class="create-category-page__title">Crear Categoría</h1>
 
   <div class="create-category-page__form-container">
-    <app-create-category-form></app-create-category-form>
+    <app-create-category-form (created)="onCategoryCreated()">
+    </app-create-category-form>
   </div>
-</section>
 
+  <h1 class="create-category-page__subtitle">Categorías Existentes</h1>
+
+  <div class="create-category-page__table-container">
+    <app-categories-table [categories]="(categories$ | async)?.content || []">
+    </app-categories-table>
+  </div>
+
+  <app-pagination
+    [currentPage]="(categories$ | async)?.currentPage || 0"
+    [totalPages]="(categories$ | async)?.totalPages || 0"
+    (pageChange)="onPageChange($event)">>
+  </app-pagination>
+</section>

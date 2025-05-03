@@ -1,0 +1,44 @@
+.pagination {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+
+    &__button {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 12px;
+        padding: 0.5rem 0.75rem;
+        border: 1px solid #E5E7EB;
+        background-color: #F9FAFB;
+        color: #000000;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+        min-width: 32px;
+        height: 32px;
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        &--active {
+            background-color: #2563EB;
+            color: #ffffff;
+        }
+
+        &:hover:not(:disabled):not(.pagination__button--active) {
+            background-color: #E5E7EB;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        &__button {
+            font-size: 14px;
+            min-width: 42px;
+            height: 42px;
+            border-radius: 8px;
+        }
+    }
+}

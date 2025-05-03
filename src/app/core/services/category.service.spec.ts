@@ -1,10 +1,14 @@
-import { TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
+import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-
+import { environment } from 'src/environments/environment';
+import { Category } from '../../shared/models/category.model';
 import { CategoryService } from './category.service';
-import { Category } from '../../components/models/category.model';
-import { environment } from 'src/environments/environment.local';
+import { PageResult } from '../../shared/models/page-result.model';
+
+jest.mock('../../shared/utils/http-params.util', () => ({
+  buildPaginationParams: jest.fn(() => ({ mockParam: 'value' }))
+}));
 
 describe('CategoryService (Jest)', () => {
   let service: CategoryService;
@@ -12,7 +16,8 @@ describe('CategoryService (Jest)', () => {
 
   beforeEach(() => {
     const mockHttpClient = {
-      post: jest.fn()
+      post: jest.fn(),
+      get: jest.fn()
     };
 
     TestBed.configureTestingModule({
@@ -46,5 +51,25 @@ describe('CategoryService (Jest)', () => {
     });
 
     expect(httpClientMock.post).toHaveBeenCalledWith(environment.apiUrl, mockCategory);
+  });
+
+  it('should call HttpClient.get with correct URL and params', () => {
+    const mockResponse: PageResult<Category> = {
+      content: [],
+      totalElements: 0,
+      totalPages: 0,
+      currentPage: 0,
+      pageSize: 10,
+      isFirst: true,
+      isLast: true
+    };
+
+    httpClientMock.get.mockReturnValue(of(mockResponse));
+
+    service.getCategories().subscribe(response => {
+      expect(response).toEqual(mockResponse);
+    });
+
+    expect(httpClientMock.get).toHaveBeenCalledWith(environment.apiUrl, { params: { mockParam: 'value' } });
   });
 });

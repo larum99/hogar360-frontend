@@ -1,9 +1,9 @@
-import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
 
+import { environment } from 'src/environments/environment';
+import { Category } from '../../shared/models/category.model';
 import { CategoryService } from '../services/category.service';
-import { Category } from '../../components/models/category.model';
-import { environment } from 'src/environments/environment.local';
 
 describe('CategoryService', () => {
   let service: CategoryService;
@@ -25,7 +25,6 @@ describe('CategoryService', () => {
   });
 
   it('should have apiUrl initialized from environment', () => {
-    // forzamos la lectura de la propiedad privada
     const apiUrlValue = (service as any).apiUrl;
     expect(apiUrlValue).toBe(environment.apiUrl);
   });
