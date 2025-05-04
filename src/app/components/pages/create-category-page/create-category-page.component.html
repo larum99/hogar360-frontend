@@ -16,6 +16,6 @@
   <app-pagination
     [currentPage]="(categories$ | async)?.currentPage || 0"
     [totalPages]="(categories$ | async)?.totalPages || 0"
-    (pageChange)="onPageChange($event)">>
+    (pageChange)="onPageChange($event)">
   </app-pagination>
 </section>
