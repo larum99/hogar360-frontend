@@ -1,0 +1,24 @@
+<nav *ngIf="totalPages > 1" class="pagination">
+    <button
+        class="pagination__button"
+        (click)="goToPage(currentPage - 1)"
+        [disabled]="currentPage === 0">
+        <fa-icon [icon]="['fas', 'chevron-left']"></fa-icon>
+    </button>
+
+    <ng-container *ngFor="let page of [].constructor(totalPages); let i = index">
+        <button
+            class="pagination__button"
+            [ngClass]="{ 'pagination__button--active': i === currentPage }"
+            (click)="goToPage(i)">
+            {{ i + 1 }}
+        </button>
+    </ng-container>
+
+    <button
+        class="pagination__button"
+        (click)="goToPage(currentPage + 1)"
+        [disabled]="currentPage === totalPages - 1">
+        <fa-icon [icon]="['fas', 'chevron-right']"></fa-icon>
+    </button>
+</nav>

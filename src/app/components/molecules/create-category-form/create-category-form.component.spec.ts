@@ -1,10 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CreateCategoryFormComponent } from './create-category-form.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { CategoryService } from 'src/app/core/services/category.service';
-import { of, throwError } from 'rxjs';
-import { Category } from 'src/app/components/models/category.model';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { of, throwError } from 'rxjs';
+import { CategoryService } from 'src/app/core/services/category.service';
+import { Category } from 'src/app/shared/models/category.model';
+import { CreateCategoryFormComponent } from './create-category-form.component';
 
 describe('CreateCategoryFormComponent', () => {
   let component: CreateCategoryFormComponent;

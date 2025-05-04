@@ -15,7 +15,9 @@ import { SidebarComponent } from './components/organisms/sidebar/sidebar.compone
 import { FooterComponent } from './components/organisms/footer/footer.component';
 import { FooterSectionComponent } from './components/molecules/footer-section/footer-section.component';
 import { EmptyPageComponent } from './components/pages/empty-page/empty-page.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'; 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CategoriesTableComponent } from './components/molecules/categories-table/categories-table.component';
+import { PaginationComponent } from './components/molecules/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     SidebarComponent,
     FooterComponent,
     FooterSectionComponent,
-    EmptyPageComponent
+    EmptyPageComponent,
+    CategoriesTableComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,

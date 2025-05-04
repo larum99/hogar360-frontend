@@ -1,7 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Category } from 'src/app/components/models/category.model';
 import { CategoryService } from 'src/app/core/services/category.service';
+import { Category } from 'src/app/shared/models/category.model';
 
 @Component({
   selector: 'app-create-category-form',
@@ -9,6 +9,8 @@ import { CategoryService } from 'src/app/core/services/category.service';
   styleUrls: ['./create-category-form.component.scss']
 })
 export class CreateCategoryFormComponent {
+  @Output() created = new EventEmitter<void>();
+
   private readonly fb = inject(FormBuilder);
   private readonly categoryService = inject(CategoryService);
 
@@ -39,6 +41,7 @@ export class CreateCategoryFormComponent {
       next: (response) => {
         console.log('Categoría creada exitosamente', response);
         this.categoryForm.reset();
+        this.created.emit();
       },
       error: (error) => {
         console.log('Error completo:', error);
