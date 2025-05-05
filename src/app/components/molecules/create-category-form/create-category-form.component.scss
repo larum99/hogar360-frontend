@@ -1,7 +1,7 @@
 .create-category-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 10px;
   background-color: #ffffff;
   padding: 16px;
   border-radius: 8px;
@@ -23,7 +23,6 @@
 
 @media (min-width: 768px) {
   .create-category-form {
-    gap: 20px;
     padding: 20px;
 
     .form-actions {
@@ -39,7 +38,6 @@
 
 @media (min-width: 1024px) {
   .create-category-form {
-    gap: 24px;
     padding: 24px;
 
     .form-actions {
