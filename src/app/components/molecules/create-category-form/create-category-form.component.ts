@@ -51,7 +51,7 @@ export class CreateCategoryFormComponent {
         }
 
         if (error.status === 400) {
-          if (errorMessage.toLowerCase().includes('exists') || errorMessage.toLowerCase().includes('already')) {
+          if (errorMessage.toLowerCase().includes('exists') || errorMessage.toLowerCase().includes('existe')) {
             console.error('La categoría ya existe');
             alert('La categoría ya existe.');
           } else {
