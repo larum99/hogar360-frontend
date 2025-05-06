@@ -6,12 +6,12 @@
         <fa-icon [icon]="['fas', 'chevron-left']"></fa-icon>
     </button>
 
-    <ng-container *ngFor="let page of [].constructor(totalPages); let i = index">
+    <ng-container *ngFor="let pageNum of pageNumbers">
         <button
             class="pagination__button"
-            [ngClass]="{ 'pagination__button--active': i === currentPage }"
-            (click)="goToPage(i)">
-            {{ i + 1 }}
+            [ngClass]="{ 'pagination__button--active': pageNum === currentPage }"
+            (click)="goToPage(pageNum)">
+            {{ pageNum + 1 }}
         </button>
     </ng-container>
 

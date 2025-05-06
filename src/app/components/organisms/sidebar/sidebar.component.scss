@@ -43,7 +43,6 @@
         width: 14px;
         height: 14px;
         object-fit: contain;
-        padding: 5px;
     }
 
     &__item {
@@ -67,12 +66,12 @@
             cursor: pointer;
         }
 
-        &.active {
+        &--active {
             background-color: #EFF6FF;
             color: #2563EB;
         }
 
-        &.active .sidebar__link {
+        &--active .sidebar__link {
             color: #2563EB;
         }
     }
@@ -99,7 +98,11 @@
             flex-wrap: nowrap;
         }
 
-        &__item{
+        &__icon{
+            padding: 5px;
+        }
+
+        &__item {
             font-size: 14px;
             font-weight: 400;
             font-family: 'Manrope', sans-serif;

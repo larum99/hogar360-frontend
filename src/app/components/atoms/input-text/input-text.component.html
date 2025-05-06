@@ -4,13 +4,13 @@
   </label>
   <input
     class="input-text__field"
-    [ngClass]="{ 'input-text__field--error': control.invalid && control.touched }"
+    [ngClass]="{ 'input-text__field--error': control.invalid && (control.touched || control.dirty) }"
     [formControl]="control"
     [placeholder]="placeholder"
     [id]="inputId"
-    type="text"
+    [maxlength]="51"
   />
-  <span class="input-text__error" [style.visibility]="control.invalid && control.touched ? 'visible' : 'hidden'">
+  <span class="input-text__error" [style.visibility]="control.invalid && (control.touched || control.dirty) ? 'visible' : 'hidden'">
     {{ getErrorMessage() }}
   </span>
 </div>

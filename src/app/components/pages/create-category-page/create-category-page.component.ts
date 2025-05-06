@@ -24,7 +24,6 @@ export class CreateCategoryPageComponent {
   }
 
   onCategoryCreated(): void {
-    const currentPage = this.currentPageSubject.getValue();
-    this.categories$ = this.categoryService.getCategories(currentPage);
+    this.currentPageSubject.next(this.currentPageSubject.getValue());
   }
 }
