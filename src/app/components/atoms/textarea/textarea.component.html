@@ -5,11 +5,11 @@
   <div class="textarea__wrapper">
     <textarea
     class="textarea__field"
-    [ngClass]="{ 'textarea__field--error': control.invalid && control.touched }"
+    [ngClass]="{ 'textarea__field--error': control.invalid && (control.touched || control.dirty) }"
     [formControl]="control"
     [placeholder]="placeholder"
     [id]="textareaId"
-    [maxlength]="90"
+    [maxlength]="91"
 ></textarea>
 
     <div class="textarea__counter">
@@ -18,7 +18,7 @@
     </div>
   </div>
 
-  <span class="textarea__error" [style.visibility]="control.invalid && control.touched ? 'visible' : 'hidden'">
+  <span class="textarea__error" [style.visibility]="control.invalid && (control.touched || control.dirty) ? 'visible' : 'hidden'">
     {{ getErrorMessage() }}
   </span>
 
