@@ -63,36 +63,30 @@ export class CreateCategoryFormComponent {
         this.created.emit();
       },
       error: (error) => {
-        console.log('Error completo:', error);
 
         const serverErrorMessage =
           error?.error?.message ?? error?.error?.mensaje;
-        let displayMessage = 'Ocurrió un error inesperado.';
-        let toastrTitle = 'Error';
 
         if (error.status === HttpStatusCode.BadRequest) {
-          toastrTitle = 'Error al crear';
+          let toastrTitle = 'Error al crear';
 
           if (
             serverErrorMessage &&
             (serverErrorMessage.toLowerCase().includes('exists') ||
               serverErrorMessage.toLowerCase().includes('existe'))
           ) {
-            displayMessage = 'La categoría ya existe.';
-            this.toastr.error(displayMessage, toastrTitle);
+            this.toastr.error('La categoría ya existe.', toastrTitle);
           } else {
-            displayMessage =
+            const displayMessage =
               serverErrorMessage ??
               'Solicitud inválida, por favor revisa los datos ingresados.';
             this.toastr.error(displayMessage, toastrTitle);
           }
-        } else if (error.status === HttpStatusCode.InternalServerError) {
-          toastrTitle = 'Error del servidor';
-          displayMessage =
-            'Ocurrió un error en el servidor. Intenta más tarde.';
-          this.toastr.error(displayMessage, toastrTitle);
         } else {
-          this.toastr.error(displayMessage, toastrTitle);
+          console.error(
+            'Error no manejado específicamente en el componente:',
+            error
+          );
         }
       },
     });
