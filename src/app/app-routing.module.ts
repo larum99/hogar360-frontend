@@ -7,6 +7,7 @@ import { CategoryComponent } from './components/pages/category/category.componen
 const routes: Routes = [
   { path: 'categories', component: CategoryComponent },
   { path: '', redirectTo: '/categories', pathMatch: 'full' },
+  { path: 'category', loadChildren: () => import('./category/category.module').then(m => m.CategoryModule) },
   { path: '**', component: EmptyPageComponent },
 ];
 
