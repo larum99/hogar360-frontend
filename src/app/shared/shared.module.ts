@@ -12,6 +12,7 @@ import { PaginationComponent } from '../components/molecules/pagination/paginati
 import { FooterComponent } from '../components/organisms/footer/footer.component';
 import { NavbarWrapperComponent } from '../components/organisms/navbar-wrapper/navbar-wrapper.component';
 import { SidebarComponent } from '../components/organisms/sidebar/sidebar.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { SidebarComponent } from '../components/organisms/sidebar/sidebar.compon
     PaginationComponent,
     ListTableComponent
   ],
-  imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule],
+  imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule, RouterModule ],
   exports: [
     NavbarWrapperComponent,
     InputTextComponent,
@@ -41,7 +42,8 @@ import { SidebarComponent } from '../components/organisms/sidebar/sidebar.compon
 
     CommonModule,
     ReactiveFormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    RouterModule
   ],
 })
 export class SharedModule {}
