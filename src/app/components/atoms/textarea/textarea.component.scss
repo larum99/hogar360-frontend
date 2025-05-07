@@ -1,7 +1,6 @@
 .textarea {
   display: flex;
   flex-direction: column;
-  margin-right: 16px;
 
   &__label {
     font-family: 'Manrope', sans-serif;
@@ -34,6 +33,7 @@
     font-family: 'Manrope', sans-serif;
     font-size: 12px;
     color: #374151;
+    box-sizing: border-box;
 
     &::placeholder {
       color: #ADAEBC;
@@ -44,8 +44,8 @@
 
   &__counter {
     position: absolute;
-    bottom: 6px;
-    right: -6px;
+    bottom: 8px;
+    right: 8px;
     display: flex;
     align-items: flex-end;
     font-family: 'Montserrat', sans-serif;
@@ -80,6 +80,10 @@
     margin-top: 4px;
     min-height: 14px;
     visibility: hidden;
+
+    &--visible {
+      visibility: visible;
+    }
   }
 
   &__field--error {

@@ -1,4 +1,4 @@
-.categories-table {
+.list-table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
@@ -33,17 +33,10 @@
         border-bottom: 1px solid #E5E7EB;
     }
 
-    &__cell--id {
-        color: #4B5563;
-    }
-
-    &__cell--name {
-        color: #1F2937;
-        font-weight: 500;
-    }
-
-    &__cell--description {
-        color: #4B5563;
+    &__no-data {
+        text-align: center;
+        padding: 1rem;
+        color: #6B7280;
     }
 
     @media (min-width: 1024px) {

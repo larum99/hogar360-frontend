@@ -10,7 +10,10 @@
     [id]="inputId"
     [maxlength]="51"
   />
-  <span class="input-text__error" [style.visibility]="control.invalid && (control.touched || control.dirty) ? 'visible' : 'hidden'">
+  <span
+    class="input-text__error"
+    [ngClass]="{ 'input-text__error--visible': control.invalid && (control.touched || control.dirty) }"
+  >
     {{ getErrorMessage() }}
   </span>
 </div>

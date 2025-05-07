@@ -21,13 +21,7 @@ export class InputTextComponent implements OnInit {
     return 'input-text-' + Math.random().toString(36).substring(2, 9);
   }
 
-  getErrorMessage() {
-    if (this.control.errors?.['required']) {
-      return 'Este campo es requerido';
-    }
-    if (this.control.errors?.['maxlength']) {
-      return 'Excediste el número máximo de caracteres (Máximo 50 caracteres)';
-    }
-    return '';
+  getErrorMessage():string {
+    return this.control.errors?.['required'] ? 'Este campo es requerido' : 'Excediste el numero máximo de caracteres (Máximo 50 caracteres)'
   }
 }

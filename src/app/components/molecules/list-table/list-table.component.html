@@ -1,0 +1,23 @@
+<div class="list-table-container">
+    <table class="list-table">
+        <thead class="list-table__head">
+            <tr class="list-table__row">
+                <th *ngFor="let column of columns" class="list-table__header">
+                    {{ column.header }}
+                </th>
+            </tr>
+        </thead>
+        <tbody class="list-table__body">
+            <tr *ngIf="data.length === 0">
+                <td [attr.colspan]="columns.length" class="list-table__no-data">
+                    {{ noDataMessage }}
+                </td>
+            </tr>
+            <tr *ngFor="let element of data" class="list-table__row">
+                <td *ngFor="let column of columns" class="list-table__cell" [ngClass]="column.cellClass">
+                    {{ column.cell(element) }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
