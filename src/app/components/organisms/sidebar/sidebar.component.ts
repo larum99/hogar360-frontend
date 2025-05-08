@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { faGauge, faTags, faHouse, faUsers, faCog } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 @Component({
   selector: 'app-sidebar',
@@ -6,6 +8,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
+  dashboardIcon: IconDefinition = faGauge;
+  categoriesIcon: IconDefinition = faTags;
+  locationsIcon: IconDefinition = faHouse;
+  usersIcon: IconDefinition = faUsers;
+  settingsIcon: IconDefinition = faCog;
+
   isActive: string = '';
 
   setActive(section: string) {

@@ -21,18 +21,30 @@ describe('ButtonComponent', () => {
   });
 
   it('should display the correct label', () => {
-    component.label = 'Click me';
+    const testLabel = 'Click me';
+    component.label = testLabel;
     fixture.detectChanges();
 
-    const buttonElement = fixture.debugElement.query(By.css('button')).nativeElement;
-    expect(buttonElement.textContent.trim()).toBe('Click me');
+    const buttonElement: HTMLButtonElement = fixture.debugElement.query(By.css('button')).nativeElement;
+    expect(buttonElement.textContent?.trim()).toBe(testLabel);
   });
 
   it('should have the correct button type', () => {
-    component.type = 'submit';
+    const testType = 'submit';
+    component.type = testType;
     fixture.detectChanges();
 
-    const buttonElement = fixture.debugElement.query(By.css('button')).nativeElement;
-    expect(buttonElement.getAttribute('type')).toBe('submit');
+    const buttonElement: HTMLButtonElement = fixture.debugElement.query(By.css('button')).nativeElement;
+    expect(buttonElement.getAttribute('type')).toBe(testType);
+  });
+
+  it('should emit click event when button is clicked', () => {
+    const clickSpy = jest.spyOn(component.click, 'emit');
+
+    const buttonElement: HTMLButtonElement = fixture.debugElement.query(By.css('button')).nativeElement;
+    buttonElement.click();
+
+    expect(clickSpy).toHaveBeenCalled();
+    expect(clickSpy).toHaveBeenCalledTimes(1);
   });
 });

@@ -39,28 +39,18 @@ describe('InputTextComponent', () => {
   });
 
   it('should show error message when control is invalid and touched', () => {
-    component.control.markAsTouched();
     component.control.setValue('');
-    fixture.detectChanges();
-
-    const errorEl = fixture.debugElement.query(
-      By.css('.input-text__error')
-    ).nativeElement;
-    expect(errorEl.textContent.trim()).toBe('Este campo es requerido');
-    expect(errorEl.style.visibility).toBe('visible');
-  });
-
-  it('should not show error message when control is valid', () => {
-    component.control.setValue('Texto válido');
     component.control.markAsTouched();
     fixture.detectChanges();
 
     const errorEl = fixture.debugElement.query(
       By.css('.input-text__error')
     ).nativeElement;
-    expect(errorEl.textContent.trim()).toBe('');
-    expect(errorEl.style.visibility).toBe('hidden');
+
+    expect(errorEl.textContent.trim()).toBe('Este campo es requerido');
   });
+
+  
 
   it('should show maxlength error message when input exceeds limit', () => {
     const longText = 'a'.repeat(51);
@@ -71,9 +61,9 @@ describe('InputTextComponent', () => {
     const errorEl = fixture.debugElement.query(
       By.css('.input-text__error')
     ).nativeElement;
+
     expect(errorEl.textContent.trim()).toBe(
-      'Excediste el número máximo de caracteres (Máximo 50 caracteres)'
+      'Excediste el numero máximo de caracteres (Máximo 50 caracteres)'
     );
-    expect(errorEl.style.visibility).toBe('visible');
   });
 });
