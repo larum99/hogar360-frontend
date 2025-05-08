@@ -1,3 +1,5 @@
+@import 'src/styles/variables';
+
 .category {
     padding: 0 2rem;
     padding-bottom: 3rem;
@@ -6,16 +8,16 @@
     &__title {
         font-size: 24px;
         margin-bottom: 1rem;
-        font-family: 'Manrope', sans-serif;
-        color: #111827;
+        font-family: $font-primary;
+        color: $color-text-primary;
         font-weight: 400;
     }
 
     &__subtitle {
         font-size: 18px;
         margin-bottom: 1rem;
-        font-family: 'Manrope', sans-serif;
-        color: #1F2937;
+        font-family: $font-tertiary;
+        color: $color-text-subtitle;
         font-weight: 500;
     }
 

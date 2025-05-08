@@ -1,4 +1,4 @@
-<section class="category">
+<section class="category" *ngIf="categories$ | async as categories">
     <h1 class="category__title">Crear Categoría</h1>
 
     <div class="category__form-container">
@@ -9,12 +9,12 @@
     <h1 class="category__subtitle">Categorías Existentes</h1>
 
     <div class="category__table-container">
-        <app-list-table [data]="(categories$ | async)?.content || []" [columns]="categoryTableColumns"
+        <app-list-table [data]="categories?.content || []" [columns]="categoryTableColumns"
             [noDataMessage]="'No se encontraron categorías.'">
         </app-list-table>
     </div>
 
-    <app-pagination [currentPage]="(categories$ | async)?.currentPage || 0"
-        [totalPages]="(categories$ | async)?.totalPages || 0" (pageChange)="onPageChange($event)">
+    <app-pagination [currentPage]="categories?.currentPage || 0"
+        [totalPages]="categories?.totalPages || 0" (pageChange)="onPageChange($event)">
     </app-pagination>
 </section>

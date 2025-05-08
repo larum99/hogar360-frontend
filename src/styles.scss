@@ -1,3 +1,5 @@
+@import 'src/styles/variables';
+
 html, body {
   margin: 0;
   padding: 0;
@@ -9,6 +11,20 @@ app-root {
   display: flex;
   flex-direction: column;
   height: 100vh;
+}
+
+#toast-container > div {
+  font-family: $font-secondary;
+  font-size: 14px;
+}
+
+.toast-title {
+  font-family: $font-tertiary;
+  font-weight: 600;
+}
+
+.toast-message {
+  font-family: $font-primary;
 }
 
 @font-face {
