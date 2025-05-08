@@ -7,7 +7,7 @@
     border-top: 1px solid $color-border-default;
     position: relative;
     font-family: $font-secondary;
-    color: $color-text-sidebar-footer;
+    color: $color-text-sidebar-footer-listtable;
     font-weight: 400;
     padding: 1rem;
 
@@ -42,7 +42,7 @@
     &__bottom {
         margin-top: 2rem;
         font-size: 0.75rem;
-        color: $color-text-sidebar-footer;
+        color: $color-text-sidebar-footer-listtable;
         border-top: 1px solid $color-border-default;
         padding-top: 15px;
     }

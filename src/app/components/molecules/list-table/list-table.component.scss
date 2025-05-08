@@ -25,7 +25,7 @@
         padding: 0.75rem;
         font-size: 10px;
         font-weight: 500;
-        color: $color-text-navbar-listable-textarea;
+        color: $color-text-navbar-listtable-textarea;
     }
 
     &__cell {
@@ -38,9 +38,19 @@
     &__no-data {
         text-align: center;
         padding: 1rem;
-        color: $color-text-navbar-listable-textarea;
+        color: $color-text-navbar-listtable-textarea;
         font-size: 10px;
     }
+
+    &__cell--id,
+    &__cell--description {
+        color: $color-text-sidebar-footer-listtable;
+    }
+
+    &__cell--name {
+        color: $color-text-subtitle;
+    }
+
 
     @media (min-width: 1024px) {
         &__header {
@@ -51,7 +61,7 @@
             font-size: 14px;
         }
 
-        &__no-data{
+        &__no-data {
             font-size: 12px;
         }
     }
