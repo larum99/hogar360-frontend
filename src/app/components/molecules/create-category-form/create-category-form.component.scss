@@ -1,11 +1,13 @@
+@import 'src/styles/variables';
+
 .create-category-form {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  background-color: #ffffff;
+  background-color: $color-white;
   padding: 16px;
   border-radius: 8px;
-  box-shadow: 0px 1px 3px 0px #0000001A, 0px 1px 2px 0px #0000001A;
+  box-shadow: $box-shadow-light, $box-shadow-medium;
   margin-bottom: 5rem;
 
   .form-actions {

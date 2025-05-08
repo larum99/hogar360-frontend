@@ -1,8 +1,10 @@
+@import 'src/styles/variables';
+
 .navbar-wrapper {
   height: 57px;
   width: 100%;
-  background-color: #ffffff;
-  border-bottom: 1px solid #E5E7EB;
+  background-color: $color-white;
+  border-bottom: 1px solid $color-border-default;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,19 +27,19 @@
 }
 
 .navbar-logo-bold {
-  font-family: 'Manrope', sans-serif;
+  font-family: $font-primary;
   font-weight: 700;
   font-size: 20px;
   line-height: 20px;
-  color: #2563EB;
+  color: $color-blue;
 }
 
 .navbar-logo-regular {
-  font-family: 'Manrope', sans-serif;
+  font-family: $font-primary;
   font-weight: 400;
   font-size: 20px;
   line-height: 20px;
-  color: #000000;
+  color: $color-black;
 }
 
 .navbar-right {
@@ -49,7 +51,7 @@
   height: 32px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1px solid #E5E7EB;
+  border: 1px solid $color-border-default;
 }
 
 @media (min-width: 768px) {
@@ -89,10 +91,10 @@
 
   .navbar-welcome {
     display: block;
-    font-family: 'Manrope', sans-serif;
+    font-family: $font-primary;
     font-weight: 400;
     font-size: 16px;
     line-height: 16px;
-    color: #6B7280;
+    color: $color-text-navbar-listable-textarea;
   }
 }

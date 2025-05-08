@@ -1,11 +1,13 @@
+@import 'src/styles/variables';
+
 .footer {
-    background-color: #ffffff;
+    background-color: $color-white;
     font-size: 0.75rem;
     text-align: center;
-    border-top: 1px solid #E5E7EB;
+    border-top: 1px solid $color-border-default;
     position: relative;
-    font-family: 'Poppins', sans-serif;
-    color: #4B5563;
+    font-family: $font-secondary;
+    color: $color-text-sidebar-footer;
     font-weight: 400;
     padding: 1rem;
 
@@ -29,7 +31,7 @@
         font-size: 1rem;
         font-weight: 400;
         margin-bottom: 0.5rem;
-        color: #2563EB;
+        color: $color-blue;
     }
 
     &__description {
@@ -40,8 +42,8 @@
     &__bottom {
         margin-top: 2rem;
         font-size: 0.75rem;
-        color: #4B5563;
-        border-top: 1px solid #E5E7EB;
+        color: $color-text-sidebar-footer;
+        border-top: 1px solid $color-border-default;
         padding-top: 15px;
     }
 
