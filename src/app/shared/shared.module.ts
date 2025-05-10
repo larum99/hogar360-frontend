@@ -12,7 +12,10 @@ import { PaginationComponent } from '../components/molecules/pagination/paginati
 import { FooterComponent } from '../components/organisms/footer/footer.component';
 import { NavbarWrapperComponent } from '../components/organisms/navbar-wrapper/navbar-wrapper.component';
 import { SidebarComponent } from '../components/organisms/sidebar/sidebar.component';
+import { SelectComponent } from '../components/atoms/select/select.component';
+import { CreateLocationFormComponent } from '../components/molecules/create-location-form/create-location-form.component';
 import { RouterModule } from '@angular/router';
+
 
 @NgModule({
   declarations: [
@@ -25,7 +28,9 @@ import { RouterModule } from '@angular/router';
     FooterComponent,
     FooterSectionComponent,
     PaginationComponent,
-    ListTableComponent
+    ListTableComponent,
+    SelectComponent,
+    CreateLocationFormComponent
   ],
   imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule, RouterModule ],
   exports: [
@@ -39,7 +44,7 @@ import { RouterModule } from '@angular/router';
     FooterSectionComponent,
     PaginationComponent,
     ListTableComponent,
-
+    CreateLocationFormComponent,
     CommonModule,
     ReactiveFormsModule,
     FontAwesomeModule,

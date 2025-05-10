@@ -16,7 +16,7 @@ export class CategoryService {
   constructor(private readonly http: HttpClient) {}
 
   createCategory(data: Category): Observable<Category> {
-    return this.http.post<Category>(this.apiUrl, data);
+    return this.http.post<Category>(`${this.apiUrl}/category/`, data);
   }
 
   getCategories(
@@ -24,6 +24,6 @@ export class CategoryService {
     size: number = DEFAULT_PAGINATION.SIZE
   ): Observable<PageResult<Category>> {
     const params = buildPaginationParams(page, size);
-    return this.http.get<PageResult<Category>>(this.apiUrl, { params });
+    return this.http.get<PageResult<Category>>(`${this.apiUrl}/category/`, { params });
   }
 }

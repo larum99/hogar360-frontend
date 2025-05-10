@@ -15,20 +15,19 @@ describe('CategoryService (Jest)', () => {
   let httpClientMock: jest.Mocked<HttpClient>;
 
   beforeEach(() => {
-    const mockHttpClient = {
+    httpClientMock = {
       post: jest.fn(),
       get: jest.fn()
-    };
+    } as unknown as jest.Mocked<HttpClient>;
 
     TestBed.configureTestingModule({
       providers: [
         CategoryService,
-        { provide: HttpClient, useValue: mockHttpClient }
+        { provide: HttpClient, useValue: httpClientMock }
       ]
     });
 
     service = TestBed.inject(CategoryService);
-    httpClientMock = TestBed.inject(HttpClient) as jest.Mocked<HttpClient>;
   });
 
   it('should be created', () => {
@@ -50,7 +49,10 @@ describe('CategoryService (Jest)', () => {
       expect(response).toEqual(mockResponse);
     });
 
-    expect(httpClientMock.post).toHaveBeenCalledWith(environment.apiUrl, mockCategory);
+    expect(httpClientMock.post).toHaveBeenCalledWith(
+      `${environment.apiUrl}/category/`,
+      mockCategory
+    );
   });
 
   it('should call HttpClient.get with correct URL and params', () => {
@@ -70,6 +72,9 @@ describe('CategoryService (Jest)', () => {
       expect(response).toEqual(mockResponse);
     });
 
-    expect(httpClientMock.get).toHaveBeenCalledWith(environment.apiUrl, { params: { mockParam: 'value' } });
+    expect(httpClientMock.get).toHaveBeenCalledWith(
+      `${environment.apiUrl}/category/`,
+      { params: { mockParam: 'value' } }
+    );
   });
 });

@@ -1,0 +1,14 @@
+<form class="create-location-form" [formGroup]="locationForm" (ngSubmit)="onSubmit()">
+    <app-input-text [label]="'Sector'" [placeholder]="'Ej: Barrio La Candelaria'"
+        [control]="locationForm.controls.sector"></app-input-text>
+
+    <app-select [label]="'Departamento'" [options]="departmentOptions"
+        [control]="locationForm.controls.department"></app-select>
+
+    <app-select [label]="'Ciudad'" [options]="cityOptions"
+        [control]="locationForm.controls.city"></app-select>
+
+    <div class="form-actions">
+        <app-button label="Crear" type="submit"></app-button>
+    </div>
+</form>
