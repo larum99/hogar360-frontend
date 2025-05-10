@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faGauge, faTags, faHouse, faUsers, faCog } from '@fortawesome/free-solid-svg-icons';
+import { faGauge, faTags, faHouse, faUsers, faCog, faMapLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 @Component({
@@ -10,7 +10,8 @@ import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 export class SidebarComponent {
   dashboardIcon: IconDefinition = faGauge;
   categoriesIcon: IconDefinition = faTags;
-  locationsIcon: IconDefinition = faHouse;
+  locationsIcon: IconDefinition = faMapLocationDot;
+  housesIcon: IconDefinition = faHouse;
   usersIcon: IconDefinition = faUsers;
   settingsIcon: IconDefinition = faCog;
 

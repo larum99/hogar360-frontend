@@ -1,0 +1,45 @@
+@import 'src/styles/variables';
+
+.select {
+    display: flex;
+    flex-direction: column;
+
+    &__label {
+        font-family: $font-primary;
+        font-size: 12px;
+        font-weight: 500;
+        margin-bottom: 6px;
+        color: $color-text-secondary;
+    }
+
+    &__field {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid $color-border-form;
+        border-radius: 8px;
+        font-family: $font-primary;
+        font-size: 12px;
+        background-color: $color-white;
+        color: $color-text-secondary;
+    }
+}
+
+@media (min-width: 768px) {
+    .select__label {
+        font-size: 13px;
+    }
+
+    .select__field {
+        font-size: 13px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .select__label {
+        font-size: 14px;
+    }
+
+    .select__field {
+        font-size: 14px;
+    }
+}

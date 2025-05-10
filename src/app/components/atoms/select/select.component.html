@@ -1,0 +1,10 @@
+<div class="select">
+    <label class="select__label" [for]="selectId">{{ label }}</label>
+
+    <select [formControl]="control" class="select__field" [id]="selectId">
+        <option [ngValue]="null" disabled selected>Seleccione una opción</option>
+        <option *ngFor="let option of options" [ngValue]="option.value">
+            {{ option.label }}
+        </option>
+    </select>
+</div>

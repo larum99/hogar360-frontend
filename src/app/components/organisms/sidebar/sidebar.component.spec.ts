@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { SidebarComponent } from './sidebar.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { RouterTestingModule } from '@angular/router/testing';
+
 
 describe('SidebarComponent', () => {
   let component: SidebarComponent;
@@ -8,8 +10,9 @@ describe('SidebarComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [SidebarComponent]
-    });
+    declarations: [SidebarComponent],
+    imports: [FontAwesomeModule, RouterTestingModule]
+  });
     fixture = TestBed.createComponent(SidebarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -19,9 +22,9 @@ describe('SidebarComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should set isActive when setActive is called', () => {
-    const component = new SidebarComponent();
-    component.setActive('dashboard');
-    expect(component.isActive).toBe('dashboard');
-  });
+  it('should set the active section when setActive is called', () => {
+  const sectionName = 'dashboard';
+  component.setActive(sectionName);
+  expect(component.isActive).toBe(sectionName);
+});
 });

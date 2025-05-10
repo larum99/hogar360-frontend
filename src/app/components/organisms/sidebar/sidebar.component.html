@@ -1,31 +1,37 @@
 <aside class="sidebar">
   <nav class="sidebar__nav">
     <ul class="sidebar__menu">
-      <li class="sidebar__item" routerLinkActive="sidebar__item--active">
+      <li class="sidebar__item" routerLinkActive #rlaDashboard="routerLinkActive" [ngClass]="{'sidebar__item--active': rlaDashboard.isActive}">
         <a routerLink="/dashboard" class="sidebar__link">
           <fa-icon [icon]="dashboardIcon" class="sidebar__icon"></fa-icon>
           Dashboard
         </a>
       </li>
-      <li class="sidebar__item" routerLinkActive="sidebar__item--active">
+      <li class="sidebar__item" routerLinkActive #rlaCategories="routerLinkActive" [ngClass]="{'sidebar__item--active': rlaCategories.isActive}">
         <a routerLink="/categories" class="sidebar__link">
           <fa-icon [icon]="categoriesIcon" class="sidebar__icon"></fa-icon>
           Categorías
         </a>
       </li>
-      <li class="sidebar__item" routerLinkActive="sidebar__item--active">
-        <a routerLink="/houses" class="sidebar__link">
+      <li class="sidebar__item" routerLinkActive #rlaLocations="routerLinkActive" [ngClass]="{'sidebar__item--active': rlaLocations.isActive}">
+        <a routerLink="/locations" class="sidebar__link">
           <fa-icon [icon]="locationsIcon" class="sidebar__icon"></fa-icon>
+          Ubicaciones
+        </a>
+      </li>
+      <li class="sidebar__item" routerLinkActive #rlaHouses="routerLinkActive" [ngClass]="{'sidebar__item--active': rlaHouses.isActive}">
+        <a routerLink="/houses" class="sidebar__link">
+          <fa-icon [icon]="housesIcon" class="sidebar__icon"></fa-icon>
           Propiedades
         </a>
       </li>
-      <li class="sidebar__item" routerLinkActive="sidebar__item--active">
+      <li class="sidebar__item" routerLinkActive #rlaUsers="routerLinkActive" [ngClass]="{'sidebar__item--active': rlaUsers.isActive}">
         <a routerLink="/users" class="sidebar__link">
           <fa-icon [icon]="usersIcon" class="sidebar__icon"></fa-icon>
           Usuarios
         </a>
       </li>
-      <li class="sidebar__item" routerLinkActive="sidebar__item--active">
+      <li class="sidebar__item" routerLinkActive #rlaConfig="routerLinkActive" [ngClass]="{'sidebar__item--active': rlaConfig.isActive}">
         <a routerLink="/configuration" class="sidebar__link">
           <fa-icon [icon]="settingsIcon" class="sidebar__icon"></fa-icon>
           Configuración
