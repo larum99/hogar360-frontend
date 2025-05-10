@@ -32,7 +32,7 @@ describe('CategoryComponent', () => {
 
     fixture = TestBed.createComponent(CategoryComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges(); // Esto ya ejecuta ngOnInit automáticamente
+    fixture.detectChanges();
   });
 
   it('should create the component', () => {
@@ -40,7 +40,6 @@ describe('CategoryComponent', () => {
   });
 
   it('should define category table columns on init', () => {
-    // Ya se ejecutó ngOnInit en fixture.detectChanges()
     expect(component.categoryTableColumns.length).toBe(3);
     expect(component.categoryTableColumns[0].header).toBe('ID');
     expect(component.categoryTableColumns[1].header).toBe('Nombre');
