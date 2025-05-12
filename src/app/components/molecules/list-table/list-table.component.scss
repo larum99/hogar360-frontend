@@ -44,11 +44,14 @@
     }
 
     &__cell--id,
-    &__cell--description {
+    &__cell--description,
+    &__cell--sector {
         color: $color-text-sidebar-footer-listtable;
     }
 
-    &__cell--name {
+    &__cell--name,
+    &__cell--department,
+    &__cell--city {
         color: $color-text-subtitle;
     }
 
