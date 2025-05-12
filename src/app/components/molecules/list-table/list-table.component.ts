@@ -1,5 +1,7 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { TableColumn } from 'src/app/shared/models/table-column.model';
+import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 @Component({
   selector: 'app-list-table',
@@ -11,9 +13,24 @@ export class ListTableComponent<T extends object> {
   @Input() columns: TableColumn<T>[] = [];
   @Input() noDataMessage: string = 'No hay datos disponibles.';
 
-  @Output() action = new EventEmitter<{ actionType: string, element: T }>();
+  @Input() sortBy: string = '';
+  @Input() sortDirection: 'asc' | 'desc' = 'asc';
 
-  onAction(actionType: string, element: T): void {
-    this.action.emit({ actionType, element });
+  @Output() action = new EventEmitter<{ actionType: string, element: T }>();
+  @Output() sortChange = new EventEmitter<{ sortBy: string, sortDirection: 'asc' | 'desc' }>();
+
+  faArrowUp: IconDefinition = faArrowUp;
+  faArrowDown: IconDefinition = faArrowDown;
+
+  onSort(column: TableColumn<T>): void {
+    if (!column.sortable || !column.sortField) return;
+
+    const isSameField = this.sortBy === column.sortField;
+    const newDirection = isSameField && this.sortDirection === 'asc' ? 'desc' : 'asc';
+
+    this.sortChange.emit({
+      sortBy: column.sortField,
+      sortDirection: newDirection
+    });
   }
 }

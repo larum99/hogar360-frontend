@@ -1,6 +1,6 @@
 <div class="input-text">
   <label class="input-text__label" [for]="inputId">
-    {{ label }} <span class="input-text__required">*</span>
+    {{ label }} <span *ngIf="required" class="input-text__required">*</span>
   </label>
   <input
     class="input-text__field"

@@ -2,6 +2,7 @@
 
 .list-table {
     width: 100%;
+    table-layout: fixed;
     border-collapse: separate;
     border-spacing: 0;
     background-color: $color-white;
@@ -49,6 +50,13 @@
 
     &__cell--name {
         color: $color-text-subtitle;
+    }
+
+    &__header,
+    &__cell {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
 

@@ -10,6 +10,7 @@ export class InputTextComponent implements OnInit {
   @Input() label: string = '';
   @Input() placeholder: string = '';
   @Input() control!: FormControl<string | null>;
+  @Input() required: boolean = true;
 
   inputId: string = '';
 
