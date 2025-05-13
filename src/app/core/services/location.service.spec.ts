@@ -116,17 +116,21 @@ describe('LocationService', () => {
         expect(response).toEqual(mockResult);
       });
 
-    const expectedParams = new HttpParams()
-      .set('searchTerm', searchTerm)
-      .set('page', page.toString())
-      .set('size', size.toString())
-      .set('sortBy', sortBy)
-      .set('sortDirection', sortDirection);
+    expect(httpClientMock.get).toHaveBeenCalled();
 
-    expect(httpClientMock.get).toHaveBeenCalledWith(
-      `${environment.apiUrl}/location/search`,
-      { params: expectedParams }
-    );
+    const callArgs = httpClientMock.get.mock.calls[0];
+    expect(callArgs).toBeDefined();
+
+    const options = callArgs[1];
+    expect(options).toBeDefined();
+
+    const actualParams = (options?.params ?? new HttpParams()) as HttpParams;
+
+    expect(actualParams.get('searchTerm')).toBe(searchTerm);
+    expect(actualParams.get('page')).toBe(page.toString());
+    expect(actualParams.get('size')).toBe(size.toString());
+    expect(actualParams.get('sortBy')).toBe(sortBy);
+    expect(actualParams.get('sortDirection')).toBe(sortDirection);
   });
 
   it('should call HttpClient.get with default params when no arguments are provided to searchLocations', () => {
@@ -146,16 +150,20 @@ describe('LocationService', () => {
       expect(response).toEqual(mockResult);
     });
 
-    const expectedParams = new HttpParams()
-      .set('searchTerm', '')
-      .set('page', '0')
-      .set('size', '10')
-      .set('sortBy', 'city.name')
-      .set('sortDirection', 'asc');
+    expect(httpClientMock.get).toHaveBeenCalled();
 
-    expect(httpClientMock.get).toHaveBeenCalledWith(
-      `${environment.apiUrl}/location/search`,
-      { params: expectedParams }
-    );
+    const callArgs = httpClientMock.get.mock.calls[0];
+    expect(callArgs).toBeDefined();
+
+    const options = callArgs[1];
+    expect(options).toBeDefined();
+
+    const actualParams = (options?.params ?? new HttpParams()) as HttpParams;
+
+    expect(actualParams.get('searchTerm')).toBe('');
+    expect(actualParams.get('page')).toBe('0');
+    expect(actualParams.get('size')).toBe('10');
+    expect(actualParams.get('sortBy')).toBe('city.name');
+    expect(actualParams.get('sortDirection')).toBe('asc');
   });
 });

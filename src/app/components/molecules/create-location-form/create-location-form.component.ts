@@ -50,16 +50,16 @@ export class CreateLocationFormComponent implements OnInit {
   }
 
   get departmentOptions(): SelectOption[] {
-    return this.departments.map(d => ({ value: d.id, label: d.name }));
+    return this.departments.map(department => ({ value: department.id, label: department.name }));
   }
 
   get cityOptions(): SelectOption[] {
-    return this.cities.map(c => ({ value: c.id, label: c.name }));
+    return this.cities.map(city => ({ value: city.id, label: city.name }));
   }
 
   private loadDepartments(): void {
     this.locationService.getDepartments().subscribe({
-      next: (res) => (this.departments = res),
+      next: (response) => (this.departments = response),
       error: () =>
         this.toastr.error('Error al cargar los departamentos', 'Error'),
     });
@@ -67,7 +67,7 @@ export class CreateLocationFormComponent implements OnInit {
 
   private loadCitiesByDepartment(departmentId: number): void {
     this.locationService.getCitiesByDepartment(departmentId).subscribe({
-      next: (res) => (this.cities = res),
+      next: (response) => (this.cities = response),
       error: () =>
         this.toastr.error('Error al cargar las ciudades', 'Error'),
     });
