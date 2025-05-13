@@ -2,6 +2,7 @@
 
 .list-table {
     width: 100%;
+    table-layout: fixed;
     border-collapse: separate;
     border-spacing: 0;
     background-color: $color-white;
@@ -43,12 +44,22 @@
     }
 
     &__cell--id,
-    &__cell--description {
+    &__cell--description,
+    &__cell--sector {
         color: $color-text-sidebar-footer-listtable;
     }
 
-    &__cell--name {
+    &__cell--name,
+    &__cell--department,
+    &__cell--city {
         color: $color-text-subtitle;
+    }
+
+    &__header,
+    &__cell {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
 

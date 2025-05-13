@@ -2,9 +2,15 @@
     <table class="list-table">
         <thead class="list-table__head">
             <tr class="list-table__row">
-                <th *ngFor="let column of columns" class="list-table__header">
+                <th *ngFor="let column of columns" class="list-table__header"
+                    (click)="onSort(column)"
+                    [class.sortable]="column.sortable" tabindex="0">
                     {{ column.header }}
-                </th>
+                    <fa-icon
+                        *ngIf="column.sortable"
+                        [icon]="sortBy === column.sortField && sortDirection === 'asc' ? faArrowUp : faArrowDown">
+                    </fa-icon>
+                    </th>
             </tr>
         </thead>
         <tbody class="list-table__body">

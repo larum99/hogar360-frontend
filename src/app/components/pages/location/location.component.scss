@@ -25,6 +25,14 @@
         margin-bottom: 2rem;
     }
 
+    &__search-container {
+        margin-bottom: 2rem;
+
+        app-input-text {
+            width: 100%;
+        }
+    }
+
     &__table-container {
         margin-bottom: 3rem;
     }
@@ -35,6 +43,10 @@
 
         &__table-container {
             margin-bottom: 5rem;
+        }
+
+        &__search-container {
+            max-width: 500px;
         }
     }
 }

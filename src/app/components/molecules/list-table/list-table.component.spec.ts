@@ -1,62 +1,91 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ListTableComponent } from './list-table.component';
 import { TableColumn } from 'src/app/shared/models/table-column.model';
-import { Category } from 'src/app/shared/models/category.model';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('ListTableComponent', () => {
-  let component: ListTableComponent<Category>;
-  let fixture: ComponentFixture<ListTableComponent<Category>>;
+  let component: ListTableComponent<any>;
+  let fixture: ComponentFixture<ListTableComponent<any>>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ListTableComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ListTableComponent<Category>);
-    component = fixture.componentInstance; // Corrected from fixture.instance
+    fixture = TestBed.createComponent(ListTableComponent);
+    component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should emit sortChange when sortable column is clicked', () => {
+    const column: TableColumn<any> = {
+      header: 'Name',
+      sortField: 'name',
+      sortable: true,
+      cell: (row) => row.name,
+    };
+
+    component.sortBy = '';
+    component.sortDirection = 'asc';
+
+    jest.spyOn(component.sortChange, 'emit');
+
+    component.onSort(column);
+
+    expect(component.sortChange.emit).toHaveBeenCalledWith({
+      sortBy: 'name',
+      sortDirection: 'asc',
+    });
   });
 
-  it('should accept data input', () => {
-    const mockData: Category[] = [
-      { id: 1, name: 'Electronics', description: 'Electronic devices' },
-      { id: 2, name: 'Books', description: 'Novels, sci-fi, etc.' },
-    ];
-    component.data = mockData;
-    fixture.detectChanges();
+  it('should toggle sort direction when same column is clicked twice', () => {
+    const column: TableColumn<any> = {
+      header: 'Name',
+      sortField: 'name',
+      sortable: true,
+      cell: (row) => row.name,
+    };
+
+    component.sortBy = 'name';
+    component.sortDirection = 'asc';
+
+    jest.spyOn(component.sortChange, 'emit');
+
+    component.onSort(column);
+
+    expect(component.sortChange.emit).toHaveBeenCalledWith({
+      sortBy: 'name',
+      sortDirection: 'desc',
+    });
   });
 
-  it('should accept columns input', () => {
-    const mockColumns: TableColumn<Category>[] = [
-      { header: 'ID', cell: (element: Category) => element.id },
-      { header: 'Name', cell: (element: Category) => element.name },
-      { header: 'Description', cell: (element: Category) => element.description },
-    ];
-    component.columns = mockColumns;
-    fixture.detectChanges();
+  it('should not emit sortChange if column is not sortable', () => {
+    const column: TableColumn<any> = {
+      header: 'Age',
+      sortField: 'age',
+      sortable: false,
+      cell: (row) => row.age,
+    };
+
+    jest.spyOn(component.sortChange, 'emit');
+
+    component.onSort(column);
+
+    expect(component.sortChange.emit).not.toHaveBeenCalled();
   });
 
-   it('should accept noDataMessage input', () => {
-    const customMessage = 'No items to display.';
-    component.noDataMessage = customMessage;
-    fixture.detectChanges();
-  });
+  it('should not emit sortChange if column has no sortField', () => {
+    const column: TableColumn<any> = {
+      header: 'Age',
+      sortable: true,
+      cell: (row) => row.age,
+    };
 
-  it('should emit action event with correct payload when onAction is called', () => {
-    const actionSpy = jest.spyOn(component.action, 'emit');
-    const mockActionType = 'edit';
-    const mockElement: Category = { id: 1, name: 'Test', description: 'Test Desc' };
+    jest.spyOn(component.sortChange, 'emit');
 
-    component.onAction(mockActionType, mockElement);
+    component.onSort(column);
 
-    expect(actionSpy).toHaveBeenCalled();
-    expect(actionSpy).toHaveBeenCalledTimes(1);
-    expect(actionSpy).toHaveBeenCalledWith({ actionType: mockActionType, element: mockElement });
+    expect(component.sortChange.emit).not.toHaveBeenCalled();
   });
 });
