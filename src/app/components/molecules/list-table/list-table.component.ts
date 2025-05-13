@@ -16,7 +16,6 @@ export class ListTableComponent<T extends object> {
   @Input() sortBy: string = '';
   @Input() sortDirection: 'asc' | 'desc' = 'asc';
 
-  @Output() action = new EventEmitter<{ actionType: string, element: T }>();
   @Output() sortChange = new EventEmitter<{ sortBy: string, sortDirection: 'asc' | 'desc' }>();
 
   faArrowUp: IconDefinition = faArrowUp;
