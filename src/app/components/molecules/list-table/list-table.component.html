@@ -4,7 +4,7 @@
             <tr class="list-table__row">
                 <th *ngFor="let column of columns" class="list-table__header"
                     (click)="onSort(column)"
-                    [class.sortable]="column.sortable" tabindex="0">
+                    [class.sortable]="column.sortable">
                     {{ column.header }}
                     <fa-icon
                         *ngIf="column.sortable"
