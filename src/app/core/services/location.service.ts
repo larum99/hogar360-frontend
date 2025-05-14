@@ -14,7 +14,7 @@ import { buildPaginationParams } from '../../shared/utils/http-params.util';
   providedIn: 'root',
 })
 export class LocationService {
-  private readonly apiUrl = environment.apiUrl;
+  private readonly apiUrl = environment.housesApiUrl;
 
   constructor(private readonly http: HttpClient) {}
 
