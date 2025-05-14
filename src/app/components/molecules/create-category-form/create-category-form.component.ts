@@ -1,3 +1,4 @@
+import { noOnlyWhitespaceValidator } from 'src/app/shared/utils/custom-validators'
 import { HttpStatusCode } from '@angular/common/http';
 import { Component, EventEmitter, Output, inject } from '@angular/core';
 import {
@@ -29,10 +30,12 @@ export class CreateCategoryFormComponent {
     name: this.formBuilder.control<string | null>('', [
       Validators.required,
       Validators.maxLength(50),
+      noOnlyWhitespaceValidator,
     ]),
     description: this.formBuilder.control<string | null>('', [
       Validators.required,
       Validators.maxLength(90),
+      noOnlyWhitespaceValidator,
     ]),
   });
 
@@ -49,8 +52,8 @@ export class CreateCategoryFormComponent {
     const { name, description } = this.categoryForm.getRawValue();
 
     const categoryData: Category = {
-      name: name!,
-      description: description!,
+      name: name!.trim(),
+      description: description!.trim(),
     };
 
     this.categoryService.createCategory(categoryData).subscribe({

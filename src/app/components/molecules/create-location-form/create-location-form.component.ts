@@ -7,6 +7,7 @@ import { City } from 'src/app/shared/models/city.model';
 import { Location } from 'src/app/shared/models/location.model';
 import { HttpStatusCode } from '@angular/common/http';
 import { SelectOption } from 'src/app/shared/models/select-option.model';
+import { noOnlyWhitespaceValidator } from 'src/app/shared/utils/custom-validators'
 
 @Component({
   selector: 'app-create-location-form',
@@ -31,6 +32,7 @@ export class CreateLocationFormComponent implements OnInit {
     sector: this.formBuilder.control<string | null>('', [
       Validators.required,
       Validators.maxLength(50),
+      noOnlyWhitespaceValidator,
     ]),
     department: this.formBuilder.control<number | null>(null, [Validators.required]),
     city: this.formBuilder.control<number | null>(null, [Validators.required]),
@@ -86,7 +88,7 @@ export class CreateLocationFormComponent implements OnInit {
     const { sector, city } = this.locationForm.getRawValue();
 
     const requestData: Location = {
-      sector: sector!,
+      sector: sector!.trim(),
       cityId: city!,
     };
 

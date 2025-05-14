@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 @Component({
   selector: 'app-textarea',
   templateUrl: './textarea.component.html',
-  styleUrls: ['./textarea.component.scss']
+  styleUrls: ['./textarea.component.scss'],
 })
 export class TextareaComponent implements OnInit {
   @Input() label: string = '';
@@ -21,7 +21,19 @@ export class TextareaComponent implements OnInit {
     return 'textarea-' + Math.random().toString(36).substring(2, 9);
   }
 
-  getErrorMessage():string {
-    return this.control.errors?.['required'] ? 'Este campo es requerido' : 'Excediste el numero máximo de caracteres (Máximo 50 caracteres)'
+  getErrorMessage(): string {
+    if (this.control.errors?.['required']) {
+      return 'Este campo es requerido';
+    }
+
+    if (this.control.errors?.['maxlength']) {
+      return 'Excediste el número máximo de caracteres (Máximo 90 caracteres)';
+    }
+
+    if (this.control.errors?.['onlyWhitespace']) {
+      return 'No se permiten solo espacios en blanco';
+    }
+
+    return '';
   }
 }
