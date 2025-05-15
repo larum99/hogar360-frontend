@@ -35,12 +35,34 @@
         }
     }
 
+    &__ellipsis {
+        font-size: 14px;
+        color: $color-text-secondary;
+        align-self: center;
+        padding: 0.5rem;
+    }
+
     @media (min-width: 1024px) {
         &__button {
             font-size: 14px;
             min-width: 42px;
             height: 42px;
             border-radius: 8px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        gap: 0.25rem;
+
+        &__button {
+            font-size: 10px;
+            min-width: 26px;
+            height: 26px;
+            padding: 0.25rem 0.5rem;
+        }
+
+        &__ellipsis {
+            font-size: 12px;
         }
     }
 }

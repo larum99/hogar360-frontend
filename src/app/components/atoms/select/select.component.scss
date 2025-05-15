@@ -12,15 +12,30 @@
         color: $color-text-secondary;
     }
 
+    &__required {
+    color: $color-text-error-required;
+    margin-left: 4px;
+    }
+
     &__field {
         width: 100%;
-        padding: 8px;
+        height: 30px;
+        padding-left: 8px;
+        padding-right: 32px;
         border: 1px solid $color-border-form;
         border-radius: 8px;
         font-family: $font-primary;
-        font-size: 12px;
+        font-size: 10px;
         background-color: $color-white;
         color: $color-text-secondary;
+        box-sizing: border-box;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-image: url("data:image/svg+xml;utf8,<svg fill='%23666' height='8' viewBox='0 0 24 24' width='8' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+        background-repeat: no-repeat;
+        background-position: right 8px center;
+        background-size: 12px;
     }
 }
 
@@ -40,6 +55,6 @@
     }
 
     .select__field {
-        font-size: 14px;
+        font-size: 12px;
     }
 }

@@ -23,28 +23,48 @@ export class PaginationComponent implements OnChanges {
 
   @Output() pageChange = new EventEmitter<number>();
 
-  pageNumbers: number[] = [];
+  pageNumbers: (number | null)[] = [];
 
   constructor(faLibrary: FaIconLibrary) {
     faLibrary.addIcons(faChevronLeft, faChevronRight);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['totalPages']) {
+    if (changes['totalPages'] || changes['currentPage']) {
       this.generatePageNumbers();
     }
   }
 
   private generatePageNumbers(): void {
-    if (this.totalPages > 0) {
-      this.pageNumbers = Array.from({ length: this.totalPages }, (_, i) => i);
-    } else {
-      this.pageNumbers = [];
+    const delta = 1;
+    const range: (number | null)[] = [];
+
+    const left = Math.max(this.currentPage - delta, 1);
+    const right = Math.min(this.currentPage + delta, this.totalPages - 2);
+
+    range.push(0);
+
+    if (left > 1) {
+      range.push(null);
     }
+
+    for (let i = left; i <= right; i++) {
+      range.push(i);
+    }
+
+    if (right < this.totalPages - 2) {
+      range.push(null);
+    }
+
+    if (this.totalPages > 1) {
+      range.push(this.totalPages - 1);
+    }
+
+    this.pageNumbers = range;
   }
 
   goToPage(page: number): void {
-    if (page >= 0 && page < this.totalPages && page !== this.currentPage) {
+    if (page !== null && page >= 0 && page < this.totalPages && page !== this.currentPage) {
       this.pageChange.emit(page);
     }
   }

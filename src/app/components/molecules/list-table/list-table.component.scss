@@ -29,6 +29,14 @@
         color: $color-text-navbar-listtable-textarea;
     }
 
+    &__header.sortable {
+        cursor: pointer;
+
+        &:hover {
+            color: $color-text-subtitle;
+        }
+    }
+
     &__cell {
         padding: 0.75rem;
         font-size: 12px;

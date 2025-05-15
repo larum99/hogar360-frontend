@@ -6,11 +6,10 @@
                     (click)="onSort(column)"
                     [class.sortable]="column.sortable">
                     {{ column.header }}
-                    <fa-icon
-                        *ngIf="column.sortable"
-                        [icon]="sortBy === column.sortField && sortDirection === 'asc' ? faArrowUp : faArrowDown">
+                    <fa-icon *ngIf="column.sortable && sortBy === column.sortField"
+                    [icon]="sortDirection === 'asc' ? faArrowUp : faArrowDown">
                     </fa-icon>
-                    </th>
+                </th>
             </tr>
         </thead>
         <tbody class="list-table__body">
