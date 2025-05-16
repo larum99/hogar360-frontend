@@ -3,6 +3,7 @@
 .select {
     display: flex;
     flex-direction: column;
+    margin-bottom: 14px;
 
     &__label {
         font-family: $font-primary;
