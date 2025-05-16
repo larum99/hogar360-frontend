@@ -1,15 +1,23 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PaginationComponent } from './pagination.component';
-import { SimpleChanges, SimpleChange } from '@angular/core';
+import { SimpleChange, SimpleChanges } from '@angular/core';
+import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 
 describe('PaginationComponent', () => {
   let component: PaginationComponent;
   let fixture: ComponentFixture<PaginationComponent>;
+  let faIconLibraryMock: jest.Mocked<FaIconLibrary>;
 
   beforeEach(() => {
+    faIconLibraryMock = {
+      addIcons: jest.fn(),
+    } as unknown as jest.Mocked<FaIconLibrary>;
+
     TestBed.configureTestingModule({
       declarations: [PaginationComponent],
+      providers: [{ provide: FaIconLibrary, useValue: faIconLibraryMock }],
     });
+
     fixture = TestBed.createComponent(PaginationComponent);
     component = fixture.componentInstance;
   });
@@ -19,54 +27,61 @@ describe('PaginationComponent', () => {
   });
 
   describe('ngOnChanges', () => {
-    let changes: SimpleChanges;
-
-    beforeEach(() => {
-      jest.spyOn(component as any, 'generatePageNumbers');
-    });
-
-    it('should call generatePageNumbers when totalPages input changes', () => {
-      changes = {
-        totalPages: new SimpleChange(0, 5, false),
+    it('should call generatePageNumbers when totalPages changes', () => {
+      const spy = jest.spyOn(component as any, 'generatePageNumbers');
+      const changes: SimpleChanges = {
+        totalPages: new SimpleChange(3, 5, false),
       };
       component.ngOnChanges(changes);
-      expect(component['generatePageNumbers']).toHaveBeenCalled();
+      expect(spy).toHaveBeenCalled();
     });
 
-    it('should NOT call generatePageNumbers when other inputs change', () => {
-      changes = {
-        currentPage: new SimpleChange(0, 1, false),
+    it('should call generatePageNumbers when currentPage changes', () => {
+      const spy = jest.spyOn(component as any, 'generatePageNumbers');
+      const changes: SimpleChanges = {
+        currentPage: new SimpleChange(1, 2, false),
       };
       component.ngOnChanges(changes);
-      expect(component['generatePageNumbers']).not.toHaveBeenCalled();
+      expect(spy).toHaveBeenCalled();
     });
 
-    it('should call generatePageNumbers if totalPages change is the first change', () => {
-      changes = {
-        totalPages: new SimpleChange(undefined, 5, true),
+    it('should NOT call generatePageNumbers if unrelated inputs change', () => {
+      const spy = jest.spyOn(component as any, 'generatePageNumbers');
+      const changes: SimpleChanges = {
+        someOtherInput: new SimpleChange('a', 'b', false),
       };
       component.ngOnChanges(changes);
-      expect(component['generatePageNumbers']).toHaveBeenCalled();
+      expect(spy).not.toHaveBeenCalled();
     });
   });
 
   describe('generatePageNumbers', () => {
-    it('should populate pageNumbers array when totalPages is greater than 0', () => {
+    it('should generate correct range when currentPage is in the middle', () => {
+      component.totalPages = 7;
+      component.currentPage = 3;
+      (component as any)['generatePageNumbers']();
+      expect(component.pageNumbers).toEqual([0, null, 2, 3, 4, null, 6]);
+    });
+
+    it('should generate correct range when currentPage is at the start', () => {
       component.totalPages = 5;
+      component.currentPage = 0;
       (component as any)['generatePageNumbers']();
-      expect(component.pageNumbers).toEqual([0, 1, 2, 3, 4]);
+      expect(component.pageNumbers).toEqual([0, 1, 2, null, 4]);
     });
 
-    it('should set pageNumbers to an empty array when totalPages is 0', () => {
+    it('should generate correct range when totalPages is 1', () => {
+      component.totalPages = 1;
+      component.currentPage = 0;
+      (component as any)['generatePageNumbers']();
+      expect(component.pageNumbers).toEqual([0]);
+    });
+
+    it('should generate correct range when totalPages is 0', () => {
       component.totalPages = 0;
+      component.currentPage = 0;
       (component as any)['generatePageNumbers']();
-      expect(component.pageNumbers).toEqual([]);
-    });
-
-    it('should set pageNumbers to an empty array when totalPages is less than 0', () => {
-      component.totalPages = -1;
-      (component as any)['generatePageNumbers']();
-      expect(component.pageNumbers).toEqual([]);
+      expect(component.pageNumbers).toEqual([0]);
     });
   });
 
@@ -76,30 +91,35 @@ describe('PaginationComponent', () => {
       component.totalPages = 5;
     });
 
-    it('should emit pageChange if page is within valid range and not the current page', () => {
-      component.currentPage = 1;
-      component.goToPage(2);
-      expect(component.pageChange.emit).toHaveBeenCalledWith(2);
+    it('should emit pageChange when valid and different page', () => {
+      component.currentPage = 2;
+      component.goToPage(3);
+      expect(component.pageChange.emit).toHaveBeenCalledWith(3);
     });
 
-    it('should NOT emit pageChange if page is the current page', () => {
+    it('should NOT emit when page is current', () => {
       component.currentPage = 2;
       component.goToPage(2);
       expect(component.pageChange.emit).not.toHaveBeenCalled();
     });
 
-    it('should NOT emit pageChange if page is negative', () => {
+    it('should NOT emit when page is negative', () => {
       component.goToPage(-1);
       expect(component.pageChange.emit).not.toHaveBeenCalled();
     });
 
-    it('should NOT emit pageChange if page is equal to totalPages', () => {
+    it('should NOT emit when page equals totalPages', () => {
       component.goToPage(component.totalPages);
       expect(component.pageChange.emit).not.toHaveBeenCalled();
     });
 
-    it('should NOT emit pageChange if page is greater than totalPages', () => {
+    it('should NOT emit when page > totalPages', () => {
       component.goToPage(component.totalPages + 1);
+      expect(component.pageChange.emit).not.toHaveBeenCalled();
+    });
+
+    it('should NOT emit when page is null', () => {
+      component.goToPage(null as unknown as number);
       expect(component.pageChange.emit).not.toHaveBeenCalled();
     });
   });

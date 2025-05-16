@@ -11,6 +11,7 @@ export class InputTextComponent implements OnInit {
   @Input() placeholder: string = '';
   @Input() control!: FormControl<string | null>;
   @Input() required: boolean = true;
+  @Input() type: string = 'text';
 
   inputId: string = '';
 
@@ -33,6 +34,14 @@ export class InputTextComponent implements OnInit {
 
     if (this.control.errors?.['onlyWhitespace']) {
       return 'No se permiten solo espacios en blanco';
+    }
+
+    if (this.control.errors?.['email']) {
+    return 'Correo electrónico inválido';
+    }
+
+    if (this.control.errors?.['pattern']) {
+    return 'Formato inválido.';
     }
 
     return '';

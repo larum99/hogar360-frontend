@@ -1,24 +1,18 @@
 <nav *ngIf="totalPages > 1" class="pagination">
-    <button
-        class="pagination__button"
-        (click)="goToPage(currentPage - 1)"
-        [disabled]="currentPage === 0">
+    <button class="pagination__button" (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 0">
         <fa-icon [icon]="['fas', 'chevron-left']"></fa-icon>
     </button>
 
     <ng-container *ngFor="let pageNum of pageNumbers">
-        <button
-            class="pagination__button"
-            [ngClass]="{ 'pagination__button--active': pageNum === currentPage }"
-            (click)="goToPage(pageNum)">
+        <button *ngIf="pageNum !== null" class="pagination__button"
+            [ngClass]="{ 'pagination__button--active': pageNum === currentPage }" (click)="goToPage(pageNum)">
             {{ pageNum + 1 }}
         </button>
+
+        <span *ngIf="pageNum === null" class="pagination__ellipsis">…</span>
     </ng-container>
 
-    <button
-        class="pagination__button"
-        (click)="goToPage(currentPage + 1)"
-        [disabled]="currentPage === totalPages - 1">
+    <button class="pagination__button" (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages - 1">
         <fa-icon [icon]="['fas', 'chevron-right']"></fa-icon>
     </button>
 </nav>

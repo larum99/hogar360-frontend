@@ -1,0 +1,27 @@
+<div class="input-text">
+  <label class="input-text__label" [for]="id">
+    {{ label }} <span *ngIf="required" class="input-text__required">*</span>
+  </label>
+
+  <div class="input-text__field-wrapper">
+    <input
+      [id]="id"
+      class="input-text__field"
+      [ngClass]="{ 'input-text__field--error': control.invalid && (control.touched || control.dirty) }"
+      [matDatepicker]="picker"
+      [formControl]="control"
+      [placeholder]="placeholder"
+      readonly
+      (click)="picker.open()"
+    />
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </div>
+
+  <span
+    class="input-text__error"
+    [ngClass]="{ 'input-text__error--visible': control.invalid && (control.touched || control.dirty) }"
+  >
+    {{ getErrorMessage() }}
+  </span>
+</div>

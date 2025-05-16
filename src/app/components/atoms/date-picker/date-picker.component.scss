@@ -1,0 +1,110 @@
+@import 'src/styles/variables';
+
+.input-text {
+    display: flex;
+    flex-direction: column;
+
+    &__label {
+        font-family: $font-primary;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 18px;
+        color: $color-text-secondary;
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+    }
+
+    &__required {
+        color: $color-text-error-required;
+        margin-left: 4px;
+    }
+
+    &__field-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    &__field {
+        width: 100%;
+        padding-left: 8px;
+        padding-right: 40px;
+        height: 30px;
+        border: 1px solid $color-border-form;
+        border-radius: 8px;
+        background-color: $color-white;
+        font-family: $font-primary;
+        font-size: 12px;
+        color: $color-text-secondary;
+        box-sizing: border-box;
+
+        &::placeholder {
+            color: $color-text-input;
+            font-size: 12px;
+            font-family: $font-primary;
+        }
+    }
+
+    &__field--error {
+        border-color: $color-text-error-required;
+    }
+
+    &__error {
+        color: $color-text-error-required;
+        font-size: 10px;
+        margin-top: 4px;
+        min-height: 14px;
+        font-family: $font-tertiary;
+        visibility: hidden;
+
+        &--visible {
+            visibility: visible;
+        }
+    }
+}
+
+::ng-deep mat-datepicker-toggle {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 30px;
+    width: 30px;
+    background-color: transparent;
+    cursor: pointer;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (min-width: 768px) {
+    .input-text__label {
+        font-size: 13px;
+        line-height: 18px;
+    }
+
+    .input-text__field {
+        font-size: 13px;
+    }
+
+    .input-text__error {
+        font-size: 11px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .input-text__label {
+        font-size: 14px;
+    }
+
+    .input-text__field {
+        font-size: 14px;
+    }
+
+    .input-text__error {
+        font-size: 12px;
+    }
+}

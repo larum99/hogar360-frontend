@@ -1,5 +1,5 @@
 <div class="select">
-    <label class="select__label" [for]="selectId">{{ label }}</label>
+    <label class="select__label" [for]="selectId">{{ label }} <span *ngIf="required" class="select__required">*</span></label>
 
     <select [formControl]="control" class="select__field" [id]="selectId">
         <option [ngValue]="null" disabled selected>Seleccione una opción</option>

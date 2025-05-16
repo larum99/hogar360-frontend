@@ -4,13 +4,15 @@ import { EmptyPageComponent } from './empty-page/empty-page.component';
 import { CategoryComponent } from './category/category.component';
 import { LocationComponent } from './location/location.component';
 import { SharedModule } from '../../shared/shared.module';
+import { SellerComponent } from './seller/seller.component';
 
 
 @NgModule({
   declarations: [
     EmptyPageComponent,
     CategoryComponent,
-    LocationComponent
+    LocationComponent,
+    SellerComponent
   ],
   imports: [
     CommonModule,

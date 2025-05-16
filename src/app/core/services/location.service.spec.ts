@@ -51,7 +51,7 @@ describe('LocationService', () => {
     });
 
     expect(httpClientMock.post).toHaveBeenCalledWith(
-      `${environment.apiUrl}/location/`,
+      `${environment.housesApiUrl}/location/`,
       mockLocation
     );
   });
@@ -69,7 +69,7 @@ describe('LocationService', () => {
     });
 
     expect(httpClientMock.get).toHaveBeenCalledWith(
-      `${environment.apiUrl}/department`
+      `${environment.housesApiUrl}/department`
     );
   });
 
@@ -87,7 +87,7 @@ describe('LocationService', () => {
     });
 
     expect(httpClientMock.get).toHaveBeenCalledWith(
-      `${environment.apiUrl}/city/department/${departmentId}`
+      `${environment.housesApiUrl}/city/department/${departmentId}`
     );
   });
 

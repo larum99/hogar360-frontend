@@ -36,7 +36,7 @@ describe('CategoryService (Jest)', () => {
 
   it('should initialize apiUrl from environment', () => {
     const apiUrl = (service as any).apiUrl;
-    expect(apiUrl).toBe(environment.apiUrl);
+    expect(apiUrl).toBe(environment.housesApiUrl);
   });
 
   it('should call HttpClient.post with correct URL and data', () => {
@@ -50,7 +50,7 @@ describe('CategoryService (Jest)', () => {
     });
 
     expect(httpClientMock.post).toHaveBeenCalledWith(
-      `${environment.apiUrl}/category/`,
+      `${environment.housesApiUrl}/category/`,
       mockCategory
     );
   });
@@ -73,7 +73,7 @@ describe('CategoryService (Jest)', () => {
     });
 
     expect(httpClientMock.get).toHaveBeenCalledWith(
-      `${environment.apiUrl}/category/`,
+      `${environment.housesApiUrl}/category/`,
       { params: { mockParam: 'value' } }
     );
   });

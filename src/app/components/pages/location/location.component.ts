@@ -1,6 +1,15 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { BehaviorSubject, Observable, combineLatest, debounceTime, startWith, switchMap, catchError, of } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  combineLatest,
+  debounceTime,
+  startWith,
+  switchMap,
+  catchError,
+  of,
+} from 'rxjs';
 import { LocationService } from '../../../core/services/location.service';
 import { LocationSearch } from 'src/app/shared/models/location-search.model';
 import { PageResult } from 'src/app/shared/models/page-result.model';
@@ -16,7 +25,10 @@ export class LocationComponent implements OnInit {
 
   searchControl = new FormControl<string>('');
   private readonly pageSubject = new BehaviorSubject<number>(0);
-  private readonly sortSubject = new BehaviorSubject<{ sortBy: string; sortDirection: 'asc' | 'desc' }>({
+  private readonly sortSubject = new BehaviorSubject<{
+    sortBy: string;
+    sortDirection: 'asc' | 'desc';
+  }>({
     sortBy: 'city.name',
     sortDirection: 'asc',
   });
@@ -27,26 +39,28 @@ export class LocationComponent implements OnInit {
     this.sortSubject.asObservable(),
   ]).pipe(
     switchMap(([search, page, sort]) =>
-      this.locationService.searchLocations(
-        search ?? '',
-        page,
-        10,
-        sort.sortBy,
-        sort.sortDirection
-      ).pipe(
-        catchError(error => {
-          console.error('Error loading locations:', error);
-          return of({
-            content: [],
-            totalElements: 0,
-            totalPages: 0,
-            currentPage: page,
-            pageSize: 10,
-            isFirst: true,
-            isLast: true
-          });
-        })
-      )
+      this.locationService
+        .searchLocations(
+          search ?? '',
+          page,
+          10,
+          sort.sortBy,
+          sort.sortDirection
+        )
+        .pipe(
+          catchError((error) => {
+            console.error('Error loading locations:', error);
+            return of({
+              content: [],
+              totalElements: 0,
+              totalPages: 0,
+              currentPage: page,
+              pageSize: 10,
+              isFirst: true,
+              isLast: true,
+            });
+          })
+        )
     )
   );
 
@@ -54,6 +68,10 @@ export class LocationComponent implements OnInit {
 
   ngOnInit(): void {
     this.defineLocationColumns();
+
+    this.searchControl.valueChanges.pipe(debounceTime(300)).subscribe(() => {
+      this.pageSubject.next(0);
+    });
   }
 
   defineLocationColumns(): void {

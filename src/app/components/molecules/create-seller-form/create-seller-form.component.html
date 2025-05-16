@@ -1,0 +1,48 @@
+<form class="create-seller-form" [formGroup]="sellerForm" (ngSubmit)="onSubmit()">
+  <app-input-text
+    [label]="'Nombre'"
+    [placeholder]="'Ej. Juliana'"
+    [control]="sellerForm.controls.firstName">
+  </app-input-text>
+
+  <app-input-text
+    [label]="'Apellido'"
+    [placeholder]="'Ej. González'"
+    [control]="sellerForm.controls.lastName">
+  </app-input-text>
+
+  <app-input-text
+    label="Documento de Identidad"
+    placeholder="Solo números"
+    [control]="sellerForm.controls.identityDocument">
+  </app-input-text>
+
+  <app-input-text
+    [label]="'Celular'"
+    [placeholder]="'Ej. +573005698325'"
+    [control]="sellerForm.controls.phoneNumber">
+  </app-input-text>
+
+  <app-date-picker
+    [label]="'Fecha de Nacimiento'"
+    [id]="'birthDate'"
+    [control]="sellerForm.controls.birthDate"
+    [required]="true">
+  </app-date-picker>
+
+  <app-input-text
+    [label]="'Correo Electrónico'"
+    [placeholder]="'Ej. correo@dominio.com'"
+    [control]="sellerForm.controls.email">
+  </app-input-text>
+
+  <app-input-text
+  [label]="'Contraseña'"
+  [placeholder]="'Contraseña'"
+  [type]="'password'"
+  [control]="sellerForm.controls.password"></app-input-text>
+
+  <div class="form-actions">
+    <app-button label="Crear" type="submit"></app-button>
+  </div>
+</form>
