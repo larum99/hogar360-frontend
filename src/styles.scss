@@ -41,3 +41,6 @@ app-root {
   font-family: 'Poppins';
   src: url('/assets/fonts/poppins/Poppins-Regular.ttf') format('truetype');
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

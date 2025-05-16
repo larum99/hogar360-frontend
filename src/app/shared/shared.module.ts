@@ -14,8 +14,13 @@ import { NavbarWrapperComponent } from '../components/organisms/navbar-wrapper/n
 import { SidebarComponent } from '../components/organisms/sidebar/sidebar.component';
 import { SelectComponent } from '../components/atoms/select/select.component';
 import { CreateLocationFormComponent } from '../components/molecules/create-location-form/create-location-form.component';
+import { DatePickerComponent } from '../components/atoms/date-picker/date-picker.component';
+import { CreateSellerFormComponent } from '../components/molecules/create-seller-form/create-seller-form.component';
 import { RouterModule } from '@angular/router';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -30,9 +35,20 @@ import { RouterModule } from '@angular/router';
     PaginationComponent,
     ListTableComponent,
     SelectComponent,
-    CreateLocationFormComponent
+    CreateLocationFormComponent,
+    DatePickerComponent,
+    CreateSellerFormComponent
   ],
-  imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule, RouterModule ],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FontAwesomeModule,
+    RouterModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatNativeDateModule,
+  ],
   exports: [
     NavbarWrapperComponent,
     InputTextComponent,
@@ -45,10 +61,16 @@ import { RouterModule } from '@angular/router';
     PaginationComponent,
     ListTableComponent,
     CreateLocationFormComponent,
+    DatePickerComponent,
+    CreateSellerFormComponent,
     CommonModule,
     ReactiveFormsModule,
     FontAwesomeModule,
-    RouterModule
+    RouterModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatNativeDateModule,
   ],
 })
 export class SharedModule {}

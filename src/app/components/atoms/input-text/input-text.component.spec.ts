@@ -50,8 +50,6 @@ describe('InputTextComponent', () => {
     expect(errorEl.textContent.trim()).toBe('Este campo es requerido');
   });
 
-  
-
   it('should show maxlength error message when input exceeds limit', () => {
     const longText = 'a'.repeat(51);
     component.control.setValue(longText);
@@ -63,7 +61,46 @@ describe('InputTextComponent', () => {
     ).nativeElement;
 
     expect(errorEl.textContent.trim()).toBe(
-      'Excediste el numero máximo de caracteres (Máximo 50 caracteres)'
+      'Excediste el número máximo de caracteres (Máximo 50 caracteres)'
     );
+  });
+
+  it('should show whitespace error message when onlyWhitespace error is present', () => {
+    component.control.setErrors({ onlyWhitespace: true });
+    component.control.markAsTouched();
+    fixture.detectChanges();
+
+    const errorEl = fixture.debugElement.query(
+      By.css('.input-text__error')
+    ).nativeElement;
+
+    expect(errorEl.textContent.trim()).toBe(
+      'No se permiten solo espacios en blanco'
+    );
+  });
+
+  it('should show email error message when email error is present', () => {
+    component.control = new FormControl('invalid-email', [Validators.email]);
+    component.control.markAsTouched();
+    fixture.detectChanges();
+
+    const errorEl = fixture.debugElement.query(
+      By.css('.input-text__error')
+    ).nativeElement;
+
+    expect(errorEl.textContent.trim()).toBe('Correo electrónico inválido');
+  });
+
+  it('should show pattern error message when pattern error is present', () => {
+    component.control = new FormControl('', [Validators.pattern(/^\d+$/)]);
+    component.control.setValue('abc');
+    component.control.markAsTouched();
+    fixture.detectChanges();
+
+    const errorEl = fixture.debugElement.query(
+      By.css('.input-text__error')
+    ).nativeElement;
+
+    expect(errorEl.textContent.trim()).toBe('Formato inválido.');
   });
 });

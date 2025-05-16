@@ -36,15 +36,31 @@ export class PaginationComponent implements OnChanges {
   }
 
   private generatePageNumbers(): void {
-    const delta = 1;
     const range: (number | null)[] = [];
 
-    const left = Math.max(this.currentPage - delta, 1);
-    const right = Math.min(this.currentPage + delta, this.totalPages - 2);
+    if (this.totalPages <= 1) {
+      this.pageNumbers = [0];
+      return;
+    }
 
-    range.push(0);
+    const firstPage = 0;
+    const lastPage = this.totalPages - 1;
+    let left = this.currentPage - 1;
+    let right = this.currentPage + 1;
 
-    if (left > 1) {
+    left = Math.max(left, 1);
+    right = Math.min(right, lastPage - 1);
+
+    if (this.currentPage <= 1) {
+      right = Math.min(2, lastPage - 1);
+    }
+    if (this.currentPage >= lastPage - 1) {
+      left = Math.max(lastPage - 2, 1);
+    }
+
+    range.push(firstPage);
+
+    if (left > firstPage + 1) {
       range.push(null);
     }
 
@@ -52,19 +68,22 @@ export class PaginationComponent implements OnChanges {
       range.push(i);
     }
 
-    if (right < this.totalPages - 2) {
+    if (right < lastPage - 1) {
       range.push(null);
     }
 
-    if (this.totalPages > 1) {
-      range.push(this.totalPages - 1);
-    }
+    range.push(lastPage);
 
     this.pageNumbers = range;
   }
 
   goToPage(page: number): void {
-    if (page !== null && page >= 0 && page < this.totalPages && page !== this.currentPage) {
+    if (
+      page !== null &&
+      page >= 0 &&
+      page < this.totalPages &&
+      page !== this.currentPage
+    ) {
       this.pageChange.emit(page);
     }
   }
