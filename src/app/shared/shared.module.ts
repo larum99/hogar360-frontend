@@ -21,6 +21,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
+import { CreateHouseFormComponent } from '../components/molecules/create-house-form/create-house-form.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     SelectComponent,
     CreateLocationFormComponent,
     DatePickerComponent,
-    CreateSellerFormComponent
+    CreateSellerFormComponent,
+    CreateHouseFormComponent
   ],
   imports: [
     CommonModule,
@@ -63,6 +65,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     CreateLocationFormComponent,
     DatePickerComponent,
     CreateSellerFormComponent,
+    CreateHouseFormComponent,
     CommonModule,
     ReactiveFormsModule,
     FontAwesomeModule,

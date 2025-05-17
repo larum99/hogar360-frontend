@@ -10,6 +10,7 @@ import {
 import { CategoryService } from 'src/app/core/services/category.service';
 import { Category } from 'src/app/shared/models/category.model';
 import { ToastrService } from 'ngx-toastr';
+import { ApiResponse } from 'src/app/shared/models/api-response.model';
 
 @Component({
   selector: 'app-create-category-form',
@@ -57,7 +58,7 @@ export class CreateCategoryFormComponent {
     };
 
     this.categoryService.createCategory(categoryData).subscribe({
-      next: () => {
+      next: (response: ApiResponse) => {
         this.toastr.success(
           'La categoría ha sido creada exitosamente.',
           'Éxito!'

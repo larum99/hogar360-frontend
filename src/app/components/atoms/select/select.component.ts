@@ -21,4 +21,12 @@ export class SelectComponent implements OnInit {
   private generateUniqueId(): string {
     return 'select-' + Math.random().toString(36).substring(2, 9);
   }
+
+  getErrorMessage(): string {
+    if (this.control.errors?.['required']) {
+      return 'Este campo es requerido';
+    }
+
+    return '';
+  }
 }

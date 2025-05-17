@@ -9,7 +9,7 @@ import { FormControl } from '@angular/forms';
 export class InputTextComponent implements OnInit {
   @Input() label: string = '';
   @Input() placeholder: string = '';
-  @Input() control!: FormControl<string | null>;
+  @Input() control!: FormControl<string | number | null>;
   @Input() required: boolean = true;
   @Input() type: string = 'text';
 
@@ -37,11 +37,16 @@ export class InputTextComponent implements OnInit {
     }
 
     if (this.control.errors?.['email']) {
-    return 'Correo electrónico inválido';
+      return 'Correo electrónico inválido';
     }
 
     if (this.control.errors?.['pattern']) {
-    return 'Formato inválido.';
+      return 'Formato inválido.';
+    }
+
+    if (this.control.errors?.['min']) {
+      const minValue = this.control.errors['min'].min;
+      return `El valor debe ser mayor o igual a ${minValue}`;
     }
 
     return '';

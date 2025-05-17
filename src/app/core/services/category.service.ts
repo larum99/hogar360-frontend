@@ -1,22 +1,22 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Category } from '../../shared/models/category.model';
 import { environment } from 'src/environments/environment';
 import { PageResult } from '../../shared/models/page-result.model';
 import { DEFAULT_PAGINATION } from '../../shared/constants/pagination.constants';
 import { buildPaginationParams } from '../../shared/utils/http-params.util';
+import { ApiResponse } from 'src/app/shared/models/api-response.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
   private readonly apiUrl = environment.housesApiUrl;
+  private readonly http = inject(HttpClient);
 
-  constructor(private readonly http: HttpClient) {}
-
-  createCategory(data: Category): Observable<Category> {
-    return this.http.post<Category>(`${this.apiUrl}/category/`, data);
+  createCategory(data: Category): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(`${this.apiUrl}/category/`, data);
   }
 
   getCategories(
