@@ -80,7 +80,7 @@
     color: $color-text-error-required;
     font-family: $font-tertiary;
     font-size: 10px;
-    min-height: 14px;
+    min-height: 20px;
     visibility: hidden;
 
     &--visible {
@@ -95,9 +95,6 @@
 }
 
 @media (min-width: 768px) {
-  .textarea {
-    margin-bottom: 20px;
-  }
 
   .textarea__label {
     font-size: 13px;
@@ -128,9 +125,6 @@
 }
 
 @media (min-width: 1024px) {
-  .textarea {
-    margin-bottom: 24px;
-  }
 
   .textarea__label {
     font-size: 14px;

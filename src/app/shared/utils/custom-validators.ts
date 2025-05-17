@@ -1,11 +1,15 @@
 import { AbstractControl, ValidationErrors } from '@angular/forms';
 
-export function noOnlyWhitespaceValidator(control: AbstractControl): ValidationErrors | null {
+export function noOnlyWhitespaceValidator(
+  control: AbstractControl
+): ValidationErrors | null {
   const value = control.value ?? '';
   return value.trim().length === 0 ? { onlyWhitespace: true } : null;
 }
 
-export function isAdultValidator(control: AbstractControl): ValidationErrors | null {
+export function isAdultValidator(
+  control: AbstractControl
+): ValidationErrors | null {
   const value = control.value;
   if (!value) return null;
 
@@ -25,4 +29,32 @@ export function isAdultValidator(control: AbstractControl): ValidationErrors | n
   }
 
   return age >= 18 ? null : { notAdult: true };
+}
+
+export function maxOneMonthFromTodayValidator(
+  control: AbstractControl
+): ValidationErrors | null {
+  const inputDate = new Date(control.value);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const maxDate = new Date();
+  maxDate.setMonth(today.getMonth() + 1);
+  maxDate.setHours(0, 0, 0, 0);
+
+  if (isNaN(inputDate.getTime())) {
+    return null;
+  }
+
+  inputDate.setHours(0, 0, 0, 0);
+
+  if (inputDate < today) {
+    return { pastDate: true };
+  }
+
+  if (inputDate > maxDate) {
+    return { maxOneMonth: true };
+  }
+
+  return null;
 }

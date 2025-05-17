@@ -14,6 +14,7 @@ import {
   isAdultValidator,
   noOnlyWhitespaceValidator,
 } from 'src/app/shared/utils/custom-validators';
+import { ApiResponse } from 'src/app/shared/models/api-response.model';
 
 @Component({
   selector: 'app-create-seller-form',
@@ -100,7 +101,7 @@ export class CreateSellerFormComponent {
     };
 
     this.userService.createSeller(seller).subscribe({
-      next: () => {
+      next: (response: ApiResponse) => {
         this.toastr.success('Vendedor creado exitosamente.', 'Éxito');
         this.sellerForm.reset();
         this.created.emit();

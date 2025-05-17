@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Location } from '../../shared/models/location.model';
 import { Department } from '../../shared/models/department.model';
@@ -9,17 +9,17 @@ import { PageResult } from '../../shared/models/page-result.model';
 import { environment } from 'src/environments/environment';
 import { DEFAULT_PAGINATION } from '../../shared/constants/pagination.constants';
 import { buildPaginationParams } from '../../shared/utils/http-params.util';
+import { ApiResponse } from 'src/app/shared/models/api-response.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LocationService {
   private readonly apiUrl = environment.housesApiUrl;
+  private readonly http = inject(HttpClient);
 
-  constructor(private readonly http: HttpClient) {}
-
-  createLocation(data: Location): Observable<void> {
-    return this.http.post<void>(`${this.apiUrl}/location/`, data);
+  createLocation(data: Location): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(`${this.apiUrl}/location/`, data);
   }
 
   getDepartments(): Observable<Department[]> {
@@ -45,4 +45,8 @@ export class LocationService {
 
     return this.http.get<PageResult<LocationSearch>>(`${this.apiUrl}/location/search`, { params });
   }
+
+  getLocationsByCity(cityId: number): Observable<Location[]> {
+  return this.http.get<Location[]>(`${this.apiUrl}/location/city/${cityId}`);
+}
 }

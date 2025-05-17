@@ -14,15 +14,22 @@ export class DatePickerComponent {
   @Input() placeholder: string = '';
 
   getErrorMessage(): string {
-  if (this.control.errors?.['required']) {
-    return 'Este campo es requerido.';
+    if (this.control.errors?.['required']) {
+      return 'Este campo es requerido.';
+    }
+
+    if (this.control.errors?.['notAdult']) {
+      return 'Debes ser mayor de edad.';
+    }
+
+    if (this.control.errors?.['maxOneMonth']) {
+      return 'La fecha no puede exceder un mes desde hoy.';
+    }
+
+    if (this.control.errors?.['pastDate']) {
+      return 'La fecha no puede ser en el pasado.';
+    }
+
+    return 'Campo inválido.';
   }
-
-  if (this.control.errors?.['notAdult']) {
-    return 'Debes ser mayor de edad.';
-  }
-
-  return 'Campo inválido.';
-}
-
 }

@@ -3,19 +3,21 @@
 .select {
     display: flex;
     flex-direction: column;
-    margin-bottom: 14px;
 
     &__label {
         font-family: $font-primary;
         font-size: 12px;
         font-weight: 500;
-        margin-bottom: 6px;
+        line-height: 18px;
         color: $color-text-secondary;
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
     }
 
     &__required {
-    color: $color-text-error-required;
-    margin-left: 4px;
+        color: $color-text-error-required;
+        margin-left: 4px;
     }
 
     &__field {
@@ -38,24 +40,51 @@
         background-position: right 8px center;
         background-size: 12px;
     }
+
+    &__field--error {
+        border-color: $color-text-error-required;
+    }
+
+    &__error {
+        color: $color-text-error-required;
+        margin-top: 4px;
+        min-height: 20px;
+        font-family: $font-tertiary;
+        visibility: hidden;
+
+        &--visible {
+            visibility: visible;
+        }
+    }
+
 }
 
 @media (min-width: 768px) {
     .select__label {
         font-size: 13px;
+        line-height: 18px;
     }
 
     .select__field {
         font-size: 13px;
+    }
+
+    .select__error {
+    font-size: 11px;
     }
 }
 
 @media (min-width: 1024px) {
     .select__label {
         font-size: 14px;
+        line-height: 20px;
     }
 
     .select__field {
         font-size: 12px;
+    }
+
+    .select__error {
+    font-size: 12px;
     }
 }

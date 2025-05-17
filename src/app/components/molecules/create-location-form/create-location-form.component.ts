@@ -8,6 +8,7 @@ import { Location } from 'src/app/shared/models/location.model';
 import { HttpStatusCode } from '@angular/common/http';
 import { SelectOption } from 'src/app/shared/models/select-option.model';
 import { noOnlyWhitespaceValidator } from 'src/app/shared/utils/custom-validators'
+import { ApiResponse } from 'src/app/shared/models/api-response.model';
 
 @Component({
   selector: 'app-create-location-form',
@@ -93,7 +94,7 @@ export class CreateLocationFormComponent implements OnInit {
     };
 
     this.locationService.createLocation(requestData).subscribe({
-      next: () => {
+      next: (response: ApiResponse) => {
         this.toastr.success('La ubicación fue creada exitosamente.', 'Éxito');
         this.locationForm.reset();
         this.locationForm.controls.city.setValue(null);

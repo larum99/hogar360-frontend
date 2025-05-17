@@ -1,18 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from '../../shared/models/user.model';
+import { HouseCreation } from '../../shared/models/house-creation.model';
 import { environment } from 'src/environments/environment';
 import { ApiResponse } from 'src/app/shared/models/api-response.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
-  private readonly apiUrl = environment.usersApiUrl;
+export class HouseService {
+  private readonly apiUrl = environment.housesApiUrl;
   private readonly http = inject(HttpClient);
 
-  createSeller(data: User): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(`${this.apiUrl}/users/`, data);
+  createHouse(data: HouseCreation): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(`${this.apiUrl}/house/`, data);
   }
 }

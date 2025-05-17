@@ -1,10 +1,17 @@
 <div class="select">
-    <label class="select__label" [for]="selectId">{{ label }} <span *ngIf="required" class="select__required">*</span></label>
+    <label class="select__label" [for]="selectId">
+        {{ label }} <span *ngIf="required" class="select__required">*</span>
+    </label>
 
-    <select [formControl]="control" class="select__field" [id]="selectId">
+    <select [formControl]="control" class="select__field"
+        [ngClass]="{ 'select__field--error': control.invalid && (control.touched || control.dirty) }" [id]="selectId">
         <option [ngValue]="null" disabled selected>Seleccione una opción</option>
         <option *ngFor="let option of options" [ngValue]="option.value">
             {{ option.label }}
         </option>
     </select>
+
+    <div class="select__error" [class.select__error--visible]="control.invalid && (control.touched || control.dirty)">
+        {{ getErrorMessage() }}
+    </div>
 </div>
