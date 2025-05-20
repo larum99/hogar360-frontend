@@ -26,7 +26,7 @@ export class HouseComponent implements OnInit {
     sortDirection: 'asc' | 'desc';
   }>({
     sortBy: 'price',
-    sortDirection: 'desc',
+    sortDirection: 'asc',
   });
 
   houses$: Observable<PageResult<HouseList>> = combineLatest([
