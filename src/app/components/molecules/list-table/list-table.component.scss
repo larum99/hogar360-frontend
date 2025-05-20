@@ -70,6 +70,17 @@
         text-overflow: ellipsis;
     }
 
+    &__cell--bedrooms,
+    &__header--bedrooms,
+    &__cell--bathrooms,
+    &__header--bathrooms,
+    &__cell--id,
+    &__header--id {
+        width: 65px;
+        max-width: 65px;
+        min-width: 65px;
+    }
+
 
     @media (min-width: 1024px) {
         &__header {

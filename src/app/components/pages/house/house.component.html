@@ -1,6 +1,27 @@
 <section class="house">
     <h1 class="house__title">Publicar Casa</h1>
     <div class="house__form-container">
-        <app-create-house-form (created)="onCreated()"></app-create-house-form>
+    <app-create-house-form (created)="refreshHouses()"></app-create-house-form>
     </div>
+
+    <h2 class="house__subtitle">Casas Publicadas</h2>
+
+  <ng-container *ngIf="houses$ | async as houses">
+    <div class="house__table-container">
+        <app-list-table
+        [data]="houses.content || []"
+        [columns]="houseTableColumns"
+        [noDataMessage]="'No se encontraron casas.'"
+        [sortBy]="sortBy"
+        [sortDirection]="sortDirection"
+        (sortChange)="onSortChange($event)">
+        </app-list-table>
+    </div>
+
+    <app-pagination
+        [currentPage]="houses.currentPage || 0"
+        [totalPages]="houses.totalPages || 0"
+        (pageChange)="onPageChange($event)">
+    </app-pagination>
+    </ng-container>
 </section>
