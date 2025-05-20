@@ -3,6 +3,7 @@
         <thead class="list-table__head">
             <tr class="list-table__row">
                 <th *ngFor="let column of columns" class="list-table__header"
+                    [ngClass]="column.headerClass"
                     (click)="onSort(column)"
                     [class.sortable]="column.sortable">
                     {{ column.header }}

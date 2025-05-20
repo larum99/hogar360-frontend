@@ -5,4 +5,5 @@ export interface TableColumn<T> {
     sortField?: string;
     cell: (element: T) => any;
     cellClass?: string;
+    headerClass?: string;
 }
