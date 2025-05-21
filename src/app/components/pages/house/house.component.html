@@ -1,10 +1,10 @@
 <section class="house">
-    <h1 class="house__title">Publicar Casa</h1>
+    <h1 class="house__title">Publicar casa</h1>
     <div class="house__form-container">
     <app-create-house-form (created)="refreshHouses()"></app-create-house-form>
     </div>
 
-    <h2 class="house__subtitle">Casas Publicadas</h2>
+    <h2 class="house__subtitle">Casas Existentes</h2>
 
   <ng-container *ngIf="houses$ | async as houses">
     <div class="house__table-container">

@@ -10,7 +10,7 @@
       [ngClass]="{ 'input-text__field--error': control.invalid && (control.touched || control.dirty) }"
       [matDatepicker]="picker"
       [formControl]="control"
-      [placeholder]="placeholder"
+      [placeholder]="'DD/MM/AA'"
       readonly
       (click)="picker.open()"
     />

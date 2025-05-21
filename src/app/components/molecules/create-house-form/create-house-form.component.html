@@ -1,34 +1,64 @@
 <form class="create-house-form" [formGroup]="houseForm" (ngSubmit)="onSubmit()">
-    <app-input-text [label]="'Nombre'" [placeholder]="'Ej: Casa en la playa (máximo 50 caracteres)'"
-        [control]="houseForm.controls.name"></app-input-text>
+    <app-input-text
+        [label]="'Nombre'"
+        [placeholder]="'Ej: Casa en la playa (máximo 50 caracteres)'"
+        [control]="houseForm.controls.name">
+    </app-input-text>
 
-    <app-textarea [label]="'Descripción'" [placeholder]="'Máximo 90 caracteres'"
-        [control]="houseForm.controls.description"></app-textarea>
+    <app-textarea
+        [label]="'Descripción'"
+        [placeholder]="'Máximo 90 caracteres'"
+        [control]="houseForm.controls.description">
+    </app-textarea>
 
-    <app-select [label]="'Categoría'" [options]="categoryOptions"
-        [control]="houseForm.controls.categoryId"></app-select>
+    <app-select
+        [label]="'Categoría'"
+        [options]="categoryOptions"
+        [control]="houseForm.controls.categoryId">
+    </app-select>
 
-    <app-input-text type="number" [label]="'Habitaciones'" [placeholder]="'Cantidad de habitaciones'"
-        [control]="houseForm.controls.bedrooms"></app-input-text>
+    <app-input-text type="number"
+        [label]="'Habitaciones'"
+        [placeholder]="'Cantidad de habitaciones'"
+        [control]="houseForm.controls.bedrooms">
+    </app-input-text>
 
-    <app-input-text type="number" [label]="'Baños'" [placeholder]="'Cantidad de baños'"
-        [control]="houseForm.controls.bathrooms"></app-input-text>
+    <app-input-text type="number"
+        [label]="'Baños'"
+        [placeholder]="'Cantidad de baños'"
+        [control]="houseForm.controls.bathrooms">
+    </app-input-text>
 
-    <app-input-text type="number" [label]="'Precio'" [placeholder]="'Precio'"
-        [control]="houseForm.controls.price"></app-input-text>
+    <app-input-text type="number"
+        [label]="'Precio'"
+        [placeholder]="'Precio'"
+        [control]="houseForm.controls.price">
+    </app-input-text>
 
-    <app-select [label]="'Departamento'" [options]="departmentOptions"
-        [control]="houseForm.controls.department"></app-select>
+    <app-select
+        [label]="'Departamento'"
+        [options]="departmentOptions"
+        [control]="houseForm.controls.department">
+    </app-select>
 
-    <app-select [label]="'Ciudad'" [options]="cityOptions" [control]="houseForm.controls.city"></app-select>
+    <app-select
+        [label]="'Ciudad'"
+        [options]="cityOptions"
+        [control]="houseForm.controls.city">
+    </app-select>
 
-    <app-select [label]="'Ubicación'" [options]="locationOptions"
-        [control]="houseForm.controls.locationId"></app-select>
+    <app-select
+        [label]="'Ubicación'"
+        [options]="locationOptions"
+        [control]="houseForm.controls.locationId">
+    </app-select>
 
-    <app-date-picker [label]="'Fecha de publicación activa'"
-        [control]="houseForm.controls.activePublicationDate"></app-date-picker>
+    <app-date-picker
+        [label]="'Fecha de publicación activa'"
+        [control]="houseForm.controls.activePublicationDate">
+    </app-date-picker>
 
     <div class="form-actions">
-        <app-button label="Publicar casa" type="submit"></app-button>
+        <app-button label="Publicar" type="submit"></app-button>
     </div>
 </form>

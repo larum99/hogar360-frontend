@@ -37,10 +37,18 @@
   </app-input-text>
 
   <app-input-text
-  [label]="'Contraseña'"
-  [placeholder]="'Contraseña'"
-  [type]="'password'"
-  [control]="sellerForm.controls.password"></app-input-text>
+    [label]="'Contraseña'"
+    [placeholder]="'Contraseña'"
+    [type]="'password'"
+    [control]="sellerForm.controls.password">
+  </app-input-text>
+
+  <app-input-text
+    [label]="'Confirmar Contraseña'"
+    [placeholder]="'Repite tu contraseña'"
+    [type]="'password'"
+    [control]="sellerForm.controls.confirmPassword">
+  </app-input-text>
 
   <div class="form-actions">
     <app-button label="Crear" type="submit"></app-button>

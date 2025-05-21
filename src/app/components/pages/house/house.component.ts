@@ -11,22 +11,26 @@ import { HouseService } from 'src/app/core/services/house.service';
 import { PageResult } from 'src/app/shared/models/page-result.model';
 import { TableColumn } from 'src/app/shared/models/table-column.model';
 import { HouseList } from 'src/app/shared/models/house-list.model';
+import { CurrencyPipe } from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-house',
   templateUrl: './house.component.html',
   styleUrls: ['./house.component.scss'],
+  providers: [CurrencyPipe],
 })
 export class HouseComponent implements OnInit {
+  private readonly translate = inject(TranslateService);
+  private readonly currencyPipe = inject(CurrencyPipe);
   private readonly houseService = inject(HouseService);
-
   private readonly pageSubject = new BehaviorSubject<number>(0);
   private readonly sortSubject = new BehaviorSubject<{
     sortBy: string;
     sortDirection: 'asc' | 'desc';
   }>({
     sortBy: 'price',
-    sortDirection: 'desc',
+    sortDirection: 'asc',
   });
 
   houses$: Observable<PageResult<HouseList>> = combineLatest([
@@ -115,14 +119,15 @@ export class HouseComponent implements OnInit {
       },
       {
         header: 'Precio',
-        cell: (house) => `$${house.price.toLocaleString()}`,
+        cell: (house) =>
+          this.currencyPipe.transform(house.price, 'COP', 'symbol', '1.0-0'),
         sortField: 'price',
         sortable: true,
         cellClass: 'list-table__cell--price',
       },
       {
         header: 'Estado',
-        cell: (house) => house.status,
+        cell: (house) => this.translate.instant(`house.status.${house.status}`),
         sortField: 'status',
         sortable: false,
         cellClass: 'list-table__cell--status',

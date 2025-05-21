@@ -23,14 +23,14 @@ export class AuthInterceptor implements HttpInterceptor {
     const token = environment.token;
     let authReq = req;
 
-    if (req.method === 'POST') {
-      authReq = req.clone({
-        setHeaders: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-      });
-    }
+    if (token && req.url.startsWith(environment.housesApiUrl)) {
+    authReq = req.clone({
+      setHeaders: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+  }
 
     return next.handle(authReq).pipe(
       catchError((error: HttpErrorResponse) => {

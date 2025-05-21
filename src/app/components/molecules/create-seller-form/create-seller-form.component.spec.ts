@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
+import { HttpStatusCode } from '@angular/common/http';
 
 import { CreateSellerFormComponent } from './create-seller-form.component';
 import { UserService } from 'src/app/core/services/user.service';
@@ -33,6 +34,8 @@ describe('CreateSellerFormComponent', () => {
     fixture = TestBed.createComponent(CreateSellerFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
+    jest.clearAllMocks();
   });
 
   it('should create', () => {
@@ -45,7 +48,6 @@ describe('CreateSellerFormComponent', () => {
     component.onSubmit();
 
     expect(component.sellerForm.invalid).toBe(true);
-
     expect(mockToastrService.warning).toHaveBeenCalledWith(
       'Por favor, completa todos los campos requeridos.',
       'Formulario Inválido'
@@ -61,27 +63,14 @@ describe('CreateSellerFormComponent', () => {
       birthDate: '2000-01-01',
       email: 'juan.perez@example.com',
       password: 'securePass123',
-    });
-
-    expect(component.sellerForm.valid).toBe(true);
-  });
-
-  it('should be valid when all fields are correctly filled', () => {
-    component.sellerForm.setValue({
-      firstName: 'Juan',
-      lastName: 'Pérez',
-      identityDocument: '123456789',
-      phoneNumber: '+573001112233',
-      birthDate: '2000-01-01',
-      email: 'juan.perez@example.com',
-      password: 'securePass123',
+      confirmPassword: 'securePass123',
     });
 
     expect(component.sellerForm.valid).toBe(true);
   });
 
   it('should call createSeller and show success message on valid form submit', () => {
-    component.sellerForm.setValue({
+    const formValue = {
       firstName: 'Juan',
       lastName: 'Pérez',
       identityDocument: '123456789',
@@ -89,7 +78,10 @@ describe('CreateSellerFormComponent', () => {
       birthDate: '2000-01-01',
       email: 'juan.perez@example.com',
       password: 'securePass123',
-    });
+      confirmPassword: 'securePass123',
+    };
+
+    component.sellerForm.setValue(formValue);
 
     const createSellerSpy = jest
       .spyOn(mockUserService, 'createSeller')
@@ -100,13 +92,13 @@ describe('CreateSellerFormComponent', () => {
     component.onSubmit();
 
     expect(createSellerSpy).toHaveBeenCalledWith({
-      firstName: 'Juan',
-      lastName: 'Pérez',
-      identityDocument: '123456789',
-      phoneNumber: '+573001112233',
-      birthDate: '2000-01-01',
-      email: 'juan.perez@example.com',
-      password: 'securePass123',
+      firstName: formValue.firstName.trim(),
+      lastName: formValue.lastName.trim(),
+      identityDocument: formValue.identityDocument.trim(),
+      phoneNumber: formValue.phoneNumber,
+      birthDate: formValue.birthDate,
+      email: formValue.email.trim(),
+      password: formValue.password,
     });
 
     expect(mockToastrService.success).toHaveBeenCalledWith(
@@ -120,7 +112,7 @@ describe('CreateSellerFormComponent', () => {
   });
 
   it('should show duplicate user error message on 409 Conflict error', () => {
-    component.sellerForm.setValue({
+    const formValue = {
       firstName: 'Juan',
       lastName: 'Pérez',
       identityDocument: '123456789',
@@ -128,16 +120,19 @@ describe('CreateSellerFormComponent', () => {
       birthDate: '2000-01-01',
       email: 'juan.perez@example.com',
       password: 'securePass123',
-    });
+      confirmPassword: 'securePass123',
+    };
+
+    component.sellerForm.setValue(formValue);
 
     const errorResponse = {
-      status: 409,
+      status: HttpStatusCode.Conflict,
       error: { message: 'User already exists' },
     };
 
-    jest.spyOn(mockUserService, 'createSeller').mockReturnValueOnce({
-      subscribe: ({ next, error }: any) => error(errorResponse),
-    } as any);
+    jest.spyOn(mockUserService, 'createSeller').mockReturnValueOnce(
+      throwError(() => errorResponse)
+    );
 
     component.onSubmit();
 
@@ -148,7 +143,7 @@ describe('CreateSellerFormComponent', () => {
   });
 
   it('should show generic server error message on unexpected error', () => {
-    component.sellerForm.setValue({
+    const formValue = {
       firstName: 'Juan',
       lastName: 'Pérez',
       identityDocument: '123456789',
@@ -156,16 +151,19 @@ describe('CreateSellerFormComponent', () => {
       birthDate: '2000-01-01',
       email: 'juan.perez@example.com',
       password: 'securePass123',
-    });
+      confirmPassword: 'securePass123',
+    };
+
+    component.sellerForm.setValue(formValue);
 
     const errorResponse = {
       status: 500,
       error: { message: 'Internal server error' },
     };
 
-    jest.spyOn(mockUserService, 'createSeller').mockReturnValueOnce({
-      subscribe: ({ next, error }: any) => error(errorResponse),
-    } as any);
+    jest.spyOn(mockUserService, 'createSeller').mockReturnValueOnce(
+      throwError(() => errorResponse)
+    );
 
     const consoleErrorSpy = jest
       .spyOn(console, 'error')

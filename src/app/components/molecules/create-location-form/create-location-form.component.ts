@@ -1,5 +1,10 @@
 import { Component, EventEmitter, Output, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { LocationService } from '../../../core/services/location.service';
 import { Department } from 'src/app/shared/models/department.model';
@@ -7,7 +12,7 @@ import { City } from 'src/app/shared/models/city.model';
 import { Location } from 'src/app/shared/models/location.model';
 import { HttpStatusCode } from '@angular/common/http';
 import { SelectOption } from 'src/app/shared/models/select-option.model';
-import { noOnlyWhitespaceValidator } from 'src/app/shared/utils/custom-validators'
+import { noOnlyWhitespaceValidator } from 'src/app/shared/utils/custom-validators';
 import { ApiResponse } from 'src/app/shared/models/api-response.model';
 
 @Component({
@@ -35,29 +40,37 @@ export class CreateLocationFormComponent implements OnInit {
       Validators.maxLength(50),
       noOnlyWhitespaceValidator,
     ]),
-    department: this.formBuilder.control<number | null>(null, [Validators.required]),
+    department: this.formBuilder.control<number | null>(null, [
+      Validators.required,
+    ]),
     city: this.formBuilder.control<number | null>(null, [Validators.required]),
   });
 
   ngOnInit(): void {
     this.loadDepartments();
 
-    this.locationForm.controls.department.valueChanges.subscribe((departmentId) => {
-      if (departmentId !== null) {
-        this.loadCitiesByDepartment(departmentId);
-      } else {
-        this.cities = [];
-        this.locationForm.controls.city.setValue(null);
+    this.locationForm.controls.department.valueChanges.subscribe(
+      (departmentId) => {
+        if (departmentId !== null) {
+          this.locationForm.controls.city.setValue(null);
+          this.loadCitiesByDepartment(departmentId);
+        } else {
+          this.cities = [];
+          this.locationForm.controls.city.setValue(null);
+        }
       }
-    });
+    );
   }
 
   get departmentOptions(): SelectOption[] {
-    return this.departments.map(department => ({ value: department.id, label: department.name }));
+    return this.departments.map((department) => ({
+      value: department.id,
+      label: department.name,
+    }));
   }
 
   get cityOptions(): SelectOption[] {
-    return this.cities.map(city => ({ value: city.id, label: city.name }));
+    return this.cities.map((city) => ({ value: city.id, label: city.name }));
   }
 
   private loadDepartments(): void {
@@ -71,8 +84,7 @@ export class CreateLocationFormComponent implements OnInit {
   private loadCitiesByDepartment(departmentId: number): void {
     this.locationService.getCitiesByDepartment(departmentId).subscribe({
       next: (response) => (this.cities = response),
-      error: () =>
-        this.toastr.error('Error al cargar las ciudades', 'Error'),
+      error: () => this.toastr.error('Error al cargar las ciudades', 'Error'),
     });
   }
 

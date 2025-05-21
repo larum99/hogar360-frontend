@@ -49,6 +49,10 @@ export class InputTextComponent implements OnInit {
       return `El valor debe ser mayor o igual a ${minValue}`;
     }
 
+    if (this.control.errors?.['mismatch']) {
+      return 'Las contraseñas no coinciden.';
+    }
+
     return '';
   }
 }

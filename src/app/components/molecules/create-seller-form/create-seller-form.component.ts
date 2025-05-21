@@ -13,6 +13,7 @@ import { User } from 'src/app/shared/models/user.model';
 import {
   isAdultValidator,
   noOnlyWhitespaceValidator,
+  passwordMatchValidator,
 } from 'src/app/shared/utils/custom-validators';
 import { ApiResponse } from 'src/app/shared/models/api-response.model';
 
@@ -36,6 +37,7 @@ export class CreateSellerFormComponent {
     birthDate: FormControl<string | null>;
     email: FormControl<string | null>;
     password: FormControl<string | null>;
+    confirmPassword: FormControl<string | null>;
   }> = this.formBuilder.group({
     firstName: this.formBuilder.control('', [
       Validators.required,
@@ -68,7 +70,15 @@ export class CreateSellerFormComponent {
       Validators.required,
       noOnlyWhitespaceValidator,
     ]),
-  });
+    confirmPassword: this.formBuilder.control('', [
+      Validators.required,
+      noOnlyWhitespaceValidator,
+    ]),
+  },
+  {
+    validators: passwordMatchValidator,
+  }
+);
 
   onSubmit(): void {
     if (this.sellerForm.invalid) {
