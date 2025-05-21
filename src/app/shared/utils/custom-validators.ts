@@ -1,4 +1,4 @@
-import { AbstractControl, ValidationErrors } from '@angular/forms';
+import { AbstractControl, ValidationErrors, FormGroup } from '@angular/forms';
 
 export function noOnlyWhitespaceValidator(
   control: AbstractControl
@@ -57,4 +57,30 @@ export function maxOneMonthFromTodayValidator(
   }
 
   return null;
+}
+
+export function passwordMatchValidator(
+  form: FormGroup
+): ValidationErrors | null {
+  const password = form.get('password');
+  const confirmPassword = form.get('confirmPassword');
+
+  if (
+    !password ||
+    !confirmPassword ||
+    !password.value ||
+    !confirmPassword.value
+  ) {
+    return null;
+  }
+
+  if (password.value !== confirmPassword.value) {
+    confirmPassword.setErrors({ mismatch: true });
+    return { mismatch: true };
+  } else {
+    if (confirmPassword.hasError('mismatch')) {
+      confirmPassword.setErrors(null);
+    }
+    return null;
+  }
 }

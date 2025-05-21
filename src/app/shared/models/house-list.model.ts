@@ -12,6 +12,6 @@ export interface HouseList {
     location: LocationSearch;
     publicationDate: string;
     activePublicationDate: string;
-    status: string; //'PUBLISHED'
+    status: string;
     publisherId: number;
 }

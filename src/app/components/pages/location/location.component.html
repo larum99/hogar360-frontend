@@ -1,10 +1,10 @@
 <section class="location">
-    <h1 class="location__title">Crear Ubicación</h1>
+    <h1 class="location__title">Crear ubicación</h1>
     <div class="location__form-container">
         <app-create-location-form (created)="refreshLocations()"></app-create-location-form>
     </div>
 
-    <h2 class="location__subtitle">Buscar Ubicaciones</h2>
+    <h2 class="location__subtitle">Buscar ubicaciones</h2>
     <div class="location__search-container">
         <app-input-text [placeholder]="'Buscar ubicación'" [control]="searchControl"
             [required]="false">

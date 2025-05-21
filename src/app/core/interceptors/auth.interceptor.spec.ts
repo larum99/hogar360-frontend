@@ -52,7 +52,7 @@ describe('AuthInterceptor', () => {
   });
 
   it('should add Authorization and Content-Type headers to POST requests', () => {
-    const testUrl = '/api/some-endpoint';
+    const testUrl = `${environment.housesApiUrl}/some-endpoint`;
     const testBody = { data: 'test' };
     const mockToken = 'fake-auth-token-from-env';
 

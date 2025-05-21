@@ -108,14 +108,13 @@ describe('CreateLocationFormComponent', () => {
     component.departments = mockDepartments;
 
     component.locationForm.controls.department.setValue(departmentId);
-    tick();
+  component.locationForm.controls.department.updateValueAndValidity();
+  tick();
 
-    expect(mockLocationService.getCitiesByDepartment).toHaveBeenCalledWith(
-      departmentId
-    );
-    expect(component.cities).toEqual(
-      mockCities.filter((c) => c.departmentId === departmentId)
-    );
+  expect(mockLocationService.getCitiesByDepartment).toHaveBeenCalledWith(departmentId);
+  expect(component.cities).toEqual(
+    mockCities.filter((c) => c.departmentId === departmentId)
+  );
   }));
 
   it('should show error toast if loading cities fails', fakeAsync(() => {

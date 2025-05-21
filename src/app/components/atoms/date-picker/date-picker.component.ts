@@ -27,7 +27,7 @@ export class DatePickerComponent {
     }
 
     if (this.control.errors?.['pastDate']) {
-      return 'La fecha no puede ser en el pasado.';
+      return 'Debe seleccionar una fecha igual o posterior a la fecha actual.';
     }
 
     return 'Campo inválido.';

@@ -1,0 +1,10 @@
+{
+    "house": {
+        "status": {
+            "PUBLISHED": "Publicada",
+            "PAUSED": "Pausada",
+            "IN_PROGRESS": "En progreso",
+            "FINISHED": "Finalizado"
+        }
+    }
+}
