@@ -20,7 +20,7 @@ export class AuthInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const token = localStorage.getItem('authToken');
+    const token = localStorage.getItem('token');
     let authReq = req;
 
     if (token && (req.url.startsWith(environment.housesApiUrl) || req.url.startsWith(environment.usersApiUrl))) {
