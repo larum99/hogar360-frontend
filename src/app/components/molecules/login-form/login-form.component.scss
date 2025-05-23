@@ -1,0 +1,30 @@
+@import 'src/styles/variables';
+
+.login-form {
+    background-color: $color-white;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+
+    font-family: $font-primary;
+    color: $color-text-primary;
+
+    &__title {
+        text-align: center;
+        color: $color-blue;
+        font-family: $font-secondary;
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    &__actions {
+        display: flex;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+}

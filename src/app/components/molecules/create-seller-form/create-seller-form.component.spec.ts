@@ -6,15 +6,20 @@ import { HttpStatusCode } from '@angular/common/http';
 
 import { CreateSellerFormComponent } from './create-seller-form.component';
 import { UserService } from 'src/app/core/services/user.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 const mockUserService = {
-  createSeller: jest.fn().mockReturnValue(of({})),
+  createSeller: jest.fn().mockReturnValue(of({ message: 'ok' })),
 };
 
 const mockToastrService = {
   warning: jest.fn(),
   success: jest.fn(),
   error: jest.fn(),
+};
+
+const mockAuthService = {
+  hasRole: jest.fn().mockReturnValue(true),
 };
 
 describe('CreateSellerFormComponent', () => {
@@ -28,6 +33,7 @@ describe('CreateSellerFormComponent', () => {
       providers: [
         { provide: UserService, useValue: mockUserService },
         { provide: ToastrService, useValue: mockToastrService },
+        { provide: AuthService, useValue: mockAuthService },
       ],
     }).compileComponents();
 
@@ -85,7 +91,7 @@ describe('CreateSellerFormComponent', () => {
 
     const createSellerSpy = jest
       .spyOn(mockUserService, 'createSeller')
-      .mockReturnValue(of({}));
+      .mockReturnValue(of({ message: 'ok' }));
 
     const createdSpy = jest.spyOn(component.created, 'emit');
 
@@ -107,7 +113,6 @@ describe('CreateSellerFormComponent', () => {
     );
 
     expect(component.sellerForm.pristine).toBe(true);
-
     expect(createdSpy).toHaveBeenCalled();
   });
 

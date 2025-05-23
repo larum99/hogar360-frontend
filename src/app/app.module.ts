@@ -10,6 +10,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { PagesModule } from './components/pages/pages.module';
+import { TemplatesModule } from './components/templates/templates.module';
 
 import { registerLocaleData } from '@angular/common';
 import localeEsCo from '@angular/common/locales/es-CO';
@@ -42,6 +43,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     SharedModule,
     PagesModule,
+    TemplatesModule,
     TranslateModule.forRoot({
       defaultLanguage: 'es',
       loader: {

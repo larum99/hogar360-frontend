@@ -10,7 +10,7 @@ describe('DatePickerComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [DatePickerComponent],
-      imports: [ReactiveFormsModule]
+      imports: [ReactiveFormsModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DatePickerComponent);
@@ -35,17 +35,17 @@ describe('DatePickerComponent', () => {
 
     it('should return "Campo inválido." for other types of errors', () => {
       component.control = new FormControl('invalid format');
-      component.control.setErrors({ 'pattern': true });
+      component.control.setErrors({ pattern: true });
       fixture.detectChanges();
 
       expect(component.getErrorMessage()).toBe('Campo inválido.');
     });
 
     it('should return "Campo inválido." when control has no specific errors matched', () => {
-        component.control = new FormControl('some value');
-        component.control.setErrors(null);
-        fixture.detectChanges();
-        expect(component.getErrorMessage()).toBe('Campo inválido.');
+      component.control = new FormControl('some value');
+      component.control.setErrors(null);
+      fixture.detectChanges();
+      expect(component.getErrorMessage()).toBe('Campo inválido.');
     });
   });
 
@@ -71,5 +71,30 @@ describe('DatePickerComponent', () => {
     component.required = true;
     fixture.detectChanges();
     expect(component.required).toBe(true);
+  });
+
+  it('should return "Debes ser mayor de edad." when control has a notAdult error', () => {
+    component.control.setErrors({ notAdult: true });
+    fixture.detectChanges();
+
+    expect(component.getErrorMessage()).toBe('Debes ser mayor de edad.');
+  });
+
+  it('should return "La fecha no puede exceder un mes desde hoy." when control has a maxOneMonth error', () => {
+    component.control.setErrors({ maxOneMonth: true });
+    fixture.detectChanges();
+
+    expect(component.getErrorMessage()).toBe(
+      'La fecha no puede exceder un mes desde hoy.'
+    );
+  });
+
+  it('should return "Debe seleccionar una fecha igual o posterior a la fecha actual." when control has a pastDate error', () => {
+    component.control.setErrors({ pastDate: true });
+    fixture.detectChanges();
+
+    expect(component.getErrorMessage()).toBe(
+      'Debe seleccionar una fecha igual o posterior a la fecha actual.'
+    );
   });
 });

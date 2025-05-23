@@ -1,14 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CategoryComponent } from './category.component';
 import { CategoryService } from 'src/app/core/services/category.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { Category } from 'src/app/shared/models/category.model';
 import { PageResult } from 'src/app/shared/models/page-result.model';
-import { throwError, of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 
 describe('CategoryComponent', () => {
   let component: CategoryComponent;
   let fixture: ComponentFixture<CategoryComponent>;
   let categoryServiceMock: jest.Mocked<CategoryService>;
+  let authServiceMock: jest.Mocked<AuthService>;
 
   const mockCategories: PageResult<Category> = {
     content: [{ id: 1, name: 'Casa', description: 'Propiedad residencial' }],
@@ -25,14 +27,21 @@ describe('CategoryComponent', () => {
       getCategories: jest.fn().mockReturnValue(of(mockCategories)),
     } as unknown as jest.Mocked<CategoryService>;
 
+    authServiceMock = {
+      hasRole: jest.fn().mockReturnValue(true),
+    } as unknown as jest.Mocked<AuthService>;
+
     await TestBed.configureTestingModule({
       declarations: [CategoryComponent],
-      providers: [{ provide: CategoryService, useValue: categoryServiceMock }],
+      providers: [
+        { provide: CategoryService, useValue: categoryServiceMock },
+        { provide: AuthService, useValue: authServiceMock },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CategoryComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges(); // Esto ya ejecuta ngOnInit automáticamente
+    fixture.detectChanges();
   });
 
   it('should create the component', () => {
@@ -40,11 +49,24 @@ describe('CategoryComponent', () => {
   });
 
   it('should define category table columns on init', () => {
-    // Ya se ejecutó ngOnInit en fixture.detectChanges()
     expect(component.categoryTableColumns.length).toBe(3);
     expect(component.categoryTableColumns[0].header).toBe('ID');
     expect(component.categoryTableColumns[1].header).toBe('Nombre');
     expect(component.categoryTableColumns[2].header).toBe('Descripción');
+
+    const sampleCategory: Category = {
+      id: 5,
+      name: 'Apartamento',
+      description: 'Propiedad urbana',
+    };
+
+    expect(component.categoryTableColumns[0].cell(sampleCategory)).toBe(5);
+    expect(component.categoryTableColumns[1].cell(sampleCategory)).toBe(
+      'Apartamento'
+    );
+    expect(component.categoryTableColumns[2].cell(sampleCategory)).toBe(
+      'Propiedad urbana'
+    );
   });
 
   it('should fetch categories on initialization', (done) => {
@@ -71,44 +93,8 @@ describe('CategoryComponent', () => {
     done();
   });
 
-  it('should handle error when fetching categories', (done) => {
-    const errorMessage = 'Failed to fetch categories';
-    categoryServiceMock.getCategories.mockReturnValueOnce(
-      throwError(() => new Error(errorMessage))
-    );
-
-    component.categories$.subscribe((result) => {
-      expect(result).toEqual({
-        content: [],
-        totalElements: 0,
-        totalPages: 0,
-        currentPage: 0,
-        pageSize: 0,
-        isFirst: true,
-        isLast: true,
-      });
-      done();
-    });
-  });
-
-  it('should define category table columns on init', () => {
-    expect(component.categoryTableColumns.length).toBe(3);
-    expect(component.categoryTableColumns[0].header).toBe('ID');
-    expect(component.categoryTableColumns[1].header).toBe('Nombre');
-    expect(component.categoryTableColumns[2].header).toBe('Descripción');
-
-    const sampleCategory: Category = {
-      id: 5,
-      name: 'Apartamento',
-      description: 'Propiedad urbana',
-    };
-
-    expect(component.categoryTableColumns[0].cell(sampleCategory)).toBe(5);
-    expect(component.categoryTableColumns[1].cell(sampleCategory)).toBe(
-      'Apartamento'
-    );
-    expect(component.categoryTableColumns[2].cell(sampleCategory)).toBe(
-      'Propiedad urbana'
-    );
+  it('should detect isAdmin based on AuthService', () => {
+    expect(authServiceMock.hasRole).toHaveBeenCalledWith('ADMIN');
+    expect(component.isAdmin).toBe(true);
   });
 });

@@ -20,17 +20,17 @@ export class AuthInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const token = environment.token;
+    const token = localStorage.getItem('authToken');
     let authReq = req;
 
-    if (token && req.url.startsWith(environment.housesApiUrl)) {
-    authReq = req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
-    });
-  }
+    if (token && (req.url.startsWith(environment.housesApiUrl) || req.url.startsWith(environment.usersApiUrl))) {
+      authReq = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+    }
 
     return next.handle(authReq).pipe(
       catchError((error: HttpErrorResponse) => {
