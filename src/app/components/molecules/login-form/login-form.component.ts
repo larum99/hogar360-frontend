@@ -31,7 +31,10 @@ export class LoginFormComponent {
   onSubmit(): void {
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
-      this.toastr.warning('Por favor completa todos los campos.', 'Formulario Inválido');
+      this.toastr.warning(
+        'Por favor completa todos los campos.',
+        'Formulario Inválido'
+      );
       return;
     }
 
@@ -45,8 +48,21 @@ export class LoginFormComponent {
       },
       error: (err) => {
         console.error('Error al iniciar sesión:', err);
-        const msg = err?.error?.message || 'Credenciales inválidas.';
-        this.toastr.error(msg, 'Error de autenticación');
+
+        if (err.status === 0) {
+          this.toastr.error(
+            'No se pudo conectar con el servidor. Intenta más tarde.',
+            'Error de conexión'
+          );
+        } else if (err.status === 401) {
+          this.toastr.error(
+            'Credenciales inválidas.',
+            'Error de autenticación'
+          );
+        } else {
+          const msg = err?.error?.message ?? 'Ocurrió un error inesperado.';
+          this.toastr.error(msg, 'Error');
+        }
       },
     });
   }

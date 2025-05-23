@@ -11,7 +11,6 @@ describe('LoginFormComponent (Jest)', () => {
   let component: LoginFormComponent;
   let fixture: ComponentFixture<LoginFormComponent>;
 
-  // Mocks
   let authServiceMock: jest.Mocked<AuthService>;
   let toastrServiceMock: jest.Mocked<ToastrService>;
   let routerMock: jest.Mocked<Router>;
@@ -73,18 +72,59 @@ describe('LoginFormComponent (Jest)', () => {
     expect(routerMock.navigate).toHaveBeenCalledWith(['/dashboard']);
   });
 
-  it('should show error when login fails', () => {
-    const errorResponse = { error: { message: 'Credenciales inválidas.' } };
+  it('should show 401 error for invalid credentials', () => {
+    const errorResponse = { status: 401, error: { message: 'Credenciales inválidas.' } };
     component.loginForm.setValue({ email: 'test@fail.com', password: 'wrong' });
 
     authServiceMock.login.mockReturnValue(throwError(() => errorResponse));
 
     component.onSubmit();
 
-    expect(authServiceMock.login).toHaveBeenCalled();
     expect(toastrServiceMock.error).toHaveBeenCalledWith(
       'Credenciales inválidas.',
       'Error de autenticación'
+    );
+  });
+
+  it('should show connection error when server is unreachable', () => {
+    const errorResponse = { status: 0 };
+    component.loginForm.setValue({ email: 'any@email.com', password: '123456' });
+
+    authServiceMock.login.mockReturnValue(throwError(() => errorResponse));
+
+    component.onSubmit();
+
+    expect(toastrServiceMock.error).toHaveBeenCalledWith(
+      'No se pudo conectar con el servidor. Intenta más tarde.',
+      'Error de conexión'
+    );
+  });
+
+  it('should show default error when unexpected error occurs', () => {
+    const errorResponse = { status: 500, error: { message: 'Error interno del servidor' } };
+    component.loginForm.setValue({ email: 'server@error.com', password: 'any' });
+
+    authServiceMock.login.mockReturnValue(throwError(() => errorResponse));
+
+    component.onSubmit();
+
+    expect(toastrServiceMock.error).toHaveBeenCalledWith(
+      'Error interno del servidor',
+      'Error'
+    );
+  });
+
+  it('should show fallback message if no error message is provided', () => {
+    const errorResponse = { status: 500 };
+    component.loginForm.setValue({ email: 'no@msg.com', password: 'pass' });
+
+    authServiceMock.login.mockReturnValue(throwError(() => errorResponse));
+
+    component.onSubmit();
+
+    expect(toastrServiceMock.error).toHaveBeenCalledWith(
+      'Ocurrió un error inesperado.',
+      'Error'
     );
   });
 });
