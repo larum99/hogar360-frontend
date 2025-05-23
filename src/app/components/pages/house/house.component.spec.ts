@@ -6,11 +6,13 @@ import { PageResult } from 'src/app/shared/models/page-result.model';
 import { HouseList } from 'src/app/shared/models/house-list.model';
 import { CurrencyPipe } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 describe('HouseComponent', () => {
   let component: HouseComponent;
   let fixture: ComponentFixture<HouseComponent>;
   let mockHouseService: jest.Mocked<HouseService>;
+  let mockAuthService: jest.Mocked<AuthService>;
 
   const mockResponse: PageResult<HouseList> = {
     content: [
@@ -51,12 +53,16 @@ describe('HouseComponent', () => {
       listHouses: jest.fn().mockReturnValue(of(mockResponse)),
     } as unknown as jest.Mocked<HouseService>;
 
+    mockAuthService = {
+      hasRole: jest.fn().mockReturnValue(false),
+    } as unknown as jest.Mocked<AuthService>;
+
     const translateServiceMock = {
       instant: (key: string) => {
-        const map: Record<string, string> = {
+        const translations: Record<string, string> = {
           'house.status.Publicado': 'Publicado',
         };
-        return map[key] || key;
+        return translations[key] || key;
       },
     };
 
@@ -64,6 +70,7 @@ describe('HouseComponent', () => {
       declarations: [HouseComponent],
       providers: [
         { provide: HouseService, useValue: mockHouseService },
+        { provide: AuthService, useValue: mockAuthService },
         CurrencyPipe,
         { provide: TranslateService, useValue: translateServiceMock },
       ],

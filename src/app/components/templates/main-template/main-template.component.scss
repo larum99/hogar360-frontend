@@ -1,0 +1,22 @@
+@import 'src/styles/variables';
+
+.layout {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: calc(100vh - 57px);
+    overflow: hidden;
+    background-color: $color-background-body;
+}
+
+.content {
+    flex: 1;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+    .layout {
+        flex-direction: row;
+    }
+}

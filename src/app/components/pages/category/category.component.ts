@@ -4,6 +4,7 @@ import { PageResult } from 'src/app/shared/models/page-result.model';
 import { Category } from 'src/app/shared/models/category.model';
 import { Observable, BehaviorSubject, switchMap, catchError, of } from 'rxjs';
 import { TableColumn } from 'src/app/shared/models/table-column.model';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-category',
@@ -12,6 +13,7 @@ import { TableColumn } from 'src/app/shared/models/table-column.model';
 })
 export class CategoryComponent implements OnInit {
   private readonly categoryService = inject(CategoryService);
+  private readonly authService = inject(AuthService);
 
   private readonly currentPageSubject = new BehaviorSubject<number>(0);
   currentPage$ = this.currentPageSubject.asObservable();
@@ -35,8 +37,11 @@ export class CategoryComponent implements OnInit {
 
   categoryTableColumns: TableColumn<Category>[] = [];
 
+  isAdmin = false;
+
   ngOnInit(): void {
     this.defineCategoryColumns();
+    this.isAdmin = this.authService.hasRole('ADMIN');
   }
 
   defineCategoryColumns(): void {

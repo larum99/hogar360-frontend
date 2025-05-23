@@ -19,6 +19,15 @@
   }
 }
 
+.button:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+
 @media (min-width: 768px) {
   .button {
     width: 142px;

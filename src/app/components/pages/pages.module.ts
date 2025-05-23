@@ -6,6 +6,7 @@ import { LocationComponent } from './location/location.component';
 import { SharedModule } from '../../shared/shared.module';
 import { SellerComponent } from './seller/seller.component';
 import { HouseComponent } from './house/house.component';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { HouseComponent } from './house/house.component';
     CategoryComponent,
     LocationComponent,
     SellerComponent,
-    HouseComponent
+    HouseComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,

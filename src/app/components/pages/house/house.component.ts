@@ -13,6 +13,7 @@ import { TableColumn } from 'src/app/shared/models/table-column.model';
 import { HouseList } from 'src/app/shared/models/house-list.model';
 import { CurrencyPipe } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-house',
@@ -24,6 +25,7 @@ export class HouseComponent implements OnInit {
   private readonly translate = inject(TranslateService);
   private readonly currencyPipe = inject(CurrencyPipe);
   private readonly houseService = inject(HouseService);
+  private readonly authService = inject(AuthService);
   private readonly pageSubject = new BehaviorSubject<number>(0);
   private readonly sortSubject = new BehaviorSubject<{
     sortBy: string;
@@ -59,8 +61,11 @@ export class HouseComponent implements OnInit {
 
   houseTableColumns: TableColumn<HouseList>[] = [];
 
+  isSeller = false;
+
   ngOnInit(): void {
     this.defineHouseColumns();
+    this.isSeller = this.authService.hasRole('VENDEDOR');
   }
 
   defineHouseColumns(): void {

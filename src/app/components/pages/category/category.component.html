@@ -1,7 +1,7 @@
 <section class="category">
-    <h1 class="category__title">Crear categoría</h1>
+    <h1 class="category__title" *ngIf="isAdmin">Crear categoría</h1>
 
-    <div class="category__form-container">
+    <div class="category__form-container"  *ngIf="isAdmin">
         <app-create-category-form (created)="refreshCategories()">
         </app-create-category-form>
     </div>

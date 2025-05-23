@@ -1,0 +1,20 @@
+<form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <h2 class="login-form__title">Iniciar sesión</h2>
+
+  <app-input-text
+    [label]="'Correo electrónico'"
+    [placeholder]="'Correo electrónico'"
+    [control]="loginForm.controls.email">
+  </app-input-text>
+
+  <app-input-text
+    [label]="'Contraseña'"
+    [placeholder]="'Contraseña'"
+    [type]="'password'"
+    [control]="loginForm.controls.password">
+  </app-input-text>
+
+  <div class="login-form__actions">
+    <app-button label="Iniciar sesión" type="submit"></app-button>
+  </div>
+</form>

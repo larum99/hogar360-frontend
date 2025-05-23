@@ -1,7 +1,7 @@
 <section class="location">
-    <h1 class="location__title">Crear ubicación</h1>
+    <h1 class="location__title" *ngIf="isAdmin">Crear ubicación</h1>
     <div class="location__form-container">
-        <app-create-location-form (created)="refreshLocations()"></app-create-location-form>
+        <app-create-location-form *ngIf="isAdmin" (created)="refreshLocations()"></app-create-location-form>
     </div>
 
     <h2 class="location__subtitle">Buscar ubicaciones</h2>

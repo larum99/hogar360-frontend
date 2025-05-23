@@ -1,7 +1,7 @@
 <section class="house">
-    <h1 class="house__title">Publicar casa</h1>
-    <div class="house__form-container">
-    <app-create-house-form (created)="refreshHouses()"></app-create-house-form>
+    <h1 class="house__title" *ngIf="isSeller">Publicar casa</h1>
+    <div class="house__form-container" *ngIf="isSeller">
+        <app-create-house-form (created)="refreshHouses()"></app-create-house-form>
     </div>
 
     <h2 class="house__subtitle">Casas Existentes</h2>

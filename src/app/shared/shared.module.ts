@@ -22,6 +22,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CreateHouseFormComponent } from '../components/molecules/create-house-form/create-house-form.component';
+import { LoginFormComponent } from '../components/molecules/login-form/login-form.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { CreateHouseFormComponent } from '../components/molecules/create-house-f
     CreateLocationFormComponent,
     DatePickerComponent,
     CreateSellerFormComponent,
-    CreateHouseFormComponent
+    CreateHouseFormComponent,
+    LoginFormComponent
   ],
   imports: [
     CommonModule,
@@ -74,6 +76,7 @@ import { CreateHouseFormComponent } from '../components/molecules/create-house-f
     MatFormFieldModule,
     MatInputModule,
     MatNativeDateModule,
+    LoginFormComponent,
   ],
 })
 export class SharedModule {}

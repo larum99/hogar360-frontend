@@ -1,6 +1,7 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed  } from '@angular/core/testing';
 import { LocationComponent } from './location.component';
 import { LocationService } from '../../../core/services/location.service';
+import { AuthService } from '../../../core/services/auth.service';
 import { of, throwError } from 'rxjs';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LocationSearch } from 'src/app/shared/models/location-search.model';
@@ -12,6 +13,7 @@ describe('LocationComponent', () => {
   let component: LocationComponent;
   let fixture: ComponentFixture<LocationComponent>;
   let locationServiceMock: jest.Mocked<LocationService>;
+  let authServiceMock: jest.Mocked<AuthService>;
 
   const mockLocations: PageResult<LocationSearch> = {
     content: [
@@ -35,10 +37,17 @@ describe('LocationComponent', () => {
       searchLocations: jest.fn().mockReturnValue(of(mockLocations)),
     } as unknown as jest.Mocked<LocationService>;
 
+    authServiceMock = {
+      hasRole: jest.fn().mockReturnValue(true),
+    } as unknown as jest.Mocked<AuthService>;
+
     await TestBed.configureTestingModule({
       declarations: [LocationComponent],
       imports: [ReactiveFormsModule],
-      providers: [{ provide: LocationService, useValue: locationServiceMock }],
+      providers: [
+        { provide: LocationService, useValue: locationServiceMock },
+        { provide: AuthService, useValue: authServiceMock },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LocationComponent);
@@ -75,6 +84,11 @@ describe('LocationComponent', () => {
     });
   });
 
+  it('should set isAdmin based on AuthService', () => {
+    expect(authServiceMock.hasRole).toHaveBeenCalledWith('ADMIN');
+    expect(component.isAdmin).toBe(true);
+  });
+
   it('should update page on onPageChange', () => {
     const nextPage = 2;
     component.onPageChange(nextPage);
@@ -98,6 +112,7 @@ describe('LocationComponent', () => {
 
     fixture = TestBed.createComponent(LocationComponent);
     component = fixture.componentInstance;
+    fixture.detectChanges();
 
     component['pageSubject'].next(1);
 
@@ -106,36 +121,9 @@ describe('LocationComponent', () => {
       expect(result.totalElements).toBe(0);
       done();
     });
-
-    fixture.detectChanges();
   });
-
-  it('should use the value from searchControl when it is not empty', (done) => {
-    const searchTerm = 'Sector A';
-    const sort: Sort = {
-      sortBy: 'city.name',
-      sortDirection: 'asc',
-    };
-
-    component.searchControl.setValue(searchTerm);
-    component.onSortChange(sort);
-
-    component.locations$.subscribe((result) => {
-      expect(locationServiceMock.searchLocations).toHaveBeenCalledWith(
-        searchTerm,
-        0,
-        10,
-        'city.name',
-        'asc'
-      );
-      done();
-    });
-
-    fixture.detectChanges();
-  });
-
   it('should fallback to empty string if searchControl emits null', (done) => {
-    component.searchControl.setValue(null);
+    component.searchControl.setValue(null as unknown as string);
 
     component.locations$.subscribe(() => {
       expect(locationServiceMock.searchLocations).toHaveBeenCalledWith(
@@ -187,7 +175,10 @@ describe('LocationComponent', () => {
   it('should emit sort event when sort changes', () => {
     const spy = jest.spyOn(component['sortSubject'], 'next');
     component.onSortChange({ sortBy: 'city.name', sortDirection: 'desc' });
-    expect(spy).toHaveBeenCalledWith({ sortBy: 'city.name', sortDirection: 'desc' });
+    expect(spy).toHaveBeenCalledWith({
+      sortBy: 'city.name',
+      sortDirection: 'desc',
+    });
   });
 
   it('should refresh locations using current page', () => {

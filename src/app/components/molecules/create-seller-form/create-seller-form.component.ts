@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Output, inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -16,18 +16,21 @@ import {
   passwordMatchValidator,
 } from 'src/app/shared/utils/custom-validators';
 import { ApiResponse } from 'src/app/shared/models/api-response.model';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-create-seller-form',
   templateUrl: './create-seller-form.component.html',
   styleUrls: ['./create-seller-form.component.scss'],
 })
-export class CreateSellerFormComponent {
+export class CreateSellerFormComponent implements OnInit {
   @Output() created = new EventEmitter<void>();
 
   private readonly formBuilder = inject(FormBuilder);
   private readonly userService = inject(UserService);
   private readonly toastr = inject(ToastrService);
+  private readonly authService = inject(AuthService);
+  readonly isAdmin = this.authService.hasRole('ADMIN');
 
   sellerForm: FormGroup<{
     firstName: FormControl<string | null>;
@@ -38,47 +41,54 @@ export class CreateSellerFormComponent {
     email: FormControl<string | null>;
     password: FormControl<string | null>;
     confirmPassword: FormControl<string | null>;
-  }> = this.formBuilder.group({
-    firstName: this.formBuilder.control('', [
-      Validators.required,
-      noOnlyWhitespaceValidator,
-    ]),
-    lastName: this.formBuilder.control('', [
-      Validators.required,
-      noOnlyWhitespaceValidator,
-    ]),
-    identityDocument: this.formBuilder.control('', [
-      Validators.required,
-      Validators.pattern(/^\d+$/),
-      noOnlyWhitespaceValidator,
-    ]),
-    phoneNumber: this.formBuilder.control('', [
-      Validators.required,
-      Validators.pattern(/^\+?\d*$/),
-      noOnlyWhitespaceValidator,
-    ]),
-    birthDate: this.formBuilder.control('', [
-      Validators.required,
-      isAdultValidator,
-    ]),
-    email: this.formBuilder.control('', [
-      Validators.required,
-      Validators.email,
-      noOnlyWhitespaceValidator,
-    ]),
-    password: this.formBuilder.control('', [
-      Validators.required,
-      noOnlyWhitespaceValidator,
-    ]),
-    confirmPassword: this.formBuilder.control('', [
-      Validators.required,
-      noOnlyWhitespaceValidator,
-    ]),
-  },
-  {
-    validators: passwordMatchValidator,
+  }> = this.formBuilder.group(
+    {
+      firstName: this.formBuilder.control('', [
+        Validators.required,
+        noOnlyWhitespaceValidator,
+      ]),
+      lastName: this.formBuilder.control('', [
+        Validators.required,
+        noOnlyWhitespaceValidator,
+      ]),
+      identityDocument: this.formBuilder.control('', [
+        Validators.required,
+        Validators.pattern(/^\d+$/),
+        noOnlyWhitespaceValidator,
+      ]),
+      phoneNumber: this.formBuilder.control('', [
+        Validators.required,
+        Validators.pattern(/^\+?\d*$/),
+        noOnlyWhitespaceValidator,
+      ]),
+      birthDate: this.formBuilder.control('', [
+        Validators.required,
+        isAdultValidator,
+      ]),
+      email: this.formBuilder.control('', [
+        Validators.required,
+        Validators.email,
+        noOnlyWhitespaceValidator,
+      ]),
+      password: this.formBuilder.control('', [
+        Validators.required,
+        noOnlyWhitespaceValidator,
+      ]),
+      confirmPassword: this.formBuilder.control('', [
+        Validators.required,
+        noOnlyWhitespaceValidator,
+      ]),
+    },
+    {
+      validators: passwordMatchValidator,
+    }
+  );
+
+  ngOnInit(): void {
+    if (!this.isAdmin) {
+      this.sellerForm.disable();
+    }
   }
-);
 
   onSubmit(): void {
     if (this.sellerForm.invalid) {

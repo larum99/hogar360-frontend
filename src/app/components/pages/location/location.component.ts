@@ -14,6 +14,7 @@ import { LocationService } from '../../../core/services/location.service';
 import { LocationSearch } from 'src/app/shared/models/location-search.model';
 import { PageResult } from 'src/app/shared/models/page-result.model';
 import { TableColumn } from 'src/app/shared/models/table-column.model';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-location',
@@ -22,6 +23,7 @@ import { TableColumn } from 'src/app/shared/models/table-column.model';
 })
 export class LocationComponent implements OnInit {
   private readonly locationService = inject(LocationService);
+  private readonly authService = inject(AuthService);
 
   searchControl = new FormControl<string>('');
   private readonly pageSubject = new BehaviorSubject<number>(0);
@@ -66,8 +68,11 @@ export class LocationComponent implements OnInit {
 
   locationTableColumns: TableColumn<LocationSearch>[] = [];
 
+  isAdmin = false;
+
   ngOnInit(): void {
     this.defineLocationColumns();
+    this.isAdmin = this.authService.hasRole('ADMIN');
 
     this.searchControl.valueChanges.pipe(debounceTime(300)).subscribe(() => {
       this.pageSubject.next(0);
