@@ -47,7 +47,7 @@ describe('AuthInterceptor', () => {
   afterEach(() => {
     httpMock.verify();
     consoleErrorSpy.mockRestore();
-    localStorage.removeItem('authToken');
+    localStorage.removeItem('token');
   });
 
   it('should be created', () => {
@@ -60,7 +60,7 @@ describe('AuthInterceptor', () => {
     const testBody = { data: 'test' };
     const mockToken = 'fake-auth-token-from-localStorage';
 
-    localStorage.setItem('authToken', mockToken);
+    localStorage.setItem('token', mockToken);
 
     httpClient.post(testUrl, testBody).subscribe();
 
@@ -79,7 +79,7 @@ describe('AuthInterceptor', () => {
   it('should add headers to GET requests if URL matches', () => {
     const testUrl = `${environment.housesApiUrl}/some-endpoint`;
 
-    localStorage.setItem('authToken', 'some-token');
+    localStorage.setItem('token', 'some-token');
 
     httpClient.get(testUrl).subscribe();
 
@@ -91,7 +91,7 @@ describe('AuthInterceptor', () => {
 
     req.flush(null);
 
-    localStorage.removeItem('authToken');
+    localStorage.removeItem('token');
   });
 
   it('should show a toastr error and log for InternalServerError (500)', (done) => {
