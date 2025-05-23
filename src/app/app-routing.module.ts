@@ -9,8 +9,6 @@ import { MainTemplateComponent } from './components/templates/main-template/main
 import { AuthTemplateComponent } from './components/templates/auth-template/auth-template.component';
 import { LoginComponent } from './components/pages/login/login.component';
 import { authGuard } from './core/guards/auth.guard';
-import { adminGuard } from './core/guards/admin.guard';
-import { sellerGuard } from './core/guards/seller.guard';
 
 const routes: Routes = [
   {
