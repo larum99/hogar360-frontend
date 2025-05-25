@@ -9,6 +9,7 @@ import { MainTemplateComponent } from './components/templates/main-template/main
 import { AuthTemplateComponent } from './components/templates/auth-template/auth-template.component';
 import { LoginComponent } from './components/pages/login/login.component';
 import { authGuard } from './core/guards/auth.guard';
+import { VisitComponent } from './components/pages/visit/visit.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,8 @@ const routes: Routes = [
         canActivate: [authGuard], },
       { path: 'houses', component: HouseComponent,
         canActivate: [authGuard], },
+      { path: 'visits', component: VisitComponent,
+        canActivate: [authGuard] },
       { path: '', redirectTo: 'categories', pathMatch: 'full' },
     ],
   },

@@ -1,0 +1,7 @@
+<section class="visit">
+  <h1 class="visit__title" *ngIf="isSeller">Crear visita</h1>
+
+  <div class="visit__form-container">
+    <app-create-visit-form *ngIf="isSeller"></app-create-visit-form>
+  </div>
+</section>

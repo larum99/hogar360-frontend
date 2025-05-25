@@ -23,7 +23,7 @@ export class AuthInterceptor implements HttpInterceptor {
     const token = localStorage.getItem('token');
     let authReq = req;
 
-    if (token && (req.url.startsWith(environment.housesApiUrl) || req.url.startsWith(environment.usersApiUrl))) {
+    if (token && (req.url.startsWith(environment.housesApiUrl) || req.url.startsWith(environment.usersApiUrl) || req.url.startsWith(environment.visitsApiUrl))) {
       authReq = req.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`,

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -23,6 +24,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CreateHouseFormComponent } from '../components/molecules/create-house-form/create-house-form.component';
 import { LoginFormComponent } from '../components/molecules/login-form/login-form.component';
+import { TimePickerComponent } from '../components/atoms/time-picker/time-picker.component';
+import { CreateVisitFormComponent } from '../components/molecules/create-visit-form/create-visit-form.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +44,9 @@ import { LoginFormComponent } from '../components/molecules/login-form/login-for
     DatePickerComponent,
     CreateSellerFormComponent,
     CreateHouseFormComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    TimePickerComponent,
+    CreateVisitFormComponent
   ],
   imports: [
     CommonModule,
@@ -52,6 +57,7 @@ import { LoginFormComponent } from '../components/molecules/login-form/login-for
     MatFormFieldModule,
     MatInputModule,
     MatNativeDateModule,
+    NgxMaterialTimepickerModule,
   ],
   exports: [
     NavbarWrapperComponent,
@@ -77,6 +83,9 @@ import { LoginFormComponent } from '../components/molecules/login-form/login-for
     MatInputModule,
     MatNativeDateModule,
     LoginFormComponent,
+    TimePickerComponent,
+    CreateVisitFormComponent,
+    NgxMaterialTimepickerModule
   ],
 })
 export class SharedModule {}

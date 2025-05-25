@@ -1,0 +1,28 @@
+<div class="input-text">
+  <label class="input-text__label" [for]="inputId">
+    {{ label }}
+    <span class="input-text__required">*</span>
+  </label>
+
+  <input
+    [id]="inputId"
+    class="input-text__field"
+    [placeholder]="'HH:MM AM/PM'"
+    [formControl]="control"
+    [ngxTimepicker]="picker"
+    readonly
+    [ngClass]="{
+      'input-text__field--error': control.invalid && (control.touched || control.dirty)
+    }"
+  />
+  <ngx-material-timepicker #picker [format]="12"></ngx-material-timepicker>
+
+  <span
+    class="input-text__error"
+    [ngClass]="{
+      'input-text__error--visible': control.invalid && (control.touched || control.dirty)
+    }"
+  >
+    {{ getErrorMessage() }}
+  </span>
+</div>

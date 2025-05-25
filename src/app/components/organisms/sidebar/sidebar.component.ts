@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faGauge, faTags, faHouse, faUsers, faCog, faMapLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { faGauge, faTags, faHouse, faUsers, faCog, faMapLocationDot, faCalendarCheck  } from '@fortawesome/free-solid-svg-icons';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 @Component({
@@ -14,6 +14,7 @@ export class SidebarComponent {
   housesIcon: IconDefinition = faHouse;
   usersIcon: IconDefinition = faUsers;
   settingsIcon: IconDefinition = faCog;
+  visitsIcon: IconDefinition = faCalendarCheck;
 
   isActive: string = '';
 
