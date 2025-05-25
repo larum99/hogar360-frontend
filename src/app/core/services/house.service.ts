@@ -33,4 +33,8 @@ export class HouseService {
 
     return this.http.get<PageResult<HouseList>>(`${this.apiUrl}/house/search`, { params });
   }
+
+  listHousesByPublisher(publisherId: number): Observable<HouseList[]> {
+    return this.http.get<HouseList[]>(`${this.apiUrl}/house/publisher/${publisherId}`);
+  }
 }

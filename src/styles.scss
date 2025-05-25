@@ -42,5 +42,12 @@ app-root {
   src: url('/assets/fonts/poppins/Poppins-Regular.ttf') format('truetype');
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+ngx-material-timepicker, ngx-material-timepicker-content {
+  --dial-background-color: #2563EB;
+  --dial-active-color: #ffffff;
+  --clock-hand-color: #2563EB;
+  --button-color: #2563EB;
+  --primary-font-family: 'Manrope';
+}
+
+

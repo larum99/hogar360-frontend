@@ -1,0 +1,26 @@
+<form class="create-visit-form" [formGroup]="visitForm" (ngSubmit)="onSubmit()">
+  <app-select
+    label="Casa"
+    [options]="housesOptions"
+    [control]="visitForm.controls.houseId">
+  </app-select>
+
+  <app-date-picker
+    label="Fecha de la visita"
+    [control]="visitForm.controls.date">
+  </app-date-picker>
+
+  <app-time-picker
+    label="Hora de inicio"
+    [control]="visitForm.controls.startTime">
+  </app-time-picker>
+
+  <app-time-picker
+    label="Hora de fin"
+    [control]="visitForm.controls.endTime">
+  </app-time-picker>
+
+  <div class="form-actions">
+    <app-button label="Crear" type="submit"></app-button>
+  </div>
+</form>

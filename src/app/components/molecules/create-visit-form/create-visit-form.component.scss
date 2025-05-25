@@ -1,0 +1,54 @@
+@import 'src/styles/variables';
+
+.create-visit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: $color-white;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: $box-shadow-light, $box-shadow-medium;
+    margin-bottom: 5rem;
+
+    .form-actions {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+    }
+
+    button {
+        width: 100%;
+        max-width: 200px;
+    }
+}
+
+@media (min-width: 768px) {
+    .create-visit-form {
+        padding: 20px;
+
+        .form-actions {
+            justify-content: flex-end;
+        }
+
+        button {
+            width: auto;
+            max-width: none;
+        }
+    }
+}
+
+@media (min-width: 1024px) {
+    .create-visit-form {
+        padding: 24px;
+
+        .form-actions {
+            justify-content: flex-end;
+        }
+
+        button {
+            width: auto;
+            max-width: 250px;
+        }
+    }
+}

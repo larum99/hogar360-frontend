@@ -84,3 +84,22 @@ export function passwordMatchValidator(
     return null;
   }
 }
+
+export function withinThreeWeeksValidator(
+  control: AbstractControl
+): ValidationErrors | null {
+  const selectedDate = new Date(control.value);
+  const today = new Date();
+  const maxDate = new Date();
+  maxDate.setDate(today.getDate() + 21);
+
+  if (isNaN(selectedDate.getTime())) {
+    return null;
+  }
+
+  if (selectedDate > maxDate) {
+    return { outOfRange: true };
+  }
+
+  return null;
+}

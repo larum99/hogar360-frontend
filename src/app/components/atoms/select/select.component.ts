@@ -9,7 +9,6 @@ import { FormControl } from '@angular/forms';
 export class SelectComponent implements OnInit {
   @Input() label: string = '';
   @Input() options: { value: string | number, label: string }[] = [];
-  @Input() required: boolean = true;
   @Input() control: FormControl = new FormControl();
 
   selectId: string = '';

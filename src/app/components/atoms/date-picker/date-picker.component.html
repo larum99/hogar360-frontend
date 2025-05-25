@@ -1,16 +1,16 @@
 <div class="input-text">
-  <label class="input-text__label" [for]="id">
-    {{ label }} <span *ngIf="required" class="input-text__required">*</span>
+  <label class="input-text__label" [for]="generatedId">
+    {{ label }} <span class="input-text__required">*</span>
   </label>
 
   <div class="input-text__field-wrapper">
     <input
-      [id]="id"
+      [id]="generatedId"
       class="input-text__field"
       [ngClass]="{ 'input-text__field--error': control.invalid && (control.touched || control.dirty) }"
       [matDatepicker]="picker"
       [formControl]="control"
-      [placeholder]="'DD/MM/AA'"
+      [placeholder]="placeholder || 'DD/MM/AA'"
       readonly
       (click)="picker.open()"
     />
