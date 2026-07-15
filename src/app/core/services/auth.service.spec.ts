@@ -82,4 +82,33 @@ describe('AuthService', () => {
     localStorage.setItem('token', token);
     expect(service.hasRole('admin')).toBe(false);
   });
+
+    it('should return user id from token', () => {
+    const payload = { id: 123 };
+    const token = `header.${btoa(JSON.stringify(payload))}.signature`;
+    localStorage.setItem('token', token);
+    expect(service.getUserId()).toBe(123);
+  });
+
+  it('should return null if user id is missing in token', () => {
+    const payload = {};
+    const token = `header.${btoa(JSON.stringify(payload))}.signature`;
+    localStorage.setItem('token', token);
+    expect(service.getUserId()).toBeNull();
+  });
+
+  it('should return user email from token', () => {
+    const payload = { email: 'test@example.com' };
+    const token = `header.${btoa(JSON.stringify(payload))}.signature`;
+    localStorage.setItem('token', token);
+    expect(service.getUserEmail()).toBe('test@example.com');
+  });
+
+  it('should return null if user email is missing in token', () => {
+    const payload = {};
+    const token = `header.${btoa(JSON.stringify(payload))}.signature`;
+    localStorage.setItem('token', token);
+    expect(service.getUserEmail()).toBeNull();
+  });
+
 });

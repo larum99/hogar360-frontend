@@ -1,6 +1,10 @@
 <div class="select">
-    <label class="select__label" [for]="selectId">
-        {{ label }} <span class="select__required">*</span>
+    <label
+    *ngIf="label || showLabelSpace"
+    class="select__label"
+    [class.select__label--hidden]="!label && showLabelSpace"
+    [for]="selectId">
+        {{ label }} <span *ngIf="required" class="select__required">*</span>
     </label>
 
     <select [formControl]="control" class="select__field"
@@ -11,7 +15,10 @@
         </option>
     </select>
 
-    <div class="select__error" [class.select__error--visible]="control.invalid && (control.touched || control.dirty)">
+    <span class="select__error" [ngClass]="{
+        'select__error--visible': control.invalid && (control.touched || control.dirty),
+        'select__error--hidden': !showErrorSpace && !(control.invalid && (control.touched || control.dirty))
+    }">
         {{ getErrorMessage() }}
-    </div>
+    </span>
 </div>

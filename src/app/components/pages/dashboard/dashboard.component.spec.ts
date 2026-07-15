@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EmptyPageComponent } from './empty-page.component';
+import { DashboardComponent } from './dashboard.component';
 
-describe('EmptyPageComponent', () => {
-  let component: EmptyPageComponent;
-  let fixture: ComponentFixture<EmptyPageComponent>;
+describe('DashboardComponent', () => {
+  let component: DashboardComponent;
+  let fixture: ComponentFixture<DashboardComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [EmptyPageComponent]
+      declarations: [DashboardComponent]
     });
-    fixture = TestBed.createComponent(EmptyPageComponent);
+    fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

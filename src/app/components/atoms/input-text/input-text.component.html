@@ -1,5 +1,10 @@
 <div class="input-text">
-  <label class="input-text__label" [for]="inputId">
+  <label
+    *ngIf="label || showLabelSpace"
+    class="input-text__label"
+    [class.input-text__label--hidden]="!label && showLabelSpace"
+    [for]="inputId"
+  >
     {{ label }} <span *ngIf="required" class="input-text__required">*</span>
   </label>
   <input
@@ -13,7 +18,10 @@
   />
   <span
     class="input-text__error"
-    [ngClass]="{ 'input-text__error--visible': control.invalid && (control.touched || control.dirty) }"
+    [ngClass]="{
+      'input-text__error--visible': control.invalid && (control.touched || control.dirty),
+      'input-text__error--hidden': !showErrorSpace && !(control.invalid && (control.touched || control.dirty))
+    }"
   >
     {{ getErrorMessage() }}
   </span>

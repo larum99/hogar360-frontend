@@ -1,7 +1,33 @@
 <section class="visit">
   <h1 class="visit__title" *ngIf="isSeller">Crear visita</h1>
 
-  <div class="visit__form-container">
-    <app-create-visit-form *ngIf="isSeller"></app-create-visit-form>
+  <div class="visit__form-container" *ngIf="isSeller">
+    <app-create-visit-form (created)="refreshVisits()"></app-create-visit-form>
   </div>
+
+  <app-visit-filter
+    [form]="filterForm"
+    (filtersChanged)="onFiltersChanged()">
+  </app-visit-filter>
+
+  <h2 class="visit__subtitle">Visitas existentes</h2>
+
+  <ng-container *ngIf="visits$ | async as visits">
+    <div class="visit__table-container">
+      <app-list-table
+        [data]="visits.content || []"
+        [columns]="visitTableColumns"
+        [noDataMessage]="'No se encontraron visitas.'"
+        [sortBy]="sortBy"
+        [sortDirection]="sortDirection"
+        (sortChange)="onSortChange($event)">
+      </app-list-table>
+    </div>
+
+    <app-pagination
+      [currentPage]="visits.currentPage || 0"
+      [totalPages]="visits.totalPages || 0"
+      (pageChange)="onPageChange($event)">
+    </app-pagination>
+  </ng-container>
 </section>

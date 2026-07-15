@@ -1,0 +1,21 @@
+<div class="house-card" (click)="onClick()">
+    <div class="house-card__image">
+        <img src="assets/images/default-house.png" alt="Imagen de la casa" />
+        <span class="house-card__badge">Venta</span>
+    </div>
+    <div class="house-card__content">
+        <h2 class="house-card__title">{{ house.name }}</h2>
+        <p class="house-card__location">{{ house.location.cityName }}</p>
+        <p class="house-card__price">${{ house.price | number }}</p>
+        <div class="house-card__info">
+        <span>
+            <img class="bed-icon" src="assets/icons/bedroom.svg" alt="bed" />
+            {{ house.bedrooms }}
+        </span>
+        <span>
+            <img class="bath-icon" src="assets/icons/bathroom.svg" alt="bath" />
+            {{ house.bathrooms }}
+        </span>
+        </div>
+    </div>
+</div>

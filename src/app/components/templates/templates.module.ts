@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthTemplateComponent } from './auth-template/auth-template.component';
 import { MainTemplateComponent } from './main-template/main-template.component';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../../shared/shared.module';
@@ -8,7 +7,6 @@ import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   declarations: [
-    AuthTemplateComponent,
     MainTemplateComponent
   ],
   imports: [
@@ -16,6 +14,6 @@ import { SharedModule } from '../../shared/shared.module';
     RouterModule,
     SharedModule
   ],
-  exports: [AuthTemplateComponent, MainTemplateComponent]
+  exports: [MainTemplateComponent]
 })
 export class TemplatesModule { }

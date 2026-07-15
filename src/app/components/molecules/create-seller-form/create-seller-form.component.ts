@@ -23,14 +23,13 @@ import { AuthService } from 'src/app/core/services/auth.service';
   templateUrl: './create-seller-form.component.html',
   styleUrls: ['./create-seller-form.component.scss'],
 })
-export class CreateSellerFormComponent implements OnInit {
+export class CreateSellerFormComponent {
   @Output() created = new EventEmitter<void>();
 
   private readonly formBuilder = inject(FormBuilder);
   private readonly userService = inject(UserService);
   private readonly toastr = inject(ToastrService);
   private readonly authService = inject(AuthService);
-  readonly isAdmin = this.authService.hasRole('ADMIN');
 
   sellerForm: FormGroup<{
     firstName: FormControl<string | null>;
@@ -67,7 +66,7 @@ export class CreateSellerFormComponent implements OnInit {
       ]),
       email: this.formBuilder.control('', [
         Validators.required,
-        Validators.email,
+        Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/),
         noOnlyWhitespaceValidator,
       ]),
       password: this.formBuilder.control('', [
@@ -83,12 +82,6 @@ export class CreateSellerFormComponent implements OnInit {
       validators: passwordMatchValidator,
     }
   );
-
-  ngOnInit(): void {
-    if (!this.isAdmin) {
-      this.sellerForm.disable();
-    }
-  }
 
   onSubmit(): void {
     if (this.sellerForm.invalid) {

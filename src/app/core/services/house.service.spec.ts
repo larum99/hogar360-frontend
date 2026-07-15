@@ -10,6 +10,7 @@ import { ApiResponse } from 'src/app/shared/models/api-response.model';
 import { environment } from 'src/environments/environment';
 import { PageResult } from '../../shared/models/page-result.model';
 import { HouseList } from '../../shared/models/house-list.model';
+import { HouseFilters } from 'src/app/shared/models/house-filters.models';
 
 describe('HouseService', () => {
   let service: HouseService;
@@ -68,7 +69,7 @@ describe('HouseService', () => {
       totalElements: 0,
       pageSize: 10,
       isFirst: true,
-      isLast: true
+      isLast: true,
     };
 
     service.listHouses().subscribe((response) => {
@@ -84,6 +85,51 @@ describe('HouseService', () => {
         req.params.get('sortBy') === 'price' &&
         req.params.get('sortDirection') === 'asc'
     );
+
+    expect(req.request.method).toBe('GET');
+    req.flush(mockResponse);
+  });
+
+  it('should send a GET request to list houses with filters applied', () => {
+    const filters: HouseFilters = {
+      city: 'Cali',
+      sector: 'Centro',
+      bedrooms: 3,
+      bathrooms: 2,
+      minPrice: 100000,
+      maxPrice: 200000,
+    };
+
+    const mockResponse: PageResult<HouseList> = {
+      content: [],
+      totalPages: 1,
+      currentPage: 0,
+      totalElements: 0,
+      pageSize: 10,
+      isFirst: true,
+      isLast: true,
+    };
+
+    service.listHouses(0, 10, 'price', 'asc', filters).subscribe((response) => {
+      expect(response).toEqual(mockResponse);
+    });
+
+    const req = httpMock.expectOne((req) => {
+      return (
+        req.method === 'GET' &&
+        req.url === `${environment.housesApiUrl}/house/search` &&
+        req.params.get('page') === '0' &&
+        req.params.get('size') === '10' &&
+        req.params.get('sortBy') === 'price' &&
+        req.params.get('sortDirection') === 'asc' &&
+        req.params.get('city') === filters.city &&
+        req.params.get('sector') === filters.sector &&
+        req.params.get('bedrooms') === String(filters.bedrooms) &&
+        req.params.get('bathrooms') === String(filters.bathrooms) &&
+        req.params.get('minPrice') === String(filters.minPrice) &&
+        req.params.get('maxPrice') === String(filters.maxPrice)
+      );
+    });
 
     expect(req.request.method).toBe('GET');
     req.flush(mockResponse);

@@ -8,6 +8,8 @@ import { HouseList } from 'src/app/shared/models/house-list.model';
 import { PageResult } from 'src/app/shared/models/page-result.model';
 import { DEFAULT_PAGINATION } from 'src/app/shared/constants/pagination.constants';
 import { buildPaginationParams } from 'src/app/shared/utils/http-params.util';
+import { HouseFilters } from 'src/app/shared/models/house-filters.models';
+import { HouseSimple } from 'src/app/shared/models/house-simple.model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,17 +26,30 @@ export class HouseService {
     page: number = DEFAULT_PAGINATION.PAGE,
     size: number = DEFAULT_PAGINATION.SIZE,
     sortBy: string = 'price',
-    sortDirection: string = 'asc'
+    sortDirection: string = 'asc',
+    filters?: HouseFilters
   ): Observable<PageResult<HouseList>> {
-    let params = buildPaginationParams(page, size);
-    params = params
+    let params = buildPaginationParams(page, size)
       .set('sortBy', sortBy)
       .set('sortDirection', sortDirection);
+
+    if (filters) {
+      if (filters.city) params = params.set('city', filters.city);
+      if (filters.sector) params = params.set('sector', filters.sector);
+      if (filters.bedrooms !== undefined) params = params.set('bedrooms', filters.bedrooms);
+      if (filters.bathrooms !== undefined) params = params.set('bathrooms', filters.bathrooms);
+      if (filters.minPrice !== undefined) params = params.set('minPrice', filters.minPrice);
+      if (filters.maxPrice !== undefined) params = params.set('maxPrice', filters.maxPrice);
+    }
 
     return this.http.get<PageResult<HouseList>>(`${this.apiUrl}/house/search`, { params });
   }
 
   listHousesByPublisher(publisherId: number): Observable<HouseList[]> {
     return this.http.get<HouseList[]>(`${this.apiUrl}/house/publisher/${publisherId}`);
+  }
+
+  getHouseById(houseId: number): Observable<HouseSimple> {
+    return this.http.get<HouseSimple>(`${this.apiUrl}/house/${houseId}`);
   }
 }

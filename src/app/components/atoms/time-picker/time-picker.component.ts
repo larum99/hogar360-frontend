@@ -26,6 +26,9 @@ export class TimePickerComponent implements OnInit {
     if (this.control.errors?.['required']) {
       return 'Este campo es requerido';
     }
+    if (this.control.errors?.['invalidTimeRange']) {
+    return 'La hora de fin debe ser mayor a la hora de inicio';
+  }
     return '';
   }
 }

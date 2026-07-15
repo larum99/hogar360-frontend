@@ -1,4 +1,4 @@
-<form class="create-seller-form" [formGroup]="sellerForm" (ngSubmit)="onSubmit()" [attr.title]="!isAdmin ? 'Solo los administradores pueden crear usuarios.' : null">
+<form class="create-seller-form" [formGroup]="sellerForm" (ngSubmit)="onSubmit()">
   <app-input-text
     [label]="'Nombre'"
     [placeholder]="'Ej. Juliana'"
@@ -50,8 +50,6 @@
   </app-input-text>
 
   <div class="form-actions">
-    <app-button label="Crear" type="submit"
-    [disabled]="!isAdmin"
-    [attr.title]="!isAdmin ? 'Solo los administradores pueden crear vendedores' : ''"></app-button>
+    <app-button label="Crear" type="submit"></app-button>
   </div>
 </form>

@@ -1,0 +1,29 @@
+<app-navbar-wrapper></app-navbar-wrapper>
+
+<div class="home__layout">
+  <section class="home__container">
+    <section class="home__filters">
+      <app-filters
+        (sortChanged)="onSortChanged($event)"
+        (cityChanged)="onCityChanged($event)"
+      ></app-filters>
+    </section>
+
+    <section class="home__cards">
+      <app-house-card
+        *ngFor="let house of houses$ | async"
+        [house]="house"
+        (selectHouse)="onHouseSelected($event)"
+      ></app-house-card>
+    </section>
+
+    <app-footer></app-footer>
+  </section>
+</div>
+
+<app-modal [visible]="selectedHouseId !== null" (close)="closeModal()">
+  <app-create-visit-reservation-form
+    [visits]="availableVisits$ | async"
+    (reserved)="closeModal()"
+  ></app-create-visit-reservation-form>
+</app-modal>

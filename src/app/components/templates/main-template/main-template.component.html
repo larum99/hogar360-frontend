@@ -1,4 +1,8 @@
-<app-navbar-wrapper></app-navbar-wrapper>
+<app-navbar-wrapper
+    [isLoggedIn]="isLoggedIn"
+    [userName]="userName"
+    [userAvatarUrl]="userAvatarUrl">
+</app-navbar-wrapper>
 
 <div class="layout">
     <app-sidebar></app-sidebar>

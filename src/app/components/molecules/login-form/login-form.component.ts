@@ -24,7 +24,7 @@ export class LoginFormComponent {
     email: FormControl<string | null>;
     password: FormControl<string | null>;
   }> = this.fb.group({
-    email: this.fb.control('', [Validators.required, Validators.email]),
+    email: this.fb.control('', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)],),
     password: this.fb.control('', [Validators.required]),
   });
 

@@ -1,0 +1,19 @@
+<div class="filters">
+<app-select
+        class="filters__select"
+        [control]="sortControl"
+        [options]="sortOptions"
+        [required]="false"
+        [showErrorSpace]="false"
+        [showLabelSpace]="false">
+</app-select>
+
+<app-input-text
+        class="filters__input"
+        [placeholder]="'Buscar por ciudad'"
+        [control]="cityControl"
+        [required]="false"
+        [showErrorSpace]="false"
+        [showLabelSpace]="false">
+</app-input-text>
+</div>

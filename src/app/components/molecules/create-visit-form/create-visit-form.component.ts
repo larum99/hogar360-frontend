@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -14,7 +14,11 @@ import { Visit } from 'src/app/shared/models/visit.model';
 import { ApiResponse } from 'src/app/shared/models/api-response.model';
 import { HouseList } from 'src/app/shared/models/house-list.model';
 import { SelectOption } from 'src/app/shared/models/select-option.model';
-import { withinThreeWeeksValidator } from 'src/app/shared/utils/custom-validators';
+import {
+  withinThreeWeeksValidator,
+  pastDateValidator,
+  timeRangeValidator,
+} from 'src/app/shared/utils/custom-validators';
 
 @Component({
   selector: 'app-create-visit-form',
@@ -22,6 +26,9 @@ import { withinThreeWeeksValidator } from 'src/app/shared/utils/custom-validator
   styleUrls: ['./create-visit-form.component.scss'],
 })
 export class CreateVisitFormComponent implements OnInit {
+
+  @Output() created = new EventEmitter<void>();
+
   private readonly formBuilder = inject(FormBuilder);
   private readonly toastr = inject(ToastrService);
   private readonly visitService = inject(VisitService);
@@ -38,20 +45,50 @@ export class CreateVisitFormComponent implements OnInit {
   housesOptions: SelectOption[] = [];
 
   ngOnInit(): void {
-    this.visitForm = this.formBuilder.group({
-      houseId: this.formBuilder.control<number | null>(null, [
-        Validators.required,
-      ]),
-      date: this.formBuilder.control<string | null>(null, [
-        Validators.required,
-        withinThreeWeeksValidator,
-      ]),
-      startTime: this.formBuilder.control<string | null>(null, [
-        Validators.required,
-      ]),
-      endTime: this.formBuilder.control<string | null>(null, [
-        Validators.required,
-      ]),
+    this.visitForm = this.formBuilder.group(
+      {
+        houseId: this.formBuilder.control<number | null>(null, [
+          Validators.required,
+        ]),
+        date: this.formBuilder.control<string | null>(null, [
+          Validators.required,
+          withinThreeWeeksValidator,
+          pastDateValidator,
+        ]),
+        startTime: this.formBuilder.control<string | null>(null, [
+          Validators.required,
+        ]),
+        endTime: this.formBuilder.control<string | null>(null, [
+          Validators.required,
+        ]),
+      },
+      {
+        validators: timeRangeValidator,
+      }
+    );
+
+    this.visitForm.statusChanges.subscribe(() => {
+      const formHasError = this.visitForm.errors?.['invalidTimeRange'];
+      const endTimeControl = this.visitForm.get('endTime');
+
+      if (formHasError) {
+        if (!endTimeControl?.hasError('invalidTimeRange')) {
+          endTimeControl?.setErrors({
+            ...endTimeControl.errors,
+            invalidTimeRange: true,
+          });
+        }
+      } else {
+        if (endTimeControl?.hasError('invalidTimeRange')) {
+          const errors = { ...endTimeControl.errors };
+          delete errors['invalidTimeRange'];
+          if (Object.keys(errors).length === 0) {
+            endTimeControl.setErrors(null);
+          } else {
+            endTimeControl.setErrors(errors);
+          }
+        }
+      }
     });
 
     const publisherId = this.authService.getUserId();
@@ -125,6 +162,7 @@ export class CreateVisitFormComponent implements OnInit {
       next: (response: ApiResponse) => {
         this.toastr.success('Visita registrada exitosamente.', 'Éxito');
         this.visitForm.reset();
+        this.created.emit();
       },
       error: (error) => {
         const serverMessage = error?.error?.message ?? error?.error?.mensaje;

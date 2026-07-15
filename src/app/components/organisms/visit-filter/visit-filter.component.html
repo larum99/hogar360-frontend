@@ -1,0 +1,25 @@
+<section class="visit-filter">
+  <app-select
+    [label]="'Departamento'"
+    [options]="departmentOptions"
+    [control]="form.controls.department"
+    placeholder="Selecciona un departamento"
+    [required]="false"
+  ></app-select>
+
+  <app-select
+    [label]="'Ciudad'"
+    [options]="cityOptions"
+    [control]="form.controls.city"
+    placeholder="Selecciona una ciudad"
+    [required]="false"
+  ></app-select>
+
+  <app-select
+    [label]="'Sector'"
+    [options]="sectorOptions"
+    [control]="form.controls.sector"
+    placeholder="Selecciona un sector"
+    [required]="false"
+  ></app-select>
+</section>

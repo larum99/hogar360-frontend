@@ -53,13 +53,17 @@
 
     &__cell--id,
     &__cell--description,
-    &__cell--sector {
+    &__cell--sector,
+    &__cell--startDateTime,
+    &__cell--endDateTime {
         color: $color-text-sidebar-footer-listtable;
     }
 
     &__cell--name,
     &__cell--department,
-    &__cell--city {
+    &__cell--city,
+    &__cell--user,
+    &__cell--house {
         color: $color-text-subtitle;
     }
 

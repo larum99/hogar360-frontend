@@ -1,13 +1,36 @@
-<nav class="navbar-wrapper">
-  <div class="navbar-content">
-    <div class="navbar-left">
-      <span class="navbar-logo-bold">Hogar</span>
-      <span class="navbar-logo-regular">360</span>
+<nav class="navbar__wrapper">
+  <div class="navbar__content">
+    <div class="navbar__left">
+      <span class="navbar__logo-bold">Hogar</span>
+      <span class="navbar__logo-regular">360</span>
     </div>
 
-    <div class="navbar-right">
-      <span class="navbar-welcome">Bienvenido, {{ userName }}</span>
-      <img class="navbar-avatar" [src]="userAvatarUrl" alt="Avatar del usuario">
+    <div class="navbar__right">
+      <ng-container *ngIf="!isLoggedIn">
+        <a class="navbar__link" href="#" (click)="$event.preventDefault()">Compra</a>
+        <a class="navbar__link" href="#" (click)="$event.preventDefault()">Renta</a>
+        <a class="navbar__link" href="#" (click)="$event.preventDefault()">Vende</a>
+      </ng-container>
+
+      <ng-container *ngIf="isLoggedIn; else guestNav">
+        <span class="navbar__welcome">Bienvenido, {{ userName }}</span>
+
+        <div class="navbar__avatar-wrapper" (click)="toggleDropdown()">
+          <img class="navbar__avatar" [src]="userAvatarUrl" alt="Avatar del usuario" />
+
+          <div class="navbar__dropdown" *ngIf="isDropdownOpen">
+            <button (click)="logout()">Cerrar sesión</button>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-template #guestNav>
+        <app-button
+          class="navbar__login-btn"
+          label="Ingresar"
+          (click)="onLoginClick()">
+        </app-button>
+      </ng-template>
     </div>
   </div>
 </nav>

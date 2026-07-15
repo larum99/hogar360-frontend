@@ -12,6 +12,8 @@ export class InputTextComponent implements OnInit {
   @Input() control!: FormControl<string | number | null>;
   @Input() required: boolean = true;
   @Input() type: string = 'text';
+  @Input() showErrorSpace: boolean = true;
+  @Input() showLabelSpace: boolean = true;
 
   inputId: string = '';
 

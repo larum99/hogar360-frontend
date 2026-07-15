@@ -38,6 +38,9 @@ export class DatePickerComponent implements OnInit {
     if (this.control.errors?.['outOfRange']) {
       return 'La fecha debe estar dentro de las próximas tres semanas.';
     }
+    if (this.control.errors?.['tooEarly']) {
+      return 'Debe seleccionar una fecha posterior.';
+    }
 
     return 'Campo inválido.';
   }

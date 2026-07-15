@@ -26,6 +26,11 @@ import { CreateHouseFormComponent } from '../components/molecules/create-house-f
 import { LoginFormComponent } from '../components/molecules/login-form/login-form.component';
 import { TimePickerComponent } from '../components/atoms/time-picker/time-picker.component';
 import { CreateVisitFormComponent } from '../components/molecules/create-visit-form/create-visit-form.component';
+import { ModalComponent } from '../components/atoms/modal/modal.component';
+import { CreateVisitReservationFormComponent } from '../components/molecules/create-visit-reservation-form/create-visit-reservation-form.component';
+import { HouseCardComponent } from '../components/atoms/house-card/house-card.component';
+import { FiltersComponent } from '../components/organisms/filters/filters.component';
+import { VisitFilterComponent } from '../components/organisms/visit-filter/visit-filter.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +51,12 @@ import { CreateVisitFormComponent } from '../components/molecules/create-visit-f
     CreateHouseFormComponent,
     LoginFormComponent,
     TimePickerComponent,
-    CreateVisitFormComponent
+    CreateVisitFormComponent,
+    ModalComponent,
+    CreateVisitReservationFormComponent,
+    HouseCardComponent,
+    FiltersComponent,
+    VisitFilterComponent
   ],
   imports: [
     CommonModule,
@@ -69,6 +79,7 @@ import { CreateVisitFormComponent } from '../components/molecules/create-visit-f
     FooterComponent,
     FooterSectionComponent,
     PaginationComponent,
+    SelectComponent,
     ListTableComponent,
     CreateLocationFormComponent,
     DatePickerComponent,
@@ -85,7 +96,12 @@ import { CreateVisitFormComponent } from '../components/molecules/create-visit-f
     LoginFormComponent,
     TimePickerComponent,
     CreateVisitFormComponent,
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
+    ModalComponent,
+    CreateVisitReservationFormComponent,
+    HouseCardComponent,
+    FiltersComponent,
+    VisitFilterComponent
   ],
 })
 export class SharedModule {}

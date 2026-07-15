@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { InputTextComponent } from './input-text.component';
 import { ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { fakeAsync, tick } from '@angular/core/testing';
 
 describe('InputTextComponent', () => {
   let component: InputTextComponent;
@@ -103,4 +104,32 @@ describe('InputTextComponent', () => {
 
     expect(errorEl.textContent.trim()).toBe('Formato inválido.');
   });
+
+  it('should show min value error when min error is present', fakeAsync(() => {
+    component.control.setErrors({ min: { min: 10, actual: 5 } });
+    component.control.markAsTouched();
+
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+
+    const errorEl = fixture.debugElement.query(
+      By.css('.input-text__error')
+    ).nativeElement;
+    expect(errorEl.textContent.trim()).toBe('El valor debe ser mayor o igual a 10');
+  }));
+
+  it('should show mismatch error when mismatch error is present', fakeAsync(() => {
+    component.control.setErrors({ mismatch: true });
+    component.control.markAsTouched();
+
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+
+    const errorEl = fixture.debugElement.query(
+      By.css('.input-text__error')
+    ).nativeElement;
+    expect(errorEl.textContent.trim()).toBe('Las contraseñas no coinciden.');
+  }));
 });

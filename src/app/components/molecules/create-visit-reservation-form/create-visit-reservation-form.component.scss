@@ -1,0 +1,50 @@
+@import 'src/styles/variables';
+
+.visit-reservation-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: $color-white;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: $box-shadow-light;
+
+    &__empty {
+        padding: 1rem;
+        border: 1px dashed $color-border-default;
+        border-radius: 0.5rem;
+        text-align: center;
+
+        p {
+            font-family: $font-primary;
+            margin: 0;
+            color: $color-text-sidebar-footer-listtable;
+            font-size: 0.95rem;
+            font-weight: 400;
+        }
+    }
+
+    &__actions {
+        display: flex;
+        justify-content: center;
+    }
+
+    button {
+        width: 100%;
+        max-width: 250px;
+    }
+}
+
+@media (min-width: 768px) {
+    .visit-reservation-form {
+        padding: 2rem;
+
+        &__actions {
+            justify-content: flex-end;
+        }
+
+        button {
+            width: auto;
+        }
+    }
+}

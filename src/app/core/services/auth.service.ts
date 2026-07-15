@@ -11,11 +11,13 @@ export class AuthService {
   private readonly apiUrl = `${environment.usersApiUrl}/users/auth/login`;
 
   login(email: string, password: string): Observable<{ token: string }> {
-    return this.http.post<{ token: string }>(this.apiUrl, { email, password }).pipe(
-      tap((response) => {
-        localStorage.setItem('token', response.token);
-      })
-    );
+    return this.http
+      .post<{ token: string }>(this.apiUrl, { email, password })
+      .pipe(
+        tap((response) => {
+          localStorage.setItem('token', response.token);
+        })
+      );
   }
 
   logout(): void {
@@ -57,5 +59,12 @@ export class AuthService {
     if (!token) return null;
     const payload = this.decodeToken(token);
     return payload?.id ?? null;
+  }
+
+  getUserEmail(): string | null {
+    const token = this.getToken();
+    if (!token) return null;
+    const payload = this.decodeToken(token);
+    return payload?.email || null;
   }
 }

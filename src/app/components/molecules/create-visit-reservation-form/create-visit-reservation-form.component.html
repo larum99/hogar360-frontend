@@ -1,0 +1,28 @@
+<form
+    class="visit-reservation-form"
+    [formGroup]="reservationForm"
+    (ngSubmit)="onSubmit()"
+    >
+    <div *ngIf="!hasVisits" class="visit-reservation-form__empty">
+        <p>No hay visitas disponibles en este momento. Intenta más tarde.</p>
+    </div>
+
+    <app-select
+        *ngIf="hasVisits"
+        [label]="'Selecciona una visita:'"
+        [options]="visitOptions"
+        [control]="reservationForm.controls.visitId"
+        [required]="true">
+    </app-select>
+
+    <app-input-text
+        *ngIf="hasVisits"
+        [label]="'Correo electrónico'"
+        [placeholder]="'Tu correo para reservar la visita'"
+        [control]="reservationForm.controls.buyerEmail">
+    </app-input-text>
+
+    <div class="visit-reservation-form__actions">
+        <app-button label="Reservar" type="submit" *ngIf="hasVisits"></app-button>
+    </div>
+</form>

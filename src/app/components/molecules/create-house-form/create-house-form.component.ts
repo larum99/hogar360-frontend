@@ -15,7 +15,7 @@ import { Location } from 'src/app/shared/models/location.model';
 import { Category } from 'src/app/shared/models/category.model';
 import { SelectOption } from 'src/app/shared/models/select-option.model';
 import { HouseCreation } from 'src/app/shared/models/house-creation.model';
-import { maxOneMonthFromTodayValidator, noOnlyWhitespaceValidator } from 'src/app/shared/utils/custom-validators';
+import { maxOneMonthFromTodayValidator, noOnlyWhitespaceValidator, pastDateValidator } from 'src/app/shared/utils/custom-validators';
 import { HttpStatusCode } from '@angular/common/http';
 
 @Component({
@@ -83,7 +83,7 @@ export class CreateHouseFormComponent implements OnInit {
     ]),
     activePublicationDate: this.formBuilder.control<string | null>(null, [
       Validators.required,
-      maxOneMonthFromTodayValidator,
+      maxOneMonthFromTodayValidator, pastDateValidator
     ]),
   });
 

@@ -10,6 +10,9 @@ export class SelectComponent implements OnInit {
   @Input() label: string = '';
   @Input() options: { value: string | number, label: string }[] = [];
   @Input() control: FormControl = new FormControl();
+  @Input() required: boolean = true;
+  @Input() showErrorSpace: boolean = true;
+  @Input() showLabelSpace: boolean = true;
 
   selectId: string = '';
 
