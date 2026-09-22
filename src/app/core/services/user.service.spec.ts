@@ -4,7 +4,7 @@ import { of } from 'rxjs';
 
 import { UserService } from './user.service';
 import { User } from '../../shared/models/user.model';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environments';
 
 describe('UserService', () => {
   let service: UserService;

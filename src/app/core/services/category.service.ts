@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Category } from '../../shared/models/category.model';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environments';
 import { PageResult } from '../../shared/models/page-result.model';
 import { DEFAULT_PAGINATION } from '../../shared/constants/pagination.constants';
 import { buildPaginationParams } from '../../shared/utils/http-params.util';

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environments';
 import { Category } from '../../shared/models/category.model';
 import { CategoryService } from './category.service';
 import { PageResult } from '../../shared/models/page-result.model';

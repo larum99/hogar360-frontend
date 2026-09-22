@@ -4,7 +4,7 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { VisitService } from './visit.service';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environments';
 import { Visit } from 'src/app/shared/models/visit.model';
 import { VisitReservation } from 'src/app/shared/models/visit-reservation.model';
 import { VisitFilters } from 'src/app/shared/models/visit-filters.model';

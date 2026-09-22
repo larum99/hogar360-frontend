@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 
 import { LocationService } from './location.service';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environments';
 import { Department } from '../../shared/models/department.model';
 import { City } from '../../shared/models/city.model';
 import { Location } from '../../shared/models/location.model';

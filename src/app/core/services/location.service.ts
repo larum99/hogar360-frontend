@@ -6,7 +6,7 @@ import { Department } from '../../shared/models/department.model';
 import { City } from '../../shared/models/city.model';
 import { LocationSearch } from '../../shared/models/location-search.model';
 import { PageResult } from '../../shared/models/page-result.model';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environments';
 import { DEFAULT_PAGINATION } from '../../shared/constants/pagination.constants';
 import { buildPaginationParams } from '../../shared/utils/http-params.util';
 import { ApiResponse } from 'src/app/shared/models/api-response.model';

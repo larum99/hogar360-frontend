@@ -9,7 +9,7 @@ import {
 import { Injectable, inject } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environments';
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable()

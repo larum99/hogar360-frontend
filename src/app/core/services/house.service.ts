@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HouseCreation } from '../../shared/models/house-creation.model';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environments';
 import { ApiResponse } from 'src/app/shared/models/api-response.model';
 import { HouseList } from 'src/app/shared/models/house-list.model';
 import { PageResult } from 'src/app/shared/models/page-result.model';

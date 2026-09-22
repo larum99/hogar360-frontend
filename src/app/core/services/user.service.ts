@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../../shared/models/user.model';
 import { UserSimple } from '../../shared/models/user-simple.model';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environments';
 import { ApiResponse } from 'src/app/shared/models/api-response.model';
 
 @Injectable({
