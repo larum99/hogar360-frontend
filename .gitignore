@@ -9,6 +9,8 @@
 /out-tsc
 /bazel-out
 
+.next/
+
 # Node
 /node_modules
 npm-debug.log
