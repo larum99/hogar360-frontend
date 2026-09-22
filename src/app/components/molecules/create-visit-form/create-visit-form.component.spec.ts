@@ -78,14 +78,26 @@ describe('CreateVisitFormComponent', () => {
 
   it('should populate housesOptions on successful loadHouses', () => {
     const mockHouses = [
-      { id: 10, name: 'House 1' },
-      { id: 20, name: 'House 2' },
+      { id: 10, name: 'House 1', status: 'PUBLISHED' },
+      { id: 20, name: 'House 2', status: 'PUBLISHED' },
     ];
     mockHouseService.listHousesByPublisher.mockReturnValue(of(mockHouses));
     component.loadHouses(1);
     expect(component.housesOptions).toEqual([
       { value: 10, label: 'House 1' },
       { value: 20, label: 'House 2' },
+    ]);
+  });
+
+  it('should filter out non-published houses on loadHouses', () => {
+    const mockHouses = [
+      { id: 10, name: 'Published House', status: 'PUBLISHED' },
+      { id: 20, name: 'Paused House', status: 'PAUSED' },
+    ];
+    mockHouseService.listHousesByPublisher.mockReturnValue(of(mockHouses));
+    component.loadHouses(1);
+    expect(component.housesOptions).toEqual([
+      { value: 10, label: 'Published House' },
     ]);
   });
 

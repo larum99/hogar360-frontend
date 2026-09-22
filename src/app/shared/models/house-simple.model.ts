@@ -4,4 +4,6 @@ export interface HouseSimple {
     id: number;
     name: string;
     location?: LocationSearch;
+    status?: string;
+    publisherId?: number;
 }

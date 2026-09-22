@@ -102,10 +102,22 @@ export class CreateVisitFormComponent implements OnInit {
   loadHouses(publisherId: number): void {
     this.houseService.listHousesByPublisher(publisherId).subscribe({
       next: (houses) => {
-        this.housesOptions = houses.map((house: HouseList) => ({
+        const publishedHouses = (houses ?? []).filter(
+          (house: HouseList) => house.status === 'PUBLISHED'
+        );
+        this.housesOptions = publishedHouses.map((house: HouseList) => ({
           value: house.id,
           label: house.name,
         }));
+        if (
+          houses?.length > 0 &&
+          this.housesOptions.length === 0
+        ) {
+          this.toastr.warning(
+            'Solo puedes agendar visitas en propiedades publicadas.',
+            'Sin propiedades disponibles'
+          );
+        }
       },
       error: () => {
         this.toastr.error('No se pudieron cargar las casas.', 'Error');
@@ -166,10 +178,22 @@ export class CreateVisitFormComponent implements OnInit {
       },
       error: (error) => {
         const serverMessage = error?.error?.message ?? error?.error?.mensaje;
-        if (serverMessage?.includes('overlaps with the requested time')) {
+        if (
+          serverMessage?.includes('overlaps with the requested time')
+        ) {
           this.toastr.error(
             'Ya existe una visita programada para esa casa en ese horario.',
             'Conflicto de horario'
+          );
+          return;
+        }
+        if (
+          serverMessage?.toLowerCase().includes('published') ||
+          serverMessage?.toLowerCase().includes('publicad')
+        ) {
+          this.toastr.error(
+            'Solo puedes agendar visitas en propiedades publicadas.',
+            'Propiedad no publicada'
           );
           return;
         }
