@@ -1,36 +1,66 @@
 <nav class="navbar__wrapper">
   <div class="navbar__content">
     <div class="navbar__left">
+      <button
+        *ngIf="!isLoggedIn"
+        type="button"
+        class="navbar__toggle"
+        [class.navbar__toggle--open]="isMobileMenuOpen"
+        (click)="toggleMobileMenu(); $event.stopPropagation()"
+        [attr.aria-expanded]="isMobileMenuOpen"
+        aria-controls="navbar-mobile-menu"
+        aria-label="Abrir menú de navegación"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
       <span class="navbar__logo-bold">Hogar</span>
       <span class="navbar__logo-regular">360</span>
     </div>
 
     <div class="navbar__right">
-      <ng-container *ngIf="!isLoggedIn">
+      <div class="navbar__links" *ngIf="!isLoggedIn">
         <a class="navbar__link" href="#" (click)="$event.preventDefault()">Compra</a>
         <a class="navbar__link" href="#" (click)="$event.preventDefault()">Renta</a>
         <a class="navbar__link" href="#" (click)="$event.preventDefault()">Vende</a>
-      </ng-container>
+      </div>
 
-      <ng-container *ngIf="isLoggedIn; else guestNav">
-        <span class="navbar__welcome">Bienvenido, {{ userName }}</span>
+      <div class="navbar__user">
+        <ng-container *ngIf="isLoggedIn; else guestNav">
+          <span class="navbar__welcome">Bienvenido, {{ userName }}</span>
 
-        <div class="navbar__avatar-wrapper" (click)="toggleDropdown()">
-          <img class="navbar__avatar" [src]="userAvatarUrl" alt="Avatar del usuario" />
+          <div
+            class="navbar__avatar-wrapper"
+            (click)="toggleDropdown(); $event.stopPropagation()"
+            (keyup.enter)="toggleDropdown()"
+            tabindex="0"
+            role="button"
+            aria-haspopup="menu"
+            [attr.aria-expanded]="isDropdownOpen"
+          >
+            <img class="navbar__avatar" [src]="userAvatarUrl" alt="Avatar del usuario" />
 
-          <div class="navbar__dropdown" *ngIf="isDropdownOpen">
-            <button (click)="logout()">Cerrar sesión</button>
+            <div class="navbar__dropdown" *ngIf="isDropdownOpen" role="menu">
+              <button type="button" role="menuitem" (click)="logout()">Cerrar sesión</button>
+            </div>
           </div>
-        </div>
-      </ng-container>
+        </ng-container>
 
-      <ng-template #guestNav>
-        <app-button
-          class="navbar__login-btn"
-          label="Ingresar"
-          (click)="onLoginClick()">
-        </app-button>
-      </ng-template>
+        <ng-template #guestNav>
+          <app-button
+            class="navbar__login-btn"
+            label="Ingresar"
+            (click)="onLoginClick()">
+          </app-button>
+        </ng-template>
+      </div>
     </div>
+  </div>
+
+  <div class="navbar__mobile-menu" id="navbar-mobile-menu" *ngIf="isMobileMenuOpen && !isLoggedIn">
+    <a class="navbar__mobile-link" href="#" (click)="$event.preventDefault(); closeMobileMenu()">Compra</a>
+    <a class="navbar__mobile-link" href="#" (click)="$event.preventDefault(); closeMobileMenu()">Renta</a>
+    <a class="navbar__mobile-link" href="#" (click)="$event.preventDefault(); closeMobileMenu()">Vende</a>
   </div>
 </nav>

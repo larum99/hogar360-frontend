@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, HostListener, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 
@@ -13,6 +13,7 @@ export class NavbarWrapperComponent {
   @Input() userAvatarUrl = '';
 
   isDropdownOpen = false;
+  isMobileMenuOpen = false;
 
   private readonly router = inject(Router);
   private readonly authService = inject(AuthService);
@@ -25,9 +26,56 @@ export class NavbarWrapperComponent {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 
+  closeDropdown(): void {
+    this.isDropdownOpen = false;
+  }
+
+  toggleMobileMenu(): void {
+    if (this.isLoggedIn) {
+      this.closeMobileMenu();
+      return;
+    }
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+    if (this.isMobileMenuOpen) {
+      this.closeDropdown();
+    }
+  }
+
+  closeMobileMenu(): void {
+    this.isMobileMenuOpen = false;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement | null;
+    if (!target) {
+      return;
+    }
+    if (this.isDropdownOpen && !target.closest('.navbar__avatar-wrapper')) {
+      this.closeDropdown();
+    }
+    if (this.isMobileMenuOpen && !target.closest('.navbar__wrapper')) {
+      this.closeMobileMenu();
+    }
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    this.closeDropdown();
+    this.closeMobileMenu();
+  }
+
+  @HostListener('window:resize')
+  onResize(): void {
+    if (window.innerWidth >= 768) {
+      this.closeMobileMenu();
+    }
+  }
+
   logout(): void {
     this.authService.logout();
-    this.isDropdownOpen = false;
+    this.closeDropdown();
+    this.closeMobileMenu();
     this.router.navigate(['/home']);
   }
 }

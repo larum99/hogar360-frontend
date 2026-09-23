@@ -10,21 +10,112 @@
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
+    position: sticky;
+    top: 0;
+    z-index: 900;
   }
 
   &__content {
     width: 100%;
     max-width: 1440px;
-    padding: 0 16px;
+    padding: 0 12px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 12px;
+    min-width: 0;
+    box-sizing: border-box;
   }
 
   &__left {
     display: flex;
     align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  &__toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     gap: 4px;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+
+    span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background-color: $color-black;
+      border-radius: 2px;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    &:hover {
+      background-color: $color-background-body;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-blue;
+      outline-offset: 2px;
+    }
+
+    &--open {
+      span:nth-child(1) {
+        transform: translateY(6px) rotate(45deg);
+      }
+
+      span:nth-child(2) {
+        opacity: 0;
+      }
+
+      span:nth-child(3) {
+        transform: translateY(-6px) rotate(-45deg);
+      }
+    }
+  }
+
+  &__mobile-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: $color-white;
+    border-bottom: 1px solid $color-border-default;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    padding: 8px 12px 12px;
+    box-sizing: border-box;
+    z-index: 899;
+  }
+
+  &__mobile-link {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 12px 8px;
+    font-family: $font-primary;
+    font-size: 15px;
+    line-height: 20px;
+    color: $color-text-sidebar-footer-listtable;
+    text-decoration: none;
+    background: none;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    box-sizing: border-box;
+
+    &:hover {
+      background-color: $color-background-body;
+      color: $color-blue;
+    }
   }
 
   &__logo-bold {
@@ -44,7 +135,23 @@
   }
 
   &__right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+    min-width: 0;
+  }
+
+  &__links {
     display: none;
+  }
+
+  &__user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    flex-shrink: 0;
   }
 
   &__link {
@@ -54,6 +161,7 @@
     font-weight: 400;
     font-size: 16px;
     line-height: 16px;
+    white-space: nowrap;
 
     &:hover {
       text-decoration: underline;
@@ -62,6 +170,28 @@
 
   &__welcome {
     display: none;
+    font-family: $font-primary;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    color: $color-text-navbar-listtable-textarea;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 160px;
+  }
+
+  &__login-btn {
+    display: block;
+    flex-shrink: 0;
+
+    ::ng-deep .button {
+      width: auto;
+      min-width: 96px;
+      height: 36px;
+      padding: 0 16px;
+      font-size: 14px;
+    }
   }
 
   &__avatar-wrapper {
@@ -69,6 +199,13 @@
     cursor: pointer;
     display: flex;
     align-items: center;
+    flex-shrink: 0;
+    border-radius: 50%;
+
+    &:focus-visible {
+      outline: 2px solid $color-blue;
+      outline-offset: 2px;
+    }
   }
 
   &__avatar {
@@ -81,7 +218,7 @@
 
   &__dropdown {
     position: absolute;
-    top: 40px;
+    top: calc(100% + 8px);
     right: 0;
     background-color: $color-white;
     border: 1px solid $color-border-default;
@@ -108,25 +245,59 @@
   }
 
   @media (min-width: 768px) {
+    &__content {
+      padding: 0 16px;
+    }
+
+    &__left {
+      gap: 4px;
+    }
+
+    &__toggle,
+    &__mobile-menu {
+      display: none;
+    }
+
     &__right {
+      gap: 16px;
+    }
+
+    &__links {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 12px;
     }
-  }
 
-  @media (min-width: 1024px) {
-    &__right {
+    &__user {
       gap: 12px;
     }
 
     &__welcome {
       display: block;
-      font-family: $font-primary;
-      font-weight: 400;
+      max-width: 220px;
+    }
+
+    &__login-btn {
+      ::ng-deep .button {
+        min-width: 142px;
+        height: 42px;
+        font-size: 16px;
+      }
+    }
+  }
+
+  @media (min-width: 1024px) {
+    &__right {
+      gap: 20px;
+    }
+
+    &__links {
+      gap: 16px;
+    }
+
+    &__welcome {
       font-size: 16px;
-      line-height: 16px;
-      color: $color-text-navbar-listtable-textarea;
+      max-width: 300px;
     }
   }
 }

@@ -2,11 +2,13 @@
 
 .login-form {
     background-color: $color-white;
-    padding: 2rem;
+    padding: 1.5rem 1.25rem;
     border-radius: 0.5rem;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
     max-width: 400px;
     width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
@@ -19,12 +21,25 @@
         color: $color-blue;
         font-family: $font-secondary;
         font-size: 1.5rem;
-        margin-bottom: 0.5rem;
+        margin: 0 0 0.5rem;
     }
 
     &__actions {
         display: flex;
         justify-content: center;
         margin-top: 1rem;
+
+        app-button {
+            display: block;
+            width: 100%;
+
+            @media (min-width: 768px) {
+                width: auto;
+            }
+        }
+    }
+
+    @media (min-width: 768px) {
+        padding: 2rem;
     }
 }

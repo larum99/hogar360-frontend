@@ -2,74 +2,93 @@
 
 .sidebar {
     background-color: $color-white;
-    width: auto;
-    padding: 1rem;
+    width: 100%;
+    padding: 4px;
     box-sizing: border-box;
-    margin-top: 5px;
+    border-bottom: 1px solid $color-border-default;
+    flex-shrink: 0;
 
     &__nav {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
+        display: block;
+        width: 100%;
     }
 
     &__menu {
         display: flex;
         flex-direction: row;
+        flex-wrap: nowrap;
         width: 100%;
         padding: 0;
         margin: 0;
         list-style: none;
-        gap: 1rem;
-        flex-wrap: wrap;
-        justify-content: center;
+        gap: 0;
+        justify-content: space-between;
+        align-items: stretch;
+        overflow: visible;
     }
 
     &__link {
         display: flex;
+        flex-direction: column;
         align-items: center;
+        justify-content: center;
+        gap: 2px;
         text-decoration: none;
-        color: $color-text-sidebar-footer-listtable;
+        color: inherit;
         font-weight: 500;
         transition: color 0.3s;
         width: 100%;
-        height: 100%;
         box-sizing: border-box;
+        min-width: 0;
     }
 
     &__icon {
-        width: 1rem;
-        height: 1rem;
-        object-fit: contain;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 18px;
+        height: 18px;
         flex-shrink: 0;
-        fill: $color-text-sidebar-footer-listtable;
         color: $color-text-sidebar-footer-listtable;
-        transition: fill 0.3s, color 0.3s;
+        transition: color 0.3s;
+
+        ::ng-deep svg {
+            width: 18px;
+            height: 18px;
+        }
+    }
+
+    &__label {
+        font-size: 9px;
+        line-height: 11px;
+        font-weight: 400;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     &__item {
         display: flex;
         align-items: center;
-        gap: 0.5rem;
-        font-size: 14px;
-        font-weight: 400;
+        justify-content: center;
         font-family: $font-primary;
+        font-weight: 400;
         color: $color-text-sidebar-footer-listtable;
-        border-radius: 6px;
+        border-radius: 8px;
         transition: background-color 0.3s, color 0.3s;
-        width: auto;
+        padding: 6px 1px;
         box-sizing: border-box;
-        flex: 0 0 auto;
-        min-height: 40px;
+        flex: 1 1 0;
+        min-width: 0;
+        min-height: 0;
 
         &:hover {
             color: $color-blue;
             cursor: pointer;
+            background-color: $color-background-item-selected;
 
             .sidebar__icon {
-                fill: $color-blue;
                 color: $color-blue;
             }
 
@@ -83,7 +102,6 @@
             color: $color-blue;
 
             .sidebar__icon {
-                fill: $color-blue;
                 color: $color-blue;
             }
         }
@@ -97,52 +115,62 @@
         width: 250px;
         height: calc(100vh - 57px);
         border-right: 1px solid $color-border-default;
+        border-bottom: none;
         padding: 2rem 1rem;
         flex-shrink: 0;
 
         &__nav {
+            display: flex;
             flex-direction: column;
             justify-content: flex-start;
             align-items: flex-start;
-            flex-wrap: nowrap;
         }
 
         &__menu {
             flex-direction: column;
             justify-content: flex-start;
-            align-items: flex-start;
-            flex-wrap: nowrap;
+            align-items: stretch;
+            overflow: visible;
             gap: 0.5rem;
         }
 
         &__icon {
-            padding: 0;
-            margin-right: 0.5rem;
             width: 1.25rem;
             height: 1.25rem;
-            fill: $color-text-sidebar-footer-listtable;
             color: $color-text-sidebar-footer-listtable;
+
+            ::ng-deep svg {
+                width: 1.25rem;
+                height: 1.25rem;
+            }
         }
 
         &__item {
             font-size: 14px;
-            font-weight: 400;
             border-radius: 6px;
             padding: 0.75rem 1rem;
             text-align: left;
-            white-space: nowrap;
-            transition: color 0.3s, background-color 0.3s;
             display: flex;
             align-items: center;
             justify-content: flex-start;
             width: 100%;
             min-height: 40px;
-            box-sizing: border-box;
+            flex: none;
             color: $color-text-sidebar-footer-listtable;
         }
 
         &__link {
-            gap: 0;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 0.5rem;
+        }
+
+        &__label {
+            font-size: 14px;
+            line-height: 20px;
+            overflow: visible;
+            text-overflow: clip;
         }
     }
 }
